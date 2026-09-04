@@ -34,3 +34,16 @@ export const metadata: Metadata = {
     google: "fR1I8jNBDh7PwOcMsCwIoKaZrSWpOYy8yc1ZCCEg3ag",
   },
 };
+
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">{children}</body>
+    </html>
+  );
+}
