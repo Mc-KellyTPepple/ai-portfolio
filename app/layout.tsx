@@ -30,4 +30,7 @@ export const metadata: Metadata = {
       "AI engineer building practical, deployable machine learning systems.",
     type: "website",
   },
+  verification: {
+    google: "fR1I8jNBDh7PwOcMsCwIoKaZrSWpOYy8yc1ZCCEg3ag",
+  },
 };
