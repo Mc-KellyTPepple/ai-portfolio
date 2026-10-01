@@ -7,11 +7,25 @@ type ProjectCardProps = {
 export default function ProjectCard({ project }: ProjectCardProps) {
   const isLightFace = project.slug === "lightface-ai" || project.url.includes("lightface-hybrid-ai");
   const isHabitTracker = project.slug === "habit-tracker" || project.url.includes("habit-tracker-server");
+  const isTalentMatch = project.slug === "talent-match-ai" || project.url.includes("talentmatch-ai");
 
-  const isAnimated = isLightFace || isHabitTracker;
+  // Enable animation for featured AI and full-stack projects
+  const isAnimated = isLightFace || isHabitTracker || isTalentMatch;
+
+  // Custom button labels based on project type
+  const getButtonLabel = () => {
+    if (isTalentMatch) return "Try Talent Match AI";
+    if (isHabitTracker) return "View Habit Tracker API";
+    if (isLightFace) return "Try LightFace AI";
+    return "View Live Project";
+  };
 
   return (
-    <div className={`projectCard ${isLightFace ? "lightfaceCard" : ""} ${isHabitTracker ? "habitTrackerCard" : ""}`}>
+    <div
+      className={`projectCard ${isLightFace ? "lightfaceCard" : ""} ${
+        isHabitTracker ? "habitTrackerCard" : ""
+      } ${isTalentMatch ? "talentMatchCard" : ""}`}
+    >
       <div className="projectCardHeader">
         <span className="projectYear">{project.year}</span>
       </div>
@@ -38,7 +52,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <>
             <span className="animatedGlow" />
             <span className="animatedText">
-              <span>{isHabitTracker ? "View Habit Tracker API" : "Try LightFace AI"}</span>
+              <span>{getButtonLabel()}</span>
               <svg
                 className="animatedArrow"
                 width="16"
