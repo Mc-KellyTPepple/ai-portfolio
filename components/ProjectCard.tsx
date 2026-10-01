@@ -6,9 +6,12 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const isLightFace = project.slug === "lightface-ai" || project.url.includes("lightface-hybrid-ai");
+  const isHabitTracker = project.slug === "habit-tracker" || project.url.includes("habit-tracker-server");
+
+  const isAnimated = isLightFace || isHabitTracker;
 
   return (
-    <div className={`projectCard ${isLightFace ? "lightfaceCard" : ""}`}>
+    <div className={`projectCard ${isLightFace ? "lightfaceCard" : ""} ${isHabitTracker ? "habitTrackerCard" : ""}`}>
       <div className="projectCardHeader">
         <span className="projectYear">{project.year}</span>
       </div>
@@ -29,13 +32,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
-        className={isLightFace ? "animatedProjectLink" : "projectLink"}
+        className={isAnimated ? "animatedProjectLink" : "projectLink"}
       >
-        {isLightFace ? (
+        {isAnimated ? (
           <>
             <span className="animatedGlow" />
             <span className="animatedText">
-              <span>Try LightFace AI</span>
+              <span>{isHabitTracker ? "View Habit Tracker API" : "Try LightFace AI"}</span>
               <svg
                 className="animatedArrow"
                 width="16"
