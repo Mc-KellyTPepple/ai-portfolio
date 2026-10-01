@@ -22,6 +22,16 @@ export const projects: Project[] = [
   url: "https://talentmatch-ai-1-gcn6.onrender.com/",
 },
 {
+  slug: "lightface-ai",
+  title: "LightFace AI",
+  tagline: "Lightweight Hybrid Face Verification Engine",
+  description: "A fast, privacy-conscious facial verification system powered by MobileFaceNet and ONNX Runtime CPU inference.",
+  year: "2026",
+  tags: ["MobileFaceNet", "ONNX Runtime", "Computer Vision", "Python", "Next.js"],
+  url: "https://lightface-hybrid-ai.vercel.app/?utm_source=chatgpt.com",
+  featured: true,
+},
+{
   slug: "animal-image-classifier",
   title: "Animal Image Classifier",
   tagline: "Deployed cat, dog, and bird image classifier",
