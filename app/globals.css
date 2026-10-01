@@ -3,6 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --card-title: #171717;
+  --card-tagline: #374151;
+  --card-muted: #6b7280;
+  --tag-bg: #f3f4f6;
+  --tag-text: #374151;
 }
 
 @theme inline {
@@ -16,6 +23,13 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --card-bg: #121212;
+    --card-border: #262626;
+    --card-title: #ffffff;
+    --card-tagline: #d1d5db;
+    --card-muted: #9ca3af;
+    --tag-bg: #1f2937;
+    --tag-text: #e5e7eb;
   }
 }
 
@@ -35,7 +49,7 @@ main {
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: #6b7280;
+  color: var(--card-muted);
   margin-bottom: 0.75rem;
 }
 
@@ -52,7 +66,7 @@ main {
 
 .heroDescription {
   font-size: 1.1rem;
-  color: #4b5563;
+  color: var(--card-tagline);
   max-width: 640px;
   margin-bottom: 2rem;
 }
@@ -81,22 +95,33 @@ main {
 .copyButton:hover {
   color: #ffffff;
 }
+
 .primaryButton {
-  background: #171717;
-  color: #ffffff;
+  background: var(--foreground);
+  color: var(--background);
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
   text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.primaryButton:hover {
+  opacity: 0.9;
 }
 
 .secondaryButton {
-  border: 1px solid #d1d5db;
-  color: #171717;
+  border: 1px solid var(--card-border);
+  color: var(--foreground);
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
   text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+.secondaryButton:hover {
+  border-color: var(--card-muted);
 }
 
 .sectionHeading {
@@ -122,12 +147,14 @@ main {
 }
 
 .projectCard {
-  border: 1px solid #e5e7eb;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 0.75rem;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .projectCardHeader {
@@ -137,22 +164,23 @@ main {
 
 .projectYear {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--card-muted);
 }
 
 .projectTitle {
   font-size: 1.25rem;
   font-weight: 700;
+  color: var(--card-title);
 }
 
 .projectTagline {
   font-size: 0.95rem;
-  color: #374151;
+  color: var(--card-tagline);
 }
 
 .projectDescription {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--card-muted);
 }
 
 .projectTags {
@@ -163,8 +191,8 @@ main {
 }
 
 .projectTag {
-  background: #f3f4f6;
-  color: #374151;
+  background: var(--tag-bg);
+  color: var(--tag-text);
   font-size: 0.75rem;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
@@ -174,7 +202,7 @@ main {
   margin-top: 0.75rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #171717;
+  color: var(--foreground);
   text-decoration: none;
 }
 
@@ -218,9 +246,94 @@ main {
   color: #171717;
 }
 
+/* --- LightFace Animated Button & Card Enhancements --- */
+
+.lightfaceCard {
+  border-color: rgba(89, 217, 255, 0.45) !important;
+  box-shadow: 0 0 25px rgba(89, 217, 255, 0.12);
+}
+
+.lightfaceCard:hover {
+  border-color: rgba(89, 217, 255, 0.8) !important;
+  box-shadow: 0 0 35px rgba(89, 217, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.animatedProjectLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.25rem;
+  padding: 2px;
+  border-radius: 0.65rem;
+  text-decoration: none;
+  overflow: hidden;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.animatedProjectLink:hover {
+  transform: scale(1.02);
+}
+
+.animatedProjectLink:active {
+  transform: scale(0.98);
+}
+
+.animatedGlow {
+  position: absolute;
+  inset: -100%;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    #59d9ff 0deg,
+    #8b7cff 120deg,
+    #48e0a4 240deg,
+    #59d9ff 360deg
+  );
+  animation: rotateGlow 3.5s linear infinite;
+}
+
+.animatedText {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.65rem 1.1rem;
+  background-color: #07111f;
+  color: #59d9ff;
+  border-radius: 0.55rem;
+  font-size: 0.875rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.animatedProjectLink:hover .animatedText {
+  background-color: #0d1a2b;
+  color: #ffffff;
+}
+
+.animatedArrow {
+  transition: transform 0.25s ease;
+}
+
+.animatedProjectLink:hover .animatedArrow {
+  transform: translateX(4px);
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 footer {
   text-align: center;
   padding: 2rem 0;
-  color: #6b7280;
+  color: var(--card-muted);
   font-size: 0.875rem;
 }
