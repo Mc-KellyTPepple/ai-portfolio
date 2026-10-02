@@ -38,10 +38,10 @@ export const projects: Project[] = [
     tagline: "Lightweight Hybrid Face Verification Engine",
     description:
       "A fast, privacy-conscious facial verification system powered by MobileFaceNet and ONNX Runtime CPU inference.",
-    year: "2026",
     tags: ["MobileFaceNet", "ONNX Runtime", "Computer Vision", "Python", "Next.js"],
-    url: "https://lightface-hybrid-ai.vercel.app/?utm_source=chatgpt.com",
+    year: "2026",
     featured: true,
+    url: "https://lightface-hybrid-ai.vercel.app/",
   },
   {
     slug: "animal-image-classifier",
