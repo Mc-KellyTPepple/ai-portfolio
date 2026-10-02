@@ -246,7 +246,7 @@ main {
   color: #171717;
 }
 
-/* --- LightFace Animated Button & Card Enhancements --- */
+/* --- Animated Button & Card Specific Enhancements --- */
 
 .lightfaceCard {
   border-color: rgba(89, 217, 255, 0.45) !important;
@@ -256,6 +256,28 @@ main {
 .lightfaceCard:hover {
   border-color: rgba(89, 217, 255, 0.8) !important;
   box-shadow: 0 0 35px rgba(89, 217, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.habitTrackerCard {
+  border-color: rgba(139, 92, 246, 0.45) !important;
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.12);
+}
+
+.habitTrackerCard:hover {
+  border-color: rgba(139, 92, 246, 0.8) !important;
+  box-shadow: 0 0 35px rgba(139, 92, 246, 0.25);
+  transform: translateY(-2px);
+}
+
+.talentMatchCard {
+  border-color: rgba(72, 224, 164, 0.45) !important;
+  box-shadow: 0 0 25px rgba(72, 224, 164, 0.12);
+}
+
+.talentMatchCard:hover {
+  border-color: rgba(72, 224, 164, 0.8) !important;
+  box-shadow: 0 0 35px rgba(72, 224, 164, 0.25);
   transform: translateY(-2px);
 }
 
