@@ -8,7 +8,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const isLightFace =
     project.slug === "lightface-ai" || project.url.includes("lightface-hybrid-ai");
   const isHabitTracker =
-    project.slug === "habit-tracker" || project.url.includes("habit-tracker-server");
+    project.slug === "habit-tracker" ||
+    project.url.includes("habit-tracker") ||
+    project.url.includes("habit-tracker-server");
   const isTalentMatch =
     project.slug === "talent-match-ai" ||
     project.url.includes("talentmatch-ai") ||
@@ -20,7 +22,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   // Custom button labels based on project type
   const getButtonLabel = () => {
     if (isTalentMatch) return "Try Talent Match AI";
-    if (isHabitTracker) return "View Habit Tracker API";
+    if (isHabitTracker) return "Try Habit Tracker App";
     if (isLightFace) return "Try LightFace AI";
     return "View Live Project";
   };
