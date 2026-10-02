@@ -6,9 +6,13 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const isLightFace =
-    project.slug === "lightface-ai" || project.url.includes("lightface-hybrid-ai");
+    project.slug === "lightface-ai" ||
+    project.url.includes("lightface-hybrid-ai");
+
   const isHabitTracker =
-    project.slug === "habit-tracker" || project.url.includes("habit-tracker-server");
+    project.slug === "habit-tracker" ||
+    project.url.includes("habit-tracker");
+
   const isTalentMatch =
     project.slug === "talent-match-ai" ||
     project.url.includes("talentmatch-ai") ||
