@@ -1,203 +1,274 @@
-import ContactButton from "@/components/ContactButton";
-import Nav from "@/components/Nav";
-import ProjectCard from "@/components/ProjectCard";
-import SocialLinks, { SOCIAL } from "@/components/SocialLinks";
-import { projects } from "@/data/projects";
+import type { Metadata } from "next";
+import Link from "next/link";
+import ServiceStatus from "@/components/ServiceStatus";
+import SocialLinks from "@/components/SocialLinks";
+import {
+  HABIT_API_URL,
+  HABIT_REPO_URL,
+  TEST_LINKS,
+} from "@/data/habitTracker";
 
 const EMAIL = "mckelly2014@gmail.com";
 
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Mc-Kelly Pepple",
-  jobTitle: "AI Engineer",
-  url: "https://ai-portfolio-pearl-ten.vercel.app",
-  sameAs: [SOCIAL.github, SOCIAL.linkedin],
+export const metadata: Metadata = {
+  title: "Habit Tracker | Mc-Kelly Pepple",
+  description:
+    "A full-stack habit tracker with smart push reminders: React Native (Expo), Supabase and a Node.js service on Render. Try the live reminder backend.",
+  alternates: { canonical: "/habit-tracker" },
+  openGraph: {
+    title: "Habit Tracker | Mc-Kelly Pepple",
+    description:
+      "React Native, Supabase and Node.js habit tracker with retrying push reminders.",
+    type: "article",
+    url: "/habit-tracker",
+  },
 };
 
-const toolkit = [
+const reminderSteps = [
   {
-    title: "Machine learning & vision",
-    items: [
-      "Python",
-      "MobileNetV3",
-      "MobileFaceNet",
-      "ONNX Runtime",
-      "INT8 Quantization",
-      "Image Classification",
-      "Recommendation Systems",
-    ],
+    title: "Scheduled every hour",
+    text: "A Supabase scheduled job runs on the hour and finds habits whose reminder time is due and not yet checked in today.",
   },
   {
-    title: "Full-stack & mobile",
-    items: ["Next.js", "React Native", "Expo", "Node.js", "Supabase"],
+    title: "Up to three attempts",
+    text: "The reminder service sends a push notification, then retries at 5-minute intervals, never more than three attempts per habit per day.",
   },
   {
-    title: "Deployment",
-    items: ["Vercel", "Render", "CPU inference", "Live APIs"],
+    title: "Stops when it should",
+    text: "Retries stop as soon as Expo's push service accepts the message, or the moment you check the habit in.",
+  },
+  {
+    title: "Retires abandoned habits",
+    text: "A habit with no check-in for three days stops getting reminders. Nothing is deleted, so history is kept.",
   },
 ];
 
-const principles = [
+const architecture = [
+  { name: "Mobile app", note: "React Native, Expo" },
+  { name: "Supabase", note: "Auth, Postgres, RLS" },
+  { name: "Scheduler", note: "pg_cron, hourly" },
+  { name: "Reminder API", note: "Node.js, Render" },
+  { name: "Expo Push", note: "to the phone" },
+];
+
+const engineering = [
   {
-    title: "Engineering first",
-    text: "Clean, maintainable systems built with an engineer's discipline, not just a model that scores well.",
+    title: "Data isolation",
+    text: "Row Level Security means each user can only ever read and write their own habits and check-ins, enforced in the database.",
   },
   {
-    title: "Beyond the notebook",
-    text: "Every project is taken from experiment to a usable application someone can open and try.",
+    title: "Secrets kept server-side",
+    text: "The privileged database key lives only on the reminder service. The scheduler reads its endpoint and shared secret from Supabase Vault.",
   },
   {
-    title: "Deployed, not just demoed",
-    text: "Live projects with real endpoints, built to run on modest hardware and work in the real world.",
+    title: "Safe retries",
+    text: "Attempts are counted in the database before each send, so overlapping runs cannot exceed the daily limit.",
   },
 ];
 
-export default function Home() {
-  const featuredProjects = projects.filter((project) => project.featured);
-  const years = featuredProjects.map((p) => Number(p.year));
-  const span = `${Math.min(...years)}\u2013${Math.max(...years)}`;
+const stack = [
+  "React Native",
+  "Expo",
+  "Supabase",
+  "PostgreSQL",
+  "Node.js",
+  "TypeScript",
+  "Docker",
+  "Render",
+  "Expo Push",
+];
 
+const hasTestLinks = Boolean(TEST_LINKS.webApp || TEST_LINKS.androidApk);
+
+export default function HabitTrackerPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-      />
-      <Nav />
+      <header className="siteHeader">
+        <nav className="navInner" aria-label="Primary">
+          <Link href="/" className="brand">
+            <span className="brandMark" aria-hidden="true">
+              MP
+            </span>
+            <span className="brandName">Mc-Kelly Pepple</span>
+          </Link>
+          <Link href="/#projects" className="navCta">
+            &larr; All projects
+          </Link>
+        </nav>
+      </header>
 
       <main id="top">
-        <section className="hero">
-          <div className="heroGlow" aria-hidden="true" />
-          <div className="heroContent">
-            <p className="statusBadge">
-              <span className="statusDot" aria-hidden="true" />
-              Open to AI engineering opportunities
-            </p>
-
-            <p className="eyebrow">
-              AI Engineer &middot; Machine Learning &middot; Computer Vision
-            </p>
-
+        <section className="htHero">
+          <div className="htHeroText">
+            <p className="eyebrow">Mobile &amp; Full-Stack &middot; 2026</p>
             <h1>
-              I build <span className="gradientText">practical AI systems</span>{" "}
-              that turn machine learning into useful, deployable applications.
+              Habit Tracker with{" "}
+              <span className="gradientText">reminders that retry</span>
             </h1>
-
-            <p className="heroDescription">
-              I design and develop intelligent applications across machine
-              learning, computer vision, recommendation systems, and AI
-              deployment.
+            <p className="htLead">
+              A mobile habit tracker that nudges you if you have not checked in.
+              It sends a push reminder, confirms Expo accepted it, and retries
+              only when needed, then quietly stops bothering you when a habit
+              goes cold.
             </p>
-
             <div className="heroActions">
-              <a href="#projects" className="btn btnPrimary">
-                View projects
+              <a href="#try" className="btn btnPrimary">
+                Try it
               </a>
-              <a href="#contact" className="btn btnGhost">
-                Contact me
+              <a
+                href={HABIT_REPO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btnGhost"
+              >
+                View source
+                <span className="srOnly"> (opens in a new tab)</span>
               </a>
             </div>
-
-            <SocialLinks variant="labeled" className="heroSocial" />
-
-            <dl className="stats">
-              <div>
-                <dt>Deployed projects</dt>
-                <dd>{featuredProjects.length}</dd>
-              </div>
-              <div>
-                <dt>Project timeline</dt>
-                <dd>{span}</dd>
-              </div>
-              <div>
-                <dt>Focus</dt>
-                <dd>ML &middot; Vision &middot; Full-stack</dd>
-              </div>
-            </dl>
-          </div>
-        </section>
-
-        <section id="projects" className="section">
-          <div className="sectionHeading">
-            <p className="eyebrow">Selected work</p>
-            <h2>Projects</h2>
-            <p>
-              AI systems taken from experimentation through to live
-              deployment.
-            </p>
-          </div>
-
-          <div className="projectsGrid">
-            {featuredProjects.map((project, index) => (
-              <ProjectCard
-                key={project.slug}
-                project={project}
-                index={index}
-                featured={index === 0}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section id="toolkit" className="section">
-          <div className="sectionHeading">
-            <p className="eyebrow">Toolkit</p>
-            <h2>What I build with</h2>
-            <p>The tools behind the projects above.</p>
-          </div>
-
-          <div className="toolkitGrid">
-            {toolkit.map((group) => (
-              <div key={group.title} className="toolkitCard">
-                <h3>{group.title}</h3>
-                <ul>
-                  {group.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="about" className="section">
-          <div className="aboutGrid">
-            <div className="aboutIntro">
-              <p className="eyebrow">About</p>
-              <h2>Engineering focused. AI driven.</h2>
-              <p>
-                I combine engineering experience with machine learning to
-                build practical systems that solve real problems and can move
-                beyond the notebook into usable applications.
-              </p>
-            </div>
-
-            <ul className="principles">
-              {principles.map((item) => (
-                <li key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
+            <ul className="htStack" aria-label="Technologies">
+              {stack.map((item) => (
+                <li key={item} className="projectTag">
+                  {item}
                 </li>
               ))}
             </ul>
           </div>
+
+          <ServiceStatus apiUrl={HABIT_API_URL} />
         </section>
 
-        <section id="contact" className="section">
-          <div className="contactCard">
-            <p className="eyebrow">Let&apos;s work together</p>
-            <h2>Have an AI problem worth solving?</h2>
+        <section id="how" className="section">
+          <div className="sectionHeading">
+            <p className="eyebrow">How reminders work</p>
+            <h2>Three tries, then it lets go</h2>
             <p>
-              I am available for AI engineering, machine learning, computer
-              vision, and AI application development opportunities.
+              The reminder policy is the interesting part of this project.
             </p>
-            <ContactButton email={EMAIL} />
-            <SocialLinks variant="labeled" className="contactSocial" />
+          </div>
+          <ol className="htSteps">
+            {reminderSteps.map((step, i) => (
+              <li key={step.title} className="toolkitCard htStep">
+                <span className="htStepNum" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section id="try" className="section">
+          <div className="contactCard htTry">
+            <p className="eyebrow">Try it yourself</p>
+            <h2>Test the app in a few minutes</h2>
+
+            <ol className="htTrySteps">
+              <li>
+                Install the Android app (or open the web version) and create an
+                account with an email and password.
+              </li>
+              <li>
+                Add a habit and set its reminder time to the <strong>next
+                full hour</strong>. Reminders are checked on the hour.
+              </li>
+              <li>
+                Leave it unchecked. At that hour you should get a push
+                notification on your phone.
+              </li>
+              <li>
+                Check the habit in before the hour to see that no reminder
+                is sent.
+              </li>
+            </ol>
+
+            <div className="htTryActions">
+              {TEST_LINKS.webApp && (
+                <a
+                  href={TEST_LINKS.webApp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btnPrimary"
+                >
+                  Open web app
+                  <span className="srOnly"> (opens in a new tab)</span>
+                </a>
+              )}
+              {TEST_LINKS.androidApk && (
+                <a
+                  href={TEST_LINKS.androidApk}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btnGhost"
+                >
+                  Download Android app
+                  <span className="srOnly"> (opens in a new tab)</span>
+                </a>
+              )}
+              {!hasTestLinks && (
+                <a
+                  href={`mailto:${EMAIL}?subject=Habit%20Tracker%20test%20access`}
+                  className="btn btnPrimary"
+                >
+                  Request test access
+                </a>
+              )}
+            </div>
             <p className="cvNote">
-              Full CV available on request, shared directly and on a
-              case-by-case basis.
+              The web version tracks habits and check-ins. Push reminders
+              need the Android app on a real phone, not a browser or emulator.
             </p>
+          </div>
+        </section>
+
+        <section id="architecture" className="section">
+          <div className="sectionHeading">
+            <p className="eyebrow">Architecture</p>
+            <h2>How the pieces fit</h2>
+            <p>
+              A phone cannot run a scheduled job while the app is closed, so a
+              small server does the one job that genuinely needs one.
+            </p>
+          </div>
+
+          <ol className="htFlow" aria-label="Request flow">
+            {architecture.map((node) => (
+              <li key={node.name} className="htFlowNode">
+                <strong>{node.name}</strong>
+                <span>{node.note}</span>
+              </li>
+            ))}
+          </ol>
+
+          <div className="toolkitGrid htEngineering">
+            {engineering.map((item) => (
+              <div key={item.title} className="toolkitCard">
+                <h3>{item.title}</h3>
+                <p className="htCardText">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="contactCard">
+            <p className="eyebrow">More work</p>
+            <h2>See the rest of the portfolio</h2>
+            <p>
+              Machine learning, computer vision and deployable AI systems,
+              taken from experiment to something you can open and try.
+            </p>
+            <div className="htTryActions">
+              <Link href="/#projects" className="btn btnPrimary">
+                All projects
+              </Link>
+              <a
+                href={`mailto:${EMAIL}`}
+                className="btn btnGhost"
+              >
+                Get in touch
+              </a>
+            </div>
           </div>
         </section>
       </main>
