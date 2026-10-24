@@ -3,8 +3,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
-  /** Base URL of the Render service, without a trailing slash. */
-  apiUrl: string;
+  /** Base URL of the Render service, without a trailing slash. Calls /health from the browser. */
+  apiUrl?: string;
+  /** Text under the status title, e.g. "Plant model · Render". */
+  label?: string;
+  /**
+   * Id of a service listed in /api/ping. The check then runs on the server, so it works for
+   * apps without CORS or a health endpoint and reports the real HTTP status.
+   */
+  probe?: string;
+  /** Called each time the service is confirmed online. */
+  onOnline?: () => void;
+  /** Text shown once the service is online (defaults to a health-check message). */
+  readyText?: string;
 };
 
 type Phase = "checking" | "online" | "offline";
@@ -23,19 +34,32 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
  * "down"      - no usable answer within this attempt.
  */
 async function ping(
-  apiUrl: string,
+  apiUrl: string | undefined,
+  probe: string | undefined,
   signal: AbortSignal,
 ): Promise<"verified" | "reachable" | "down"> {
-  const url = `${apiUrl}/health`;
+  if (probe) {
+    try {
+      const res = await fetch(`/api/ping?t=${encodeURIComponent(probe)}`, {
+        cache: "no-store",
+        signal,
+      });
+      const body = (await res.json().catch(() => null)) as { up?: unknown } | null;
+      return res.ok && body?.up === true ? "verified" : "down";
+    } catch {
+      return "down";
+    }
+  }
+  const url = `${apiUrl ?? ""}/health`;
   try {
     const res = await fetch(url, { cache: "no-store", signal });
     if (!res.ok) return "down";
     const body: unknown = await res.json().catch(() => null);
-    const status =
+    const obj =
       typeof body === "object" && body !== null
-        ? (body as { status?: unknown }).status
-        : undefined;
-    return status === "ok" ? "verified" : "down";
+        ? (body as { status?: unknown; ok?: unknown })
+        : {};
+    return obj.status === "ok" || obj.ok === true ? "verified" : "down";
   } catch {
     if (signal.aborted) return "down";
     try {
@@ -47,11 +71,21 @@ async function ping(
   }
 }
 
-export default function ServiceStatus({ apiUrl }: Props) {
+export default function ServiceStatus({
+  apiUrl,
+  label = "Reminder API · Render",
+  probe,
+  onOnline,
+  readyText,
+}: Props) {
   const [phase, setPhase] = useState<Phase>("checking");
   const [elapsed, setElapsed] = useState(0);
   const [verified, setVerified] = useState(false);
   const runId = useRef(0);
+  const onOnlineRef = useRef(onOnline);
+  useEffect(() => {
+    onOnlineRef.current = onOnline;
+  });
 
   const run = useCallback(async () => {
     const id = ++runId.current;
@@ -60,7 +94,7 @@ export default function ServiceStatus({ apiUrl }: Props) {
     while (runId.current === id && Date.now() - startedAt < TOTAL_BUDGET_MS) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), ATTEMPT_TIMEOUT_MS);
-      const result = await ping(apiUrl, controller.signal);
+      const result = await ping(apiUrl, probe, controller.signal);
       clearTimeout(timer);
       if (runId.current !== id) return;
 
@@ -68,12 +102,13 @@ export default function ServiceStatus({ apiUrl }: Props) {
         setVerified(result === "verified");
         setElapsed(Math.round((Date.now() - startedAt) / 1000));
         setPhase("online");
+        onOnlineRef.current?.();
         return;
       }
       await sleep(RETRY_GAP_MS);
     }
     if (runId.current === id) setPhase("offline");
-  }, [apiUrl]);
+  }, [apiUrl, probe]);
 
   const retry = () => {
     setPhase("checking");
@@ -111,9 +146,11 @@ export default function ServiceStatus({ apiUrl }: Props) {
     checking: "Sending a quick health check.",
     waking:
       "The backend runs on a free hosting plan that sleeps when idle. A cold start usually takes 30 to 60 seconds. This page stays available the whole time.",
-    online: verified
-      ? "Health check passed. The API is ready for testing."
-      : "The API answered. It is ready for testing.",
+    online:
+      readyText ??
+      (verified
+        ? "Health check passed. The API is ready for testing."
+        : "The API answered. It is ready for testing."),
     offline:
       "It did not wake within two minutes. This can happen on free hosting. Try again, or get in touch and I will look at it.",
   }[state];
@@ -124,7 +161,7 @@ export default function ServiceStatus({ apiUrl }: Props) {
         <span className="htStatusDot" aria-hidden="true" />
         <div>
           <p className="htStatusTitle">{title}</p>
-          <p className="htStatusLabel">Reminder API &middot; Render</p>
+          <p className="htStatusLabel">{label}</p>
         </div>
         {phase === "checking" && (
           <span className="htStatusTimer" aria-hidden="true">
