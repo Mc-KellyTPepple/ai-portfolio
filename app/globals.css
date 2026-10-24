@@ -1185,3 +1185,56 @@ ul {
 .htEngineering {
   margin-top: 0;
 }
+
+/* ------------------------------------------------------------------
+   Demo pages (/plant-disease, /animal-classifier, /ask-your-files)
+   ------------------------------------------------------------------ */
+.demoFacts {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+}
+.demoFacts dt {
+  font-size: 0.78rem;
+  color: var(--subtle);
+  margin-bottom: 0.15rem;
+}
+.demoFacts dd {
+  margin: 0;
+  font-weight: 600;
+}
+.demoWrap {
+  display: grid;
+  gap: 1.25rem;
+}
+.demoFrame {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.demoFrame iframe {
+  display: block;
+  width: 100%;
+  height: min(82vh, 840px);
+  min-height: 520px;
+  border: 0;
+  background: #fff;
+}
+.demoPlaceholder {
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+}
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.demoPoints {
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
