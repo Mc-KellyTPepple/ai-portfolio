@@ -57,13 +57,13 @@ const engineering = [
   },
   {
     title: "Locked-down data",
-    text: "Tables have Row Level Security with no direct access. The app uses secret-keyed database functions, and the push keys sit in a private schema the public API cannot read.",
+    text: "Sign-in is by emailed one-time code through Supabase Auth. Tables have Row Level Security with no direct access: every call goes through database functions that read the signed-in user from the token, so one account can never see another's habits. The push keys sit in a private schema the public API cannot read.",
   },
 ];
 
 const facts = [
   { label: "Frontend", value: "Static PWA, no build step" },
-  { label: "Backend", value: "Supabase Postgres + Edge Functions" },
+  { label: "Backend", value: "Supabase Auth, Postgres + Edge Functions" },
   { label: "Scheduling", value: "pg_cron, SQL-only tick" },
   { label: "Hosting", value: "Render static site (free)" },
 ];
@@ -73,6 +73,7 @@ const stack = [
   "Web Push",
   "Service Worker",
   "Supabase",
+  "Supabase Auth",
   "PostgreSQL",
   "pg_cron",
   "Edge Functions",
@@ -178,11 +179,13 @@ export default function HabitTrackerPage() {
 
             <ol className="htTrySteps">
               <li>
-                Open the app in Chrome, Edge or Safari. On iPhone, add it to
-                your Home Screen first.
+                Open the app in Chrome, Edge or Safari and sign in with your
+                email. You get a 6-digit code, with no password. On iPhone,
+                add it to your Home Screen first.
               </li>
               <li>
-                Tap <strong>Enable notifications</strong> and allow them.
+                Tap <strong>Enable notifications</strong> and allow them. Each
+                device you use can be turned on or off separately.
               </li>
               <li>
                 Add a habit and set one reminder a couple of minutes from
@@ -207,8 +210,9 @@ export default function HabitTrackerPage() {
               </a>
             </div>
             <p className="cvNote">
-              No account needed. Each browser or phone is its own device, so
-              habits do not sync across devices.
+              Sign in with the same email on the Android app and your habits
+              follow you. Each device registers its own push address, and you
+              choose which devices get pings.
             </p>
           </div>
         </section>
