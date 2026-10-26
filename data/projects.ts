@@ -68,17 +68,17 @@ export const projects: Project[] = [
   {
     slug: "habit-tracker",
     title: "Habit Tracker (Mobile & Web)",
-    tagline: "React Native, React & Supabase Full-Stack Habit Tracker",
+    tagline: "Installable habit tracker with push reminders that stop on delivery",
     description:
-      "A full-stack habit tracker for Android and the web, built with React Native (Expo), React and Supabase, featuring authentication, habit tracking, and retrying push reminders sent from a Node.js service on Render.",
-    tags: ["React Native", "React", "Expo", "Supabase", "Node.js", "Web Push"],
+      "An installable habit tracker for phone and desktop that sends three push reminders a day and stops the moment one is delivered. Static frontend, Supabase pg_cron and Edge Functions, so nothing sleeps and idle time costs almost nothing.",
+    tags: ["PWA", "Web Push", "Supabase", "pg_cron", "Edge Functions"],
     year: "2026",
     featured: true,
     url: "/habit-tracker",
-    category: "Mobile & Full-Stack",
+    category: "Full-Stack & PWA",
     cta: "Try Habit Tracker",
     accent: "violet",
-    repo: "https://github.com/Mc-KellyPepple/habit-tracker",
+    repo: "https://github.com/Mc-KellyTPepple/habit-pings",
   },
   {
     slug: "animal-image-classifier",

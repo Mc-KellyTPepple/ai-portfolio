@@ -24,4 +24,4 @@ Push to GitHub and import the repository in Vercel, or run `npm run build` and `
 
 ## Habit Tracker page
 
-The `/habit-tracker` page is a static case study. Its links (web app, Android build, source repo, API health URL) are all set in `data/habitTracker.ts`.
+The `/habit-tracker` page is a static case study of the Habit Pings PWA. Its links (live web app and source repo) are set in `data/habitTracker.ts`.

@@ -1,24 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ServiceStatus from "@/components/ServiceStatus";
 import SocialLinks from "@/components/SocialLinks";
-import {
-  HABIT_API_URL,
-  HABIT_REPO_URL,
-  TEST_LINKS,
-} from "@/data/habitTracker";
+import { HABIT_APP_URL, HABIT_REPO_URL } from "@/data/habitTracker";
 
 const EMAIL = "mckelly2014@gmail.com";
 
 export const metadata: Metadata = {
   title: "Habit Tracker | Mc-Kelly Pepple",
   description:
-    "A full-stack habit tracker for Android and the web with retrying push reminders: React Native (Expo), React, Supabase and a Node.js service. Try the live app.",
+    "An installable habit tracker for phone and desktop that sends three push reminders a day and stops the moment one is delivered. Static frontend, Supabase Postgres, pg_cron and Edge Functions. Try the live app.",
   alternates: { canonical: "/habit-tracker" },
   openGraph: {
     title: "Habit Tracker | Mc-Kelly Pepple",
     description:
-      "Android and web habit tracker built with React Native, React, Supabase and Node.js, with retrying push reminders.",
+      "Installable habit tracker with three daily push reminders that stop on delivery. Static frontend, Supabase pg_cron and Edge Functions.",
     type: "article",
     url: "/habit-tracker",
   },
@@ -26,61 +21,64 @@ export const metadata: Metadata = {
 
 const reminderSteps = [
   {
-    title: "Scheduled every hour",
-    text: "A Supabase scheduled job runs on the hour and finds habits whose reminder time is due and not yet checked in today.",
+    title: "Three reminders a day",
+    text: "Each habit has three reminder times in your own time zone. A scheduled database job turns them into that day's reminders and skips any habit already marked done.",
   },
   {
-    title: "Up to three attempts",
-    text: "The reminder service sends a push notification, then retries at 5-minute intervals, never more than three attempts per habit per day.",
+    title: "Confirmed by the device",
+    text: "When a push arrives, the app's service worker confirms delivery straight to the database. That confirmation is what ends the retries.",
   },
   {
-    title: "Stops when it should",
-    text: "Retries stop as soon as a push service accepts the message (Expo for the app, the browser's own push service for the web version), or the moment you check the habit in.",
+    title: "Retries only when needed",
+    text: "If a push is not confirmed, it is retried every 3 minutes, at most six times. Tapping Done on the notification also stops the rest of that day's reminders.",
   },
   {
-    title: "Retires abandoned habits",
-    text: "A habit with no check-in for three days stops getting reminders. Nothing is deleted, so history is kept.",
+    title: "Habits expire after 3 days",
+    text: "A habit with no Done and no notification tap for three days is removed automatically, so abandoned habits stop sending reminders.",
   },
 ];
 
 const architecture = [
-  { name: "Mobile & web app", note: "React Native, React" },
-  { name: "Supabase", note: "Auth, Postgres, RLS" },
-  { name: "Scheduler", note: "pg_cron, hourly" },
-  { name: "Reminder API", note: "Node.js, Render" },
-  { name: "Push services", note: "Expo + Web Push" },
+  { name: "Static web app (PWA)", note: "HTML, JS, service worker" },
+  { name: "Supabase Postgres", note: "RPC functions, RLS" },
+  { name: "Scheduler", note: "pg_cron, every minute" },
+  { name: "Edge Function", note: "Web Push, only when due" },
+  { name: "Push services", note: "Browser and phone vendors" },
 ];
 
 const engineering = [
   {
-    title: "Data isolation",
-    text: "Row Level Security means each user can only ever read and write their own habits and check-ins, enforced in the database.",
+    title: "Never sleeps, never polls",
+    text: "The frontend is a static site, so there is no server to cold-start. The app loads data when opened and refreshes when you return to it, with no polling.",
   },
   {
-    title: "Secrets kept server-side",
-    text: "The privileged database key lives only on the reminder service. The scheduler reads its endpoint and shared secret from Supabase Vault.",
+    title: "Cheap by design",
+    text: "The scheduler is plain SQL. It calls the Edge Function only when a reminder is actually due, so idle minutes cost almost nothing.",
   },
   {
-    title: "Safe retries",
-    text: "Attempts are counted in the database before each send, so overlapping runs cannot exceed the daily limit.",
+    title: "Locked-down data",
+    text: "Tables have Row Level Security with no direct access. The app uses secret-keyed database functions, and the push keys sit in a private schema the public API cannot read.",
   },
+];
+
+const facts = [
+  { label: "Frontend", value: "Static PWA, no build step" },
+  { label: "Backend", value: "Supabase Postgres + Edge Functions" },
+  { label: "Scheduling", value: "pg_cron, SQL-only tick" },
+  { label: "Hosting", value: "Render static site (free)" },
 ];
 
 const stack = [
-  "React Native",
-  "React",
-  "Expo",
+  "PWA",
+  "Web Push",
+  "Service Worker",
   "Supabase",
   "PostgreSQL",
-  "Node.js",
-  "TypeScript",
-  "Docker",
+  "pg_cron",
+  "Edge Functions",
+  "Deno",
   "Render",
-  "Expo Push",
-  "Web Push",
 ];
-
-const hasTestLinks = Boolean(TEST_LINKS.webApp || TEST_LINKS.androidApk);
 
 export default function HabitTrackerPage() {
   return (
@@ -102,20 +100,26 @@ export default function HabitTrackerPage() {
       <main id="top">
         <section className="htHero">
           <div className="htHeroText">
-            <p className="eyebrow">Full-Stack &middot; Mobile &amp; Web &middot; 2026</p>
+            <p className="eyebrow">Full-Stack &middot; PWA &middot; 2026</p>
             <h1>
               Habit Tracker with{" "}
-              <span className="gradientText">reminders that retry</span>
+              <span className="gradientText">reminders that stop on delivery</span>
             </h1>
             <p className="htLead">
-              A habit tracker for Android and the web that nudges you if you
-              have not checked in. It sends a push reminder, confirms the push
-              service accepted it, and retries only when needed, then quietly
-              stops bothering you when a habit goes cold.
+              An installable habit tracker for phone and desktop. It sends
+              three push reminders a day per habit, stops the moment the
+              device confirms delivery, and quietly retires habits you have
+              abandoned.
             </p>
             <div className="heroActions">
-              <a href="#try" className="btn btnPrimary">
-                Try it
+              <a
+                href={HABIT_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btnPrimary"
+              >
+                Open the app
+                <span className="srOnly"> (opens in a new tab)</span>
               </a>
               <a
                 href={HABIT_REPO_URL}
@@ -136,13 +140,20 @@ export default function HabitTrackerPage() {
             </ul>
           </div>
 
-          <ServiceStatus apiUrl={HABIT_API_URL} />
+          <dl className="toolkitCard demoFacts">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         <section id="how" className="section">
           <div className="sectionHeading">
             <p className="eyebrow">How reminders work</p>
-            <h2>Three tries, then it lets go</h2>
+            <h2>Three a day, then it lets go</h2>
             <p>
               The reminder policy is the interesting part of this project.
             </p>
@@ -167,63 +178,37 @@ export default function HabitTrackerPage() {
 
             <ol className="htTrySteps">
               <li>
-                Open the web version in Chrome, or install the Android app,
-                and create an account with an email and password.
+                Open the app in Chrome, Edge or Safari. On iPhone, add it to
+                your Home Screen first.
               </li>
               <li>
-                On the web version, tap <strong>Enable reminders</strong> and
-                allow notifications.
+                Tap <strong>Enable notifications</strong> and allow them.
               </li>
               <li>
-                Add a habit and set its reminder time to the <strong>next
-                full hour</strong>. Reminders are checked on the hour.
+                Add a habit and set one reminder a couple of minutes from
+                now.
               </li>
               <li>
-                Leave it unchecked. At that hour you should get a push
-                notification, on your phone or in your browser.
-              </li>
-              <li>
-                Check the habit in before the hour to see that no reminder
-                is sent.
+                When the notification arrives, tap <strong>Done</strong> to
+                finish the habit for the day, or ignore it and watch the
+                retries stop on their own.
               </li>
             </ol>
 
             <div className="htTryActions">
-              {TEST_LINKS.webApp && (
-                <a
-                  href={TEST_LINKS.webApp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btnPrimary"
-                >
-                  Open web app
-                  <span className="srOnly"> (opens in a new tab)</span>
-                </a>
-              )}
-              {TEST_LINKS.androidApk && (
-                <a
-                  href={TEST_LINKS.androidApk}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btnGhost"
-                >
-                  Download Android app
-                  <span className="srOnly"> (opens in a new tab)</span>
-                </a>
-              )}
-              {!hasTestLinks && (
-                <a
-                  href={`mailto:${EMAIL}?subject=Habit%20Tracker%20test%20access`}
-                  className="btn btnPrimary"
-                >
-                  Request test access
-                </a>
-              )}
+              <a
+                href={HABIT_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btnPrimary"
+              >
+                Open web app
+                <span className="srOnly"> (opens in a new tab)</span>
+              </a>
             </div>
             <p className="cvNote">
-              Reminders work on both versions. On the web version, turn them
-              on from the Phone reminders panel in Chrome (Android or desktop).
-              On iPhone, add the web version to your Home Screen first.
+              No account needed. Each browser or phone is its own device, so
+              habits do not sync across devices.
             </p>
           </div>
         </section>
@@ -233,9 +218,8 @@ export default function HabitTrackerPage() {
             <p className="eyebrow">Architecture</p>
             <h2>How the pieces fit</h2>
             <p>
-              Neither a phone nor a browser tab can run a scheduled job while
-              it is closed, so a small server does the one job that genuinely
-              needs one.
+              A closed browser tab cannot run a scheduled job, so the database
+              schedules the reminders and one small function sends them.
             </p>
           </div>
 
