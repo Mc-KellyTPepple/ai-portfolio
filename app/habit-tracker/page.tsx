@@ -57,7 +57,7 @@ const engineering = [
   },
   {
     title: "Locked-down data",
-    text: "Sign-in is by emailed one-time code through Supabase Auth. Tables have Row Level Security with no direct access: every call goes through database functions that read the signed-in user from the token, so one account can never see another's habits. The push keys sit in a private schema the public API cannot read.",
+    text: "Accounts use email and password through Supabase Auth. Tables have Row Level Security with no direct access: every call goes through database functions that read the signed-in user from the token, so one account can never see another's habits. The push keys sit in a private schema the public API cannot read.",
   },
 ];
 
@@ -179,9 +179,9 @@ export default function HabitTrackerPage() {
 
             <ol className="htTrySteps">
               <li>
-                Open the app in Chrome, Edge or Safari and sign in with your
-                email. You get a 6-digit code, with no password. On iPhone,
-                add it to your Home Screen first.
+                Open the app in Chrome, Edge or Safari and create an account
+                with an email and password. On iPhone, add it to your Home
+                Screen first.
               </li>
               <li>
                 Tap <strong>Enable notifications</strong> and allow them. Each
