@@ -1238,3 +1238,100 @@ ul {
 .demoPoints {
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 }
+
+/* ------------------------------------------------------------------
+   EDGAR Analyst page (/edgar-analyst)
+   ------------------------------------------------------------------ */
+.eaForm {
+  display: grid;
+  gap: 0.9rem;
+}
+.eaLabel {
+  font-weight: 600;
+}
+.eaInput {
+  width: 100%;
+  font: inherit;
+  color: var(--foreground);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  resize: vertical;
+}
+.eaExamples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.eaChip {
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  cursor: pointer;
+}
+.eaChip:hover {
+  color: var(--foreground);
+  border-color: var(--brand);
+}
+.eaCount,
+.eaNote,
+.eaMeta {
+  font-size: 0.85rem;
+  color: var(--subtle);
+  margin: 0;
+}
+.eaError {
+  border-color: #d9534f;
+}
+.eaError p {
+  margin: 0;
+}
+.eaFinal {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0.25rem 0 0.75rem;
+  white-space: pre-wrap;
+}
+.eaPre {
+  white-space: pre-wrap;
+  background: var(--surface-2);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+.eaResult details {
+  margin-bottom: 0.75rem;
+}
+.eaTableWrap {
+  overflow-x: auto;
+}
+.eaTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.eaTable th,
+.eaTable td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.eaTable th {
+  color: var(--subtle);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.eaLimits {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.5rem;
+  color: var(--muted);
+}
