@@ -37,7 +37,7 @@ const facts = [
   { label: "Data", value: "10-K filings of 10 large tech companies" },
   { label: "Models", value: "Free Groq models with automatic fallback" },
   { label: "Evaluation", value: "187-question suite plus two held-out sets" },
-  { label: "Hosting", value: "Render free plan, kept awake" },
+  { label: "Hosting", value: "Render free plan (sleeps when idle)" },
 ];
 
 const design = [
@@ -135,7 +135,7 @@ export default function EdgarAnalystPage() {
             <h2>Ask about a 10-K</h2>
             <p>
               The API runs on a free server that sleeps when idle. This page wakes it as soon as
-              you arrive, so it is usually ready by the time you have typed a question.
+              you arrive. The first start takes about a minute, so there is a walkthrough of real runs to read while it loads.
             </p>
           </div>
           <EdgarDemo />

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import EdgarShowcase from "@/components/EdgarShowcase";
 import ServiceStatus from "@/components/ServiceStatus";
 import { EDGAR_API_URL, EDGAR_EXAMPLES } from "@/data/edgarAnalyst";
 
@@ -21,6 +22,13 @@ export default function EdgarDemo() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<Answer | null>(null);
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    if (ready) return;
+    const t = setInterval(() => setElapsed((n) => n + 1), 1000);
+    return () => clearInterval(t);
+  }, [ready]);
 
   async function ask() {
     const q = question.trim();
@@ -66,6 +74,8 @@ export default function EdgarDemo() {
         onOnline={() => setReady(true)}
         readyText="The server is awake. Ask a question below."
       />
+
+      <EdgarShowcase elapsed={elapsed} ready={ready} />
 
       <div className="toolkitCard eaForm">
         <label htmlFor="ea-question" className="eaLabel">
