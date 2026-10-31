@@ -1445,3 +1445,82 @@ ul {
   gap: 0.3rem;
   color: var(--muted);
 }
+.eaWait {
+  display: grid;
+  gap: 1rem;
+}
+.eaSteps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.eaSteps li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--subtle);
+  transition: color 0.3s;
+}
+.eaSteps li[data-state="active"] {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.eaSteps li[data-state="done"] {
+  color: var(--brand-3);
+}
+.eaStepMark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 0.75rem;
+  flex: none;
+}
+.eaSteps li[data-state="active"] .eaStepMark {
+  animation: eaPulse 1.4s ease-in-out infinite;
+}
+.eaBar {
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.eaBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2), var(--brand-3));
+  transition: width 1s linear;
+}
+.eaStory {
+  border-top: 1px solid var(--border);
+  padding-top: 0.9rem;
+  animation: eaFade 0.5s ease;
+}
+.eaStoryTitle {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}
+.eaStoryText {
+  margin: 0;
+  color: var(--muted);
+}
+@keyframes eaPulse {
+  50% {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--brand) 25%, transparent);
+  }
+}
+@keyframes eaFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eaSteps li[data-state="active"] .eaStepMark,
+  .eaStory {
+    animation: none;
+  }
+}

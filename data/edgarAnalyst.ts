@@ -1,6 +1,6 @@
 /** Single place to configure the EDGAR Analyst page (/edgar-analyst). */
 
-/** Live API on Render's free plan. The page pings /health on load so it is awake when you arrive. */
+/** Live API on Render's free plan. It sleeps when idle; opening the page wakes it, and the page entertains the visitor meanwhile. */
 export const EDGAR_API_URL = "https://edgar-analyst.onrender.com";
 
 export const EDGAR_REPO_URL = "https://github.com/Mc-KellyTPepple/edgar-analyst";

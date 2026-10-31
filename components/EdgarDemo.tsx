@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import EdgarShowcase from "@/components/EdgarShowcase";
+import EdgarWait from "@/components/EdgarWait";
 import ServiceStatus from "@/components/ServiceStatus";
 import { EDGAR_API_URL, EDGAR_EXAMPLES } from "@/data/edgarAnalyst";
 
@@ -77,6 +78,8 @@ export default function EdgarDemo() {
 
       <EdgarShowcase elapsed={elapsed} ready={ready} />
 
+      {!ready && !busy && <EdgarWait mode="wake" />}
+
       <div className="toolkitCard eaForm">
         <label htmlFor="ea-question" className="eaLabel">
           Your question
@@ -115,13 +118,9 @@ export default function EdgarDemo() {
             {question.length}/{MAX_LEN}
           </span>
         </div>
-        {busy && (
-          <p className="eaNote" role="status">
-            The agent is looking up facts and checking its numbers. This can take up to a minute
-            {ready ? "." : ", and longer if the server is still waking."}
-          </p>
-        )}
       </div>
+
+      {busy && <EdgarWait mode="ask" />}
 
       {error && (
         <div className="toolkitCard eaError" role="alert">
