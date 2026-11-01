@@ -1524,3 +1524,80 @@ ul {
     animation: none;
   }
 }
+
+/* ------------------------------------------------------------------
+   Data Analyst Agent page (/data-analyst)
+   ------------------------------------------------------------------ */
+.daDataset {
+  display: grid;
+  gap: 0.5rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.daDatasetName {
+  margin: 0;
+  color: var(--muted);
+}
+.daFile {
+  position: relative;
+  cursor: pointer;
+}
+.daFile input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.daBars {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.25rem 0 1rem;
+}
+.daBarRow {
+  display: grid;
+  grid-template-columns: minmax(5rem, 11rem) 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+.daBarLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.daBarTrack {
+  height: 0.7rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.daBarFill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+}
+.daBarValue {
+  font-variant-numeric: tabular-nums;
+}
+.daQueries {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+.daQueries li {
+  display: grid;
+  gap: 0.15rem;
+}
+.daQueries code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.daQueries li[data-ok="false"] span {
+  color: #d9534f;
+}
+.daQueries li span {
+  color: var(--subtle);
+}
