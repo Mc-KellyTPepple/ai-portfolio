@@ -36,6 +36,21 @@ export const projects: Project[] = [
     repo: "https://github.com/Mc-KellyTPepple/edgar-analyst",
   },
   {
+    slug: "data-analyst-agent",
+    title: "Data Analyst Agent",
+    tagline: "Ask your data in plain English, measured on Spider",
+    description:
+      "A text-to-SQL agent that runs model-written queries read-only, reads results and errors, and asks when a question is ambiguous. Upload a CSV or use the demo shop. Scored on the public Spider benchmark with an ablation and an honest failure analysis, on free models and free hosting.",
+    tags: ["LLM Agents", "Text-to-SQL", "Evaluation", "SQLite", "Groq", "GitHub Actions"],
+    year: "2026",
+    featured: true,
+    url: "/data-analyst",
+    category: "LLM Agents & Data",
+    cta: "Ask your data",
+    accent: "emerald",
+    repo: "https://github.com/Mc-KellyTPepple/data-analyst-agent",
+  },
+  {
     slug: "ask-your-files",
     title: "Ask Your Files (RAG)",
     tagline: "Document Q&A with sources you can check",

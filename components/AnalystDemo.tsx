@@ -25,6 +25,15 @@ function show(v: unknown): string {
   return typeof v === "number" && !Number.isInteger(v) ? String(Math.round(v * 1000) / 1000) : String(v);
 }
 
+function summary(reply: Reply): string {
+  const text = reply.answer.split("FINAL SQL:")[0].trim();
+  if (text) return text;
+  const r = reply.result;
+  if (r && r.columns.length === 1 && r.rows.length === 1) return `${r.columns[0]}: ${show(r.rows[0][0])}`;
+  if (r && r.rows.length > 0) return `${r.rows.length}${r.truncated ? "+" : ""} rows returned.`;
+  return "No rows matched.";
+}
+
 function Bars({ result }: { result: Result }) {
   if (result.columns.length !== 2 || result.rows.length < 2 || result.rows.length > 20) return null;
   const values = result.rows.map((r) => (typeof r[1] === "number" ? r[1] : NaN));
@@ -196,7 +205,7 @@ export default function AnalystDemo() {
           ) : (
             <>
               <p className="eyebrow">Answer</p>
-              <p className="eaFinal">{reply.answer.split("FINAL SQL:")[0].trim() || "Here is the result."}</p>
+              <p className="eaFinal">{summary(reply)}</p>
               {reply.result && reply.result.columns.length > 0 && (
                 <>
                   <Bars result={reply.result} />
