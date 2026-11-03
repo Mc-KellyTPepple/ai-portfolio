@@ -14,11 +14,20 @@ export const DEMO_EXAMPLES = [
 
 export const MAX_CSV_BYTES = 400_000;
 
-export type AnalystRow = { label: string; n: string; accuracy: string; note: string };
+export type AnalystRow = { label: string; large: string; small: string; tokens: string };
 
-/** First benchmark run (prompt v1, partly mixed models). Replace with the pinned-model v2 table when it finishes. */
-export const ANALYST_RESULTS_V1: AnalystRow[] = [
-  { label: "One shot, no tools", n: "200", accuracy: "82.5%", note: "smaller 20B model" },
-  { label: "Agent, one query allowed", n: "111 of 200", accuracy: "78.4%", note: "mostly 120B" },
-  { label: "Agent, self-correcting", n: "154 of 200", accuracy: "79.2%", note: "mostly 120B" },
+/**
+ * Spider development-set sample (100 questions, seed 1), prompt v2, each model on its own results.
+ * The small model's "paired" column compares only the 86 questions all three configurations have finished; update it when the rest land.
+ */
+export const ANALYST_RESULTS: AnalystRow[] = [
+  { label: "One shot, no tools", large: "82.0% (82/100)", small: "86.0% (74/86)", tokens: "about 550" },
+  { label: "Agent, self-correcting", large: "81.0% (81/100)", small: "86.0% (74/86)", tokens: "about 2,300" },
+  { label: "Five candidates, majority result", large: "82.0% (82/100)", small: "88.4% (76/86)", tokens: "about 2,800" },
+];
+
+/** Accuracy when the five candidate queries agree on the result, versus when they split. */
+export const ANALYST_AGREEMENT = [
+  { label: "All five agree", large: "90.6% (85 questions)", small: "96.6% (59 questions)" },
+  { label: "Candidates disagree", large: "33.3% (15 questions)", small: "70.4% (27 questions)" },
 ];

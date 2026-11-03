@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import AnalystDemo from "@/components/AnalystDemo";
 import SocialLinks from "@/components/SocialLinks";
-import { ANALYST_REPO_URL, ANALYST_RESULTS_V1 } from "@/data/analystAgent";
+import { ANALYST_AGREEMENT, ANALYST_REPO_URL, ANALYST_RESULTS } from "@/data/analystAgent";
 
 const EMAIL = "mckelly2014@gmail.com";
 
@@ -35,7 +35,7 @@ const design = [
   },
   {
     title: "Self-correction, tested honestly",
-    text: "The agent reads errors and results and can retry up to five times. The ablation measures whether that actually helps, instead of assuming it does.",
+    text: "The agent reads errors and results and can retry up to five times. The benchmark measured whether that actually helps, and the answer, on Spider, is that it matches a plain baseline.",
   },
   {
     title: "Asks when it is unsure",
@@ -48,10 +48,11 @@ const design = [
 ];
 
 const findings = [
-  "On the first run, a one-shot baseline (82.5%) beat the tool-using agent (about 79%). The agent hit only 0.01 SQL errors per question, so retry-on-error rarely fired. Most wrong answers were valid SQL returning the wrong rows.",
-  "13 of the agent's 32 wrong answers added helpful extra columns, such as a count next to a name. A human analyst might welcome that; Spider's strict scoring does not.",
-  "A parsing bug lost one more answer, and some misses trace to errors in Spider's own gold queries.",
-  "Those findings changed the prompt (exact columns only) and the parser, and the benchmark is being re-run with every configuration on one pinned model, plus a second unseen sample.",
+  "On a 100-question sample, the one-shot baseline, the tool-using agent and majority voting all land within a couple of questions of each other, on both models. Tools and retries did not raise Spider accuracy; they cost about four times the tokens.",
+  "The reason is where the errors are: the agent hits about 0.01 SQL errors per question, so retry-on-error rarely fires. Wrong answers are mostly valid SQL that returns the wrong rows.",
+  "The first run (before a prompt fix) had the agent about 3 points behind the baseline. 13 of its 32 wrong answers added helpful extra columns, which Spider's strict scoring rejects, and one was lost to a parsing bug. Fixing both closed the gap.",
+  "Agreement between candidate queries is a useful confidence signal: when all five return the same rows, accuracy is 91 to 97%; when they split, it drops to 33 to 70%. That points to where a clarifying question or a warning belongs.",
+  "Some misses trace to errors in Spider's own gold queries. A second, unseen sample is still running, and the small-model column covers 86 of 100 questions so far.",
 ];
 
 export default function DataAnalystPage() {
@@ -125,10 +126,10 @@ export default function DataAnalystPage() {
         <section id="results" className="section">
           <div className="sectionHeading">
             <p className="eyebrow">Evaluation</p>
-            <h2>What the first benchmark run showed</h2>
+            <h2>What the benchmark showed</h2>
             <p>
-              Execution accuracy on a reproducible sample of Spider&apos;s development set: the predicted and gold queries
-              must return the same rows.
+              Execution accuracy on a reproducible 100-question sample of Spider&apos;s development set: the predicted and gold
+              queries must return the same rows. Each model was tested separately, with the same questions for every row.
             </p>
           </div>
           <div className="toolkitCard eaTableWrap">
@@ -136,24 +137,47 @@ export default function DataAnalystPage() {
               <thead>
                 <tr>
                   <th scope="col">Configuration</th>
-                  <th scope="col">Questions</th>
-                  <th scope="col">Accuracy</th>
-                  <th scope="col">Model</th>
+                  <th scope="col">Larger model</th>
+                  <th scope="col">Smaller model</th>
+                  <th scope="col">Tokens per question</th>
                 </tr>
               </thead>
               <tbody>
-                {ANALYST_RESULTS_V1.map((row) => (
+                {ANALYST_RESULTS.map((row) => (
                   <tr key={row.label}>
                     <th scope="row">{row.label}</th>
-                    <td>{row.n}</td>
-                    <td>{row.accuracy}</td>
-                    <td>{row.note}</td>
+                    <td>{row.large}</td>
+                    <td>{row.small}</td>
+                    <td>{row.tokens}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="cvNote">First run, before the fixes below. Models were mixed because of the free daily quota, so treat the gaps as indicative.</p>
+          <p className="cvNote">
+            With 100 questions, differences of a few points are within noise. Models are two free Groq models; the smaller model&apos;s
+            figures cover the 86 questions finished so far.
+          </p>
+          <div className="toolkitCard eaTableWrap">
+            <table className="eaTable">
+              <thead>
+                <tr>
+                  <th scope="col">Majority vote: how much the candidates agreed</th>
+                  <th scope="col">Larger model</th>
+                  <th scope="col">Smaller model</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ANALYST_AGREEMENT.map((row) => (
+                  <tr key={row.label}>
+                    <th scope="row">{row.label}</th>
+                    <td>{row.large}</td>
+                    <td>{row.small}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           <div className="toolkitCard">
             <ul className="eaLimits">
               {findings.map((item) => (
