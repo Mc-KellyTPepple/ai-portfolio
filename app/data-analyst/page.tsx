@@ -51,8 +51,9 @@ const findings = [
   "On a 100-question sample, the one-shot baseline, the tool-using agent and majority voting all land within a couple of questions of each other, on both models. Tools and retries did not raise Spider accuracy; they cost about four times the tokens.",
   "The reason is where the errors are: the agent hits about 0.01 SQL errors per question, so retry-on-error rarely fires. Wrong answers are mostly valid SQL that returns the wrong rows.",
   "The first run (before a prompt fix) had the agent about 3 points behind the baseline. 13 of its 32 wrong answers added helpful extra columns, which Spider's strict scoring rejects, and one was lost to a parsing bug. Fixing both closed the gap.",
-  "Agreement between candidate queries is a useful confidence signal: when all five return the same rows, accuracy is 91 to 97%; when they split, it drops to 33 to 70%. That points to where a clarifying question or a warning belongs.",
-  "Some misses trace to errors in Spider's own gold queries. A second, unseen sample is still running, and the small-model column covers 86 of 100 questions so far.",
+  "Agreement between candidate queries is a useful confidence signal: when all five return the same rows, accuracy is 91 to 94%; when they split, it drops to 33 to 71%. That points to where a clarifying question or a warning belongs.",
+  "A second 100-question sample scored lower for the larger model (one shot 77%, lean 79%), a reminder that single samples of 100 move by several points. Some misses also trace to errors in Spider's own gold queries.",
+  "The live demo uses the lean configuration: it matches the agent's accuracy at about 40% of its tokens, which is what lets a free quota serve more visitors.",
 ];
 
 export default function DataAnalystPage() {
@@ -155,8 +156,7 @@ export default function DataAnalystPage() {
             </table>
           </div>
           <p className="cvNote">
-            With 100 questions, differences of a few points are within noise. Models are two free Groq models; the smaller model&apos;s
-            figures cover the 86 questions finished so far.
+            With 100 questions, differences of a few points are within noise. Models are two free Groq models; every cell is the full 100 questions.
           </p>
           <div className="toolkitCard eaTableWrap">
             <table className="eaTable">
