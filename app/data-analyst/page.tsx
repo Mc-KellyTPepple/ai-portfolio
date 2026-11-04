@@ -35,7 +35,7 @@ const design = [
   },
   {
     title: "Tested, then simplified",
-    text: "The benchmark compared a plain baseline against a tool-using agent that retries up to five times, and on Spider they tie. So the live demo runs a lean version: one model call, and a second only if the query errors or returns no rows, at about a quarter of the agent's token cost.",
+    text: "The benchmark compared a plain baseline against a tool-using agent that retries up to five times, and on Spider they tie. So the live demo runs a lean version: one model call, and a second only if the query errors or returns no rows, at about 40% of the agent's token cost.",
   },
   {
     title: "Asks when it is unsure",
