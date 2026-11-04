@@ -62,7 +62,7 @@ const design = [
 const limits = [
   "The held-out sets reuse the same question templates and the same 10 companies, so they test unseen questions, not unseen kinds of question.",
   "They contain no refusal or filing-text questions, and results came from a mix of prompt versions and models, partly the smaller 20B model.",
-  "Three of the 23 filing-text questions are still wrong (rounded or wrong numbers), for example Amazon's employee count.",
+  "The 23 filing-text questions were used to find and fix failures, so 100% there is a tuned-on score; there is no held-out filing-text set yet.",
   "On the free tier the first answer after idle can be slow, and the shared daily quota can run out, in which case the demo says so.",
 ];
 
