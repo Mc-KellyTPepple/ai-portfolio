@@ -34,8 +34,8 @@ const design = [
     text: "The model's SQL runs on a read-only connection behind a SQLite authorizer. Writes, PRAGMA, ATTACH and multiple statements are rejected, rows are capped and a 5 second limit stops runaway queries. Tests try each attack.",
   },
   {
-    title: "Self-correction, tested honestly",
-    text: "The agent reads errors and results and can retry up to five times. The benchmark measured whether that actually helps, and the answer, on Spider, is that it matches a plain baseline.",
+    title: "Tested, then simplified",
+    text: "The benchmark compared a plain baseline against a tool-using agent that retries up to five times, and on Spider they tie. So the live demo runs a lean version: one model call, and a second only if the query errors or returns no rows, at about a quarter of the agent's token cost.",
   },
   {
     title: "Asks when it is unsure",

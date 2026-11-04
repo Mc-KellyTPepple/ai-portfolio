@@ -29,8 +29,8 @@ const STORIES = [
     text: "Every query runs on a read-only connection. Writes, PRAGMA, ATTACH and multiple statements are rejected before they run.",
   },
   {
-    title: "It reads its own errors",
-    text: "If a query fails or returns something odd, the agent sees the error, fixes the SQL and tries again, up to five times.",
+    title: "One retry, only when needed",
+    text: "If a query fails or returns nothing, the agent sees why and tries once more. Otherwise it answers after a single model call.",
   },
   {
     title: "Measured on Spider",
