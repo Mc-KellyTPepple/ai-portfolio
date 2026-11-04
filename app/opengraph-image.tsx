@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Mc-Kelly Pepple | AI / ML Engineer & Full Stack Developer";
+export const alt = "Mc-Kelly Pepple | Applied AI / AI Systems Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -29,7 +29,7 @@ export default function OpengraphImage() {
             marginBottom: 28,
           }}
         >
-          AI / ML ENGINEER · FULL STACK · COMPUTER VISION
+          APPLIED AI / AI SYSTEMS ENGINEER
         </div>
         <div style={{ display: "flex", fontSize: 84, fontWeight: 800, lineHeight: 1.05 }}>
           Mc-Kelly Pepple
@@ -43,7 +43,7 @@ export default function OpengraphImage() {
             maxWidth: 900,
           }}
         >
-          Building &amp; deploying scalable intelligent applications.
+          LLMs, AI Agents &amp; Multimodal AI · RAG, Computer Vision &amp; Full-Stack AI
         </div>
         <div
           style={{
@@ -54,7 +54,7 @@ export default function OpengraphImage() {
             marginTop: 36,
           }}
         >
-          PyTorch · Python · React · Node.js
+          Python · PyTorch · React
         </div>
       </div>
     ),

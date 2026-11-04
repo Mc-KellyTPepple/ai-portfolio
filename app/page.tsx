@@ -10,9 +10,13 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Mc-Kelly Pepple",
-  jobTitle: "AI / ML Engineer & Full Stack Developer",
+  jobTitle: "Applied AI / AI Systems Engineer",
   knowsAbout: [
     "Machine Learning",
+    "LLMs",
+    "AI Agents",
+    "RAG",
+    "Multimodal AI",
     "Computer Vision",
     "Full Stack Development",
     "PyTorch",
@@ -25,6 +29,19 @@ const personSchema = {
 };
 
 const toolkit = [
+  {
+    title: "LLMs, agents & retrieval",
+    items: [
+      "LLM agents",
+      "Tool use",
+      "RAG",
+      "Hybrid retrieval",
+      "Reranking",
+      "Text-to-SQL",
+      "Evaluation",
+      "Groq",
+    ],
+  },
   {
     title: "Machine learning & vision",
     items: [
@@ -39,12 +56,8 @@ const toolkit = [
     ],
   },
   {
-    title: "Full-stack & mobile",
-    items: ["React", "Next.js", "React Native", "Expo", "Node.js", "Supabase"],
-  },
-  {
-    title: "Deployment",
-    items: ["Vercel", "Render", "CPU inference", "Live APIs"],
+    title: "Full-stack & deployment",
+    items: ["React", "Next.js", "Node.js", "Supabase", "PWA", "Vercel", "Render", "GitHub Actions"],
   },
 ];
 
@@ -82,23 +95,24 @@ export default function Home() {
           <div className="heroContent">
             <p className="statusBadge">
               <span className="statusDot" aria-hidden="true" />
-              Open to AI / ML and full stack opportunities
+              Open to Applied AI and AI systems engineering roles
             </p>
 
             <p className="eyebrow">
-              AI / ML Engineer &middot; Full Stack Developer &middot; Computer Vision
+              Applied AI / AI Systems Engineer
             </p>
 
             <h1>
-              I build and deploy{" "}
-              <span className="gradientText">scalable intelligent applications</span>
-              , from computer vision models to full stack products.
+              I build and ship{" "}
+              <span className="gradientText">AI systems you can use</span>
+              , from LLM agents and RAG to computer vision and full-stack products.
             </h1>
 
             <p className="heroDescription">
-              I am an AI / ML engineer and full stack developer. I use PyTorch
-              and Python for machine learning and computer vision, and React
-              and Node.js for the applications built around them.
+              LLMs, AI Agents &amp; Multimodal AI | RAG, Computer Vision &amp;
+              Full-Stack AI | Python, PyTorch &amp; React. Every project is
+              deployed and measurable, and the newest ones publish their
+              evaluation results, including where they fail.
             </p>
 
             <div className="heroActions">
@@ -123,7 +137,7 @@ export default function Home() {
               </div>
               <div>
                 <dt>Focus</dt>
-                <dd>ML &middot; Vision &middot; Full-stack</dd>
+                <dd>Agents &middot; RAG &middot; Vision &middot; Full-stack</dd>
               </div>
             </dl>
           </div>
@@ -200,8 +214,8 @@ export default function Home() {
             <p className="eyebrow">Let&apos;s work together</p>
             <h2>Have an AI problem worth solving?</h2>
             <p>
-              I am available for AI / ML engineering, full stack development,
-              and computer vision opportunities.
+              I am available for applied AI and AI systems engineering work:
+              LLM agents, RAG, computer vision and full-stack AI products.
             </p>
             <ContactButton email={EMAIL} />
             <SocialLinks variant="labeled" className="contactSocial" />

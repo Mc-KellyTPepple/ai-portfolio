@@ -15,13 +15,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://ai-portfolio-pearl-ten.vercel.app"),
   alternates: { canonical: "/" },
-  title: "Mc-Kelly Pepple | AI / ML Engineer & Full Stack Developer",
+  title: "Mc-Kelly Pepple | Applied AI / AI Systems Engineer",
   description:
-    "Mc-Kelly Pepple is an AI / ML engineer, full stack developer and computer vision specialist building and deploying scalable intelligent applications with PyTorch, Python, React and Node.js.",
+    "Mc-Kelly Pepple is an Applied AI / AI Systems Engineer working on LLMs, AI agents and multimodal AI, RAG, computer vision and full-stack AI, with Python, PyTorch and React.",
   keywords: [
     "Mc-Kelly Pepple",
+    "Applied AI Engineer",
+    "AI Systems Engineer",
     "AI / ML Engineer",
-    "AI Engineer",
+    "LLMs",
+    "AI Agents",
+    "Multimodal AI",
+    "RAG",
     "Full Stack Developer",
     "Machine Learning",
     "Computer Vision",
@@ -33,18 +38,18 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mc-Kelly Pepple" }],
   openGraph: {
-    title: "Mc-Kelly Pepple | AI / ML Engineer & Full Stack Developer",
+    title: "Mc-Kelly Pepple | Applied AI / AI Systems Engineer",
     description:
-      "AI / ML engineer and full stack developer building and deploying scalable intelligent applications.",
+      "Applied AI / AI Systems Engineer: LLMs, AI agents & multimodal AI, RAG, computer vision and full-stack AI with Python, PyTorch and React.",
     type: "website",
     siteName: "Mc-Kelly Pepple",
     url: "/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mc-Kelly Pepple | AI / ML Engineer & Full Stack Developer",
+    title: "Mc-Kelly Pepple | Applied AI / AI Systems Engineer",
     description:
-      "AI / ML engineer and full stack developer building and deploying scalable intelligent applications.",
+      "Applied AI / AI Systems Engineer: LLMs, AI agents & multimodal AI, RAG, computer vision and full-stack AI with Python, PyTorch and React.",
   },
   verification: {
     google: "fR1I8jNBDh7PwOcMsCwIoKaZrSWpOYy8yc1ZCCEg3ag",
