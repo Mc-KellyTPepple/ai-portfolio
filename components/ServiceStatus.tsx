@@ -118,10 +118,24 @@ export default function ServiceStatus({
 
   // Visiting the page wakes the free-tier server in the background, so it is
   // usually warm by the time the visitor has read the page.
+  // Only a real, visible visitor wakes it: crawlers, headless browsers and tabs opened in the background (prefetch, link previews)
+  // do not, and it never pings again after it has come online, so the server falls asleep again 15 minutes after the visitor leaves.
   useEffect(() => {
-    const start = setTimeout(() => void run(), 0);
+    const robot = /bot|crawl|spider|slurp|headless|lighthouse|preview|facebookexternalhit/i.test(navigator.userAgent) || navigator.webdriver;
+    if (robot) return;
+    let start: ReturnType<typeof setTimeout> | undefined;
+    const begin = () => {
+      document.removeEventListener("visibilitychange", onVisible);
+      start = setTimeout(() => void run(), 0);
+    };
+    const onVisible = () => {
+      if (document.visibilityState === "visible") begin();
+    };
+    if (document.visibilityState === "visible") begin();
+    else document.addEventListener("visibilitychange", onVisible);
     return () => {
-      clearTimeout(start);
+      document.removeEventListener("visibilitychange", onVisible);
+      if (start) clearTimeout(start);
       runId.current += 1;
     };
   }, [run]);

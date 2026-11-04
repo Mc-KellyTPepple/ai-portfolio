@@ -14,9 +14,22 @@ export const dynamic = "force-dynamic";
  * The request is made from the server, so no CORS is involved and the real HTTP status is visible.
  * It gives up after 8 seconds (the service keeps waking up); the page simply asks again.
  */
+const lastCall = new Map<string, number>();
+const MIN_GAP_MS = 2000; // a visitor's page asks every ~2.5 s while waking; anything faster is not a normal visitor
+
 export async function GET(request: Request) {
-  const target = TARGETS[new URL(request.url).searchParams.get("t") ?? ""];
+  // Only the portfolio's own pages, running in a real browser, may wake a service. Browsers label their own fetches
+  // "same-origin"; crawlers, curl, link scanners and other websites do not send that label, so they never wake anything.
+  if (request.headers.get("sec-fetch-site") !== "same-origin") {
+    return NextResponse.json({ error: "forbidden" }, { status: 403, headers: { "Cache-Control": "no-store" } });
+  }
+  const id = new URL(request.url).searchParams.get("t") ?? "";
+  const target = TARGETS[id];
   if (!target) return NextResponse.json({ error: "unknown service" }, { status: 404 });
+
+  const now = Date.now();
+  if (now - (lastCall.get(id) ?? 0) < MIN_GAP_MS) return NextResponse.json({ up: false, throttled: true }, { headers: { "Cache-Control": "no-store" } });
+  lastCall.set(id, now);
 
   const headers = { "Cache-Control": "no-store" };
   try {
