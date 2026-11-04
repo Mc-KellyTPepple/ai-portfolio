@@ -30,7 +30,7 @@ function summary(reply: Reply): string {
   if (text) return text;
   const r = reply.result;
   if (r && r.columns.length === 1 && r.rows.length === 1) return `${r.columns[0]}: ${show(r.rows[0][0])}`;
-  if (r && r.rows.length > 0) return `${r.rows.length}${r.truncated ? "+" : ""} rows returned.`;
+  if (r && r.rows.length > 0) return `${r.rows.length}${r.truncated ? "+" : ""} ${r.rows.length === 1 && !r.truncated ? "row" : "rows"} returned.`;
   return "No rows matched.";
 }
 
