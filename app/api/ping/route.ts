@@ -18,11 +18,6 @@ const lastCall = new Map<string, number>();
 const MIN_GAP_MS = 2000; // a visitor's page asks every ~2.5 s while waking; anything faster is not a normal visitor
 
 export async function GET(request: Request) {
-  // Only the portfolio's own pages, running in a real browser, may wake a service. Browsers label their own fetches
-  // "same-origin"; crawlers, curl, link scanners and other websites do not send that label, so they never wake anything.
-  if (request.headers.get("sec-fetch-site") !== "same-origin") {
-    return NextResponse.json({ error: "forbidden" }, { status: 403, headers: { "Cache-Control": "no-store" } });
-  }
   const id = new URL(request.url).searchParams.get("t") ?? "";
   const target = TARGETS[id];
   if (!target) return NextResponse.json({ error: "unknown service" }, { status: 404 });
