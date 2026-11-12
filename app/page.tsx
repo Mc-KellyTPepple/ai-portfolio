@@ -1,4 +1,5 @@
 import ContactButton from "@/components/ContactButton";
+import HeroPortrait from "@/components/HeroPortrait";
 import Nav from "@/components/Nav";
 import ProjectCard from "@/components/ProjectCard";
 import SocialLinks, { SOCIAL } from "@/components/SocialLinks";
@@ -92,6 +93,7 @@ export default function Home() {
       <main id="top">
         <section className="hero">
           <div className="heroGlow" aria-hidden="true" />
+          <div className="heroGrid">
           <div className="heroContent">
             <p className="statusBadge">
               <span className="statusDot" aria-hidden="true" />
@@ -140,6 +142,8 @@ export default function Home() {
                 <dd>Agents &middot; RAG &middot; Vision &middot; Full-stack</dd>
               </div>
             </dl>
+          </div>
+          <HeroPortrait projectCount={featuredProjects.length} />
           </div>
         </section>
 

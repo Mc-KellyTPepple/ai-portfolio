@@ -1601,3 +1601,153 @@ ul {
 .daQueries li span {
   color: var(--subtle);
 }
+
+/* ------------------------------------------------------------------
+   Hero portrait
+   ------------------------------------------------------------------ */
+.heroGrid {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+.heroGrid .heroContent {
+  max-width: 760px;
+}
+.portrait {
+  position: relative;
+  order: -1;
+  margin: 0 auto;
+  width: min(80vw, 340px);
+  isolation: isolate;
+}
+.portraitPlate {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 32px;
+  background: linear-gradient(140deg, var(--brand-2), var(--brand));
+  transform: translate(14px, 14px) rotate(3deg);
+  opacity: 0.9;
+  animation: portraitPlateIn 1s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.portraitFrame {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 2px 4px rgba(15, 19, 32, 0.08), 0 28px 60px rgba(15, 19, 32, 0.25);
+  animation: portraitIn 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.portraitFrame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 8%;
+  transform: scale(1.02);
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.portrait:hover .portraitFrame img {
+  transform: scale(1.06);
+}
+.portraitShade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 38%;
+  background: linear-gradient(to top, rgba(8, 11, 22, 0.82), rgba(8, 11, 22, 0));
+  pointer-events: none;
+}
+.portraitCaption {
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: #fff;
+}
+.portraitCaption strong {
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+.portraitCaption span {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+.portraitChip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 16px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, #fff);
+  box-shadow: var(--shadow);
+  animation: portraitFloat 6s ease-in-out infinite, rise 0.8s 0.5s ease both;
+}
+.portraitChip strong {
+  color: var(--foreground);
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+.portraitChipTop {
+  top: -0.9rem;
+  left: 1rem;
+}
+.portraitChipSide {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  right: -1rem;
+  bottom: 9%;
+  animation-delay: -3s, 0.7s;
+}
+.portraitChipLabel {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+@keyframes portraitIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes portraitPlateIn {
+  from { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  to { opacity: 0.9; transform: translate(14px, 14px) rotate(3deg); }
+}
+@keyframes portraitFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+@media (min-width: 960px) {
+  .heroGrid {
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 4.5rem;
+  }
+  .portrait {
+    order: 0;
+    width: 420px;
+    margin: 0;
+  }
+  .portraitChipTop {
+    top: 7%;
+    left: -1.5rem;
+  }
+  .portraitChipSide {
+    display: inline-flex;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portraitPlate, .portraitFrame, .portraitChip { animation: none; }
+  .portraitFrame img { transition: none; }
+}
