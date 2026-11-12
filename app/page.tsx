@@ -7,6 +7,9 @@ import { projects } from "@/data/projects";
 
 const EMAIL = "mckelly2014@gmail.com";
 
+// EDGAR Analyst and Data Analyst Agent publish their benchmark results, including failures.
+const PUBLISHED_EVALUATIONS = 2;
+
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -132,23 +135,28 @@ export default function Home() {
 
             <SocialLinks variant="labeled" className="heroSocial" />
 
-            <dl className="stats">
-              <div>
-                <dt>Deployed projects</dt>
-                <dd>{featuredProjects.length}</dd>
-              </div>
-              <div>
-                <dt>Project timeline</dt>
-                <dd>{span}</dd>
-              </div>
-              <div>
-                <dt>Focus</dt>
-                <dd>Agents &middot; RAG &middot; Vision &middot; Full-stack</dd>
-              </div>
-            </dl>
           </div>
           <HeroPortrait projectCount={featuredProjects.length} />
           </div>
+
+          <dl className="statsBand">
+            <div>
+              <dd>{featuredProjects.length}</dd>
+              <dt>Deployed projects</dt>
+            </div>
+            <div>
+              <dd>{PUBLISHED_EVALUATIONS}</dd>
+              <dt>Projects with published evaluations</dt>
+            </div>
+            <div>
+              <dd>{span}</dd>
+              <dt>Project timeline</dt>
+            </div>
+            <div>
+              <dd className="statsText">Agents &middot; RAG &middot; Vision</dd>
+              <dt>Focus</dt>
+            </div>
+          </dl>
         </section>
 
         <section id="projects" className="section">
