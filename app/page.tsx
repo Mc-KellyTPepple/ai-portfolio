@@ -110,11 +110,15 @@ export default function Home() {
               , from LLM agents and RAG to computer vision and full-stack products.
             </h1>
 
+            <ul className="heroKeywords" aria-label="Focus areas">
+              <li>LLMs, AI Agents &amp; Multimodal AI</li>
+              <li>RAG, Computer Vision &amp; Full-Stack AI</li>
+              <li>Python, PyTorch &amp; React</li>
+            </ul>
+
             <p className="heroDescription">
-              LLMs, AI Agents &amp; Multimodal AI | RAG, Computer Vision &amp;
-              Full-Stack AI | Python, PyTorch &amp; React. Every project is
-              deployed and measurable, and the newest ones publish their
-              evaluation results, including where they fail.
+              Every project is deployed and measurable, and the newest ones
+              publish their evaluation results, including where they fail.
             </p>
 
             <div className="heroActions">
