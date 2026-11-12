@@ -607,26 +607,32 @@ ul {
   border: 1px solid var(--border);
 }
 
-/* Feature card (first project) spans the full width on large screens */
-.projectCardFeatured {
+/* Feature card (first project) spans the full width on large screens.
+   A last card left alone on its row (even project count) does the same, so no gap is left on the right. */
+.projectCardFeatured,
+.projectsGrid > .projectCard:last-child:nth-child(even) {
   grid-column: 1 / -1;
 }
 
 @media (min-width: 900px) {
-  .projectCardFeatured {
+  .projectCardFeatured,
+  .projectsGrid > .projectCard:last-child:nth-child(even) {
     flex-direction: row;
     align-items: stretch;
     gap: 3rem;
     padding: 2.25rem;
   }
-  .projectCardFeatured .projectMain {
+  .projectCardFeatured .projectMain,
+  .projectsGrid > .projectCard:last-child:nth-child(even) .projectMain {
     flex: 1.4;
   }
-  .projectCardFeatured .projectSide {
+  .projectCardFeatured .projectSide,
+  .projectsGrid > .projectCard:last-child:nth-child(even) .projectSide {
     flex: 1;
     justify-content: flex-end;
   }
-  .projectCardFeatured .projectTitle {
+  .projectCardFeatured .projectTitle,
+  .projectsGrid > .projectCard:last-child:nth-child(even) .projectTitle {
     font-size: 1.85rem;
   }
 }
