@@ -18,7 +18,7 @@
   --glow-a: rgba(14, 116, 144, 0.16);
   --glow-b: rgba(109, 91, 240, 0.14);
   --shadow: 0 1px 2px rgba(15, 19, 32, 0.04), 0 8px 24px rgba(15, 19, 32, 0.06);
-  --header-bg: rgba(246, 247, 249, 0.8);
+  --header-bg: rgba(246, 247, 249, 0.94);
   --cta-inner: #ffffff;
   --cta-inner-hover: #f1f5f9;
 }
@@ -39,7 +39,7 @@
     --glow-a: rgba(89, 217, 255, 0.14);
     --glow-b: rgba(139, 124, 255, 0.14);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.35);
-    --header-bg: rgba(11, 13, 18, 0.78);
+    --header-bg: rgba(11, 13, 18, 0.92);
     --cta-inner: #0b121d;
     --cta-inner-hover: #121c2b;
   }
@@ -129,9 +129,10 @@ ul {
   top: 0;
   z-index: 50;
   background: var(--header-bg);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 rgba(15, 19, 32, 0.03), 0 8px 24px -16px rgba(15, 19, 32, 0.18);
 }
 
 .navInner {
