@@ -483,116 +483,16 @@ ul {
 .projectsGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-}
-
-.projectCard {
-  --accent: 89, 217, 255;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1.75rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.projectCard::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 3px;
-  background: linear-gradient(90deg, rgb(var(--accent)), transparent 85%);
-  opacity: 0.9;
-}
-
-.projectCard:hover {
-  transform: translateY(-3px);
-  border-color: rgba(var(--accent), 0.55);
-  box-shadow: 0 0 0 1px rgba(var(--accent), 0.18), 0 18px 40px -16px rgba(var(--accent), 0.35);
-}
-
-.projectCard[data-accent="cyan"] { --accent: 14, 165, 214; }
-.projectCard[data-accent="violet"] { --accent: 124, 92, 246; }
-.projectCard[data-accent="emerald"] { --accent: 16, 185, 129; }
-.projectCard[data-accent="amber"] { --accent: 217, 140, 10; }
-.projectCard[data-accent="lime"] { --accent: 101, 163, 13; }
-
-@media (prefers-color-scheme: dark) {
-  .projectCard[data-accent="cyan"] { --accent: 89, 217, 255; }
-  .projectCard[data-accent="violet"] { --accent: 150, 130, 255; }
-  .projectCard[data-accent="emerald"] { --accent: 72, 224, 164; }
-  .projectCard[data-accent="amber"] { --accent: 251, 191, 36; }
-  .projectCard[data-accent="lime"] { --accent: 163, 230, 53; }
-}
-
-.projectMain,
-.projectSide {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.projectSide {
   gap: 1.25rem;
 }
 
-.projectCardHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.4rem;
+@media (max-width: 899px) {
+  .projectsGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
-.projectCategory {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.projectDot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 999px;
-  background: rgb(var(--accent));
-  box-shadow: 0 0 10px rgba(var(--accent), 0.7);
-}
-
-.projectMeta {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 0.75rem;
-  color: var(--subtle);
-}
-
-.projectTitle {
-  font-size: 1.4rem;
-  line-height: 1.2;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.projectTagline {
-  font-weight: 500;
-  color: var(--foreground);
-  opacity: 0.85;
-}
-
-.projectDescription {
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
+/* Tag chips, also used on the project pages */
 .projectTags {
   display: flex;
   flex-wrap: wrap;
@@ -608,129 +508,195 @@ ul {
   border: 1px solid var(--border);
 }
 
-/* Feature card (first project) spans the full width on large screens.
-   A last card left alone on its row (even project count) does the same, so no gap is left on the right. */
-.projectCardFeatured,
-.projectsGrid > .projectCard:last-child:nth-child(even) {
-  grid-column: 1 / -1;
+/* Project card: eyebrow, a large title, a short line of grey copy, then one clear action and a few chips.
+   Generous space and a quiet surface; the accent colour only tints the chips and the arrow on hover. */
+.pcCard {
+  --accent: 14, 165, 214;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.5rem;
+  min-height: 21rem;
+  padding: 2.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.75rem;
+  box-shadow: 0 1px 2px rgba(15, 19, 32, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-@media (min-width: 900px) {
-  .projectCardFeatured,
-  .projectsGrid > .projectCard:last-child:nth-child(even) {
-    flex-direction: row;
-    align-items: stretch;
-    gap: 3rem;
-    padding: 2.25rem;
-  }
-  .projectCardFeatured .projectMain,
-  .projectsGrid > .projectCard:last-child:nth-child(even) .projectMain {
-    flex: 1.4;
-  }
-  .projectCardFeatured .projectSide,
-  .projectsGrid > .projectCard:last-child:nth-child(even) .projectSide {
-    flex: 1;
-    justify-content: flex-end;
-  }
-  .projectCardFeatured .projectTitle,
-  .projectsGrid > .projectCard:last-child:nth-child(even) .projectTitle {
-    font-size: 1.85rem;
+.pcCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--accent), 0.35);
+  box-shadow: 0 24px 48px -24px rgba(15, 19, 32, 0.18);
+}
+
+.pcCard[data-accent="cyan"] { --accent: 14, 165, 214; }
+.pcCard[data-accent="violet"] { --accent: 124, 92, 246; }
+.pcCard[data-accent="emerald"] { --accent: 16, 185, 129; }
+.pcCard[data-accent="amber"] { --accent: 217, 140, 10; }
+.pcCard[data-accent="lime"] { --accent: 101, 163, 13; }
+
+@media (prefers-color-scheme: dark) {
+  .pcCard[data-accent="cyan"] { --accent: 89, 217, 255; }
+  .pcCard[data-accent="violet"] { --accent: 150, 130, 255; }
+  .pcCard[data-accent="emerald"] { --accent: 72, 224, 164; }
+  .pcCard[data-accent="amber"] { --accent: 251, 191, 36; }
+  .pcCard[data-accent="lime"] { --accent: 163, 230, 53; }
+  .pcCard:hover {
+    box-shadow: 0 24px 48px -24px rgba(0, 0, 0, 0.6);
   }
 }
 
-@media (max-width: 899px) {
-  .projectsGrid {
-    grid-template-columns: 1fr;
-  }
+.pcBody {
+  display: flex;
+  flex-direction: column;
 }
 
-.projectActions {
+.pcEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+
+.pcYear {
+  margin-left: auto;
+}
+
+.pcTitle {
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  line-height: 1.05;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  color: var(--foreground);
+  text-wrap: balance;
+}
+
+.pcTagline {
+  margin-top: 1rem;
+  max-width: 34ch;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.pcDescription {
+  margin-top: 1rem;
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.pcFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.pcActions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
-.sourceLink {
+.pcCta {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
+  gap: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 550;
+  color: var(--foreground);
+}
+
+.pcCtaCircle {
+  display: inline-grid;
+  place-items: center;
+  width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.pcCta:hover .pcCtaCircle,
+.pcCta:focus-visible .pcCtaCircle {
+  transform: translateX(3px);
+  background: rgb(var(--accent));
+}
+
+.pcCta:hover .pcCtaLabel {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+
+.pcSource {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 550;
   color: var(--muted);
-  padding: 0.5rem 0.25rem;
   transition: color 0.2s ease;
 }
 
-.sourceLink:hover {
+.pcSource:hover {
   color: var(--foreground);
 }
 
-/* Call-to-action with rotating gradient border */
-.projectCta {
-  position: relative;
-  display: inline-flex;
-  align-self: flex-start;
-  padding: 2px;
-  border-radius: 0.7rem;
-  overflow: hidden;
-  font-weight: 600;
-  font-size: 0.9rem;
-  background: rgba(var(--accent), 0.55);
-  transition: transform 0.2s ease;
+.pcTags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
-.projectCta:hover {
-  transform: scale(1.02);
-}
-
-.projectCta:active {
-  transform: scale(0.98);
-}
-
-.projectCtaGlow {
-  position: absolute;
-  inset: -100%;
-  opacity: 0;
-  background: conic-gradient(
-    from 90deg at 50% 50%,
-    rgb(var(--accent)) 0deg,
-    #8b7cff 120deg,
-    #48e0a4 240deg,
-    rgb(var(--accent)) 360deg
-  );
-  transition: opacity 0.3s ease;
-}
-
-.projectCta:hover .projectCtaGlow,
-.projectCta:focus-visible .projectCtaGlow {
-  opacity: 1;
-  animation: rotateGlow 3.5s linear infinite;
-}
-
-.projectCtaInner {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.65rem 1.15rem;
-  border-radius: 0.55rem;
-  background: var(--cta-inner);
+.pcTag {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 0.8rem;
   color: var(--foreground);
-  transition: background-color 0.25s ease;
+  background: rgba(var(--accent), 0.1);
 }
 
-.projectCta:hover .projectCtaInner {
-  background: var(--cta-inner-hover);
+/* Feature card (first project) spans the full width. A last card left alone on its row does the same. */
+.pcCardFeatured,
+.projectsGrid > .pcCard:last-child:nth-child(even) {
+  grid-column: 1 / -1;
 }
 
-.projectCtaArrow {
-  color: rgb(var(--accent));
-  transition: transform 0.25s ease;
+.pcCardFeatured .pcTitle {
+  font-size: clamp(2.2rem, 4.5vw, 3.25rem);
 }
 
-.projectCta:hover .projectCtaArrow {
-  transform: translateX(4px);
+.pcCardFeatured .pcTagline {
+  max-width: 40ch;
+  font-size: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .pcCard {
+    min-height: 0;
+    padding: 1.6rem;
+    border-radius: 1.4rem;
+    gap: 2rem;
+  }
+  .pcTags {
+    justify-content: flex-start;
+  }
 }
 
 /* ------------------------------------------------------------------
@@ -914,12 +880,6 @@ ul {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes rotateGlow {
-  to {
-    transform: rotate(360deg);
   }
 }
 
