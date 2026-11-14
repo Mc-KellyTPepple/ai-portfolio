@@ -21,6 +21,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+        slug: "sentinel-vision",
+        title: "Sentinel Vision",
+        tagline: "Real-time AI video intelligence with alerts you can explain",
+        description:
+                "Upload a clip or use your webcam to detect and track people and objects with YOLO11 and ByteTrack. Draw zones and counting lines, get alerts for loitering, running, falls and objects left behind, ask questions about any video, and review incidents with evidence frames and an audit trail.",
+        tags: ["Computer Vision", "YOLO11", "Object Tracking", "FastAPI", "Next.js", "Supabase"],
+        year: "2026",
+        featured: true,
+        url: "https://sentinel-vision-indol.vercel.app/",
+        category: "Computer Vision & Video AI",
+        cta: "Try Sentinel Vision",
+        accent: "lime",
+        repo: "https://github.com/Mc-KellyTPepple/sentinel-vision",
+  },
+  {
     slug: "edgar-analyst",
     title: "EDGAR Analyst",
     tagline: "An agent for SEC filings that shows its evidence",
