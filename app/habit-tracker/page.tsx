@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ProjectBanner from "@/components/ProjectBanner";
 import SocialLinks from "@/components/SocialLinks";
 import { HABIT_APP_URL, HABIT_REPO_URL } from "@/data/habitTracker";
 
@@ -150,6 +151,8 @@ export default function HabitTrackerPage() {
             ))}
           </dl>
         </section>
+
+        <ProjectBanner kind="habit" />
 
         <section id="how" className="section">
           <div className="sectionHeading">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ProjectBanner from "@/components/ProjectBanner";
 import AnalystDemo from "@/components/AnalystDemo";
 import SocialLinks from "@/components/SocialLinks";
 import { ANALYST_ABLATIONS, ANALYST_AGREEMENT, ANALYST_REPO_URL, ANALYST_RESULTS } from "@/data/analystAgent";
@@ -112,6 +113,8 @@ export default function DataAnalystPage() {
             ))}
           </dl>
         </section>
+
+        <ProjectBanner kind="analyst" />
 
         <section id="try" className="section">
           <div className="sectionHeading">

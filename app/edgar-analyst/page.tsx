@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ProjectBanner from "@/components/ProjectBanner";
 import EdgarDemo from "@/components/EdgarDemo";
 import SocialLinks from "@/components/SocialLinks";
 import { EDGAR_REPO_URL, EDGAR_RESULTS } from "@/data/edgarAnalyst";
@@ -128,6 +129,8 @@ export default function EdgarAnalystPage() {
             ))}
           </dl>
         </section>
+
+        <ProjectBanner kind="edgar" />
 
         <section id="try" className="section">
           <div className="sectionHeading">

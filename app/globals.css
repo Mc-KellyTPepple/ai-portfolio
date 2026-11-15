@@ -1843,3 +1843,38 @@ ul {
     padding: 1.15rem 1.15rem;
   }
 }
+
+/* Project landing-page banner (decorative inline SVG, additive only) */
+.projectBanner {
+  position: relative;
+  margin: 0 0 1rem;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  background: #0b1024;
+}
+.projectBanner svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 420;
+}
+.projectBanner figcaption {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.85rem;
+  max-width: calc(100% - 2rem);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  color: #e6ebf5;
+  background: rgba(11, 16, 36, 0.72);
+  border: 1px solid color-mix(in srgb, var(--pb, #22d3ee) 55%, transparent);
+  backdrop-filter: blur(8px);
+}
+@media (max-width: 640px) {
+  .projectBanner { border-radius: 16px; }
+  .projectBanner figcaption { position: static; display: block; max-width: none; border-radius: 0; border: 0; border-top: 1px solid var(--border); font-size: 0.74rem; }
+}

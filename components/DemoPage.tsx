@@ -1,7 +1,14 @@
 import Link from "next/link";
+import ProjectBanner, { type BannerKind } from "@/components/ProjectBanner";
 import DemoSection from "@/components/DemoSection";
 import SocialLinks from "@/components/SocialLinks";
 import type { Demo } from "@/data/demos";
+
+const BANNERS: Record<string, BannerKind> = {
+  "/plant-disease": "plant",
+  "/animal-classifier": "animal",
+  "/ask-your-files": "rag",
+};
 
 const EMAIL = "mckelly2014@gmail.com";
 
@@ -62,6 +69,8 @@ export default function DemoPage({ demo }: { demo: Demo }) {
             ))}
           </dl>
         </section>
+
+        <ProjectBanner kind={BANNERS[demo.path]} />
 
         <section id="try" className="section">
           <div className="sectionHeading">
