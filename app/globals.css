@@ -580,8 +580,8 @@ ul {
 
 .pcTagline {
   margin-top: 1rem;
-  max-width: 34ch;
-  font-size: 1.15rem;
+  max-width: 38ch;
+  font-size: 0.95rem;
   line-height: 1.5;
   color: var(--muted);
   text-wrap: pretty;
@@ -683,8 +683,8 @@ ul {
 }
 
 .pcCardFeatured .pcTagline {
-  max-width: 40ch;
-  font-size: 1.25rem;
+  max-width: 46ch;
+  font-size: 1.05rem;
 }
 
 @media (max-width: 640px) {
