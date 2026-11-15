@@ -570,7 +570,7 @@ ul {
 }
 
 .pcTitle {
-  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
   line-height: 1.05;
   font-weight: 650;
   letter-spacing: -0.035em;
@@ -679,7 +679,7 @@ ul {
 }
 
 .pcCardFeatured .pcTitle {
-  font-size: clamp(2.2rem, 4.5vw, 3.25rem);
+  font-size: clamp(1.1rem, 2.25vw, 1.625rem);
 }
 
 .pcCardFeatured .pcTagline {
