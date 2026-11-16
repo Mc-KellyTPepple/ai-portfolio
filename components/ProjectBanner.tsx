@@ -3,9 +3,10 @@
  * Pure inline SVG: no images to download, no network calls, no client JS.
  * It only adds a figure to the page; it never touches the live demos.
  */
-export type BannerKind = "edgar" | "analyst" | "rag" | "habit" | "plant" | "animal";
+export type BannerKind = "docextract" | "edgar" | "analyst" | "rag" | "habit" | "plant" | "animal";
 
 const META: Record<BannerKind, { color: string; caption: string }> = {
+  docextract: { color: "#22d3ee", caption: "Receipt image → fields → arithmetic check → flag if it does not add up" },
   edgar: { color: "#fbbf24", caption: "Question → filing evidence → calculator-checked answer" },
   analyst: { color: "#34d399", caption: "Plain English → read-only SQL → result table" },
   rag: { color: "#22d3ee", caption: "Documents → hybrid search → cited answer" },
@@ -19,6 +20,61 @@ function Scene({ kind, c }: { kind: BannerKind; c: string }) {
   const dim = "rgba(230,235,245,0.28)";
   const faint = "rgba(230,235,245,0.12)";
   switch (kind) {
+    case "docextract":
+      return (
+        <g>
+          <g transform="translate(130 40) rotate(-3 90 170)">
+            <path d="M0 0 H180 V330 l-15 -12 -15 12 -15 -12 -15 12 -15 -12 -15 12 -15 -12 -15 12 -15 -12 -15 12 -15 -12 -15 12 Z" fill="#f3efe4" stroke={dim} strokeWidth="2" />
+            <rect x="40" y="28" width="100" height="12" rx="6" fill="#26304f" />
+            {[70, 98, 126, 154].map((y, k) => (
+              <g key={y}>
+                <rect x="22" y={y} width={80 - k * 6} height="9" rx="4.5" fill="#8b93a8" />
+                <rect x="124" y={y} width="34" height="9" rx="4.5" fill="#8b93a8" />
+              </g>
+            ))}
+            <path d="M22 196 H158" stroke="#8b93a8" strokeWidth="2" />
+            <rect x="22" y="212" width="60" height="9" rx="4.5" fill="#8b93a8" />
+            <rect x="110" y="212" width="48" height="9" rx="4.5" fill="#8b93a8" />
+            <rect x="22" y="246" width="60" height="12" rx="6" fill="#26304f" />
+            <rect x="106" y="246" width="52" height="12" rx="6" fill="#26304f" />
+          </g>
+          <path d="M360 210 H430" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
+          <g transform="translate(445 80)">
+            <rect width="300" height="250" rx="14" fill="#0a1024" stroke={c} strokeWidth="2" />
+            <text x="24" y="42" fill={dim} fontSize="22" fontFamily="ui-monospace,monospace">{"{"}</text>
+            {[
+              ["vendor", "Harbour Cafe", 76],
+              ["subtotal", "22.70", 108],
+              ["tax", "1.82", 140],
+              ["total", "24.52", 172],
+            ].map(([k, v, y]) => (
+              <g key={k as string}>
+                <text x="44" y={y as number} fill={c} fontSize="17" fontFamily="ui-monospace,monospace">{k as string}:</text>
+                <text x="140" y={y as number} fill={ink} fontSize="17" fontFamily="ui-monospace,monospace">{v as string}</text>
+              </g>
+            ))}
+            <text x="24" y="216" fill={dim} fontSize="22" fontFamily="ui-monospace,monospace">{"}"}</text>
+          </g>
+          <path d="M770 210 H840" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
+          <g transform="translate(855 70)">
+            <rect width="250" height="270" rx="16" fill="#101734" stroke={dim} strokeWidth="2" />
+            <text x="24" y="40" fill={dim} fontSize="15" fontFamily="ui-monospace,monospace">ARITHMETIC CHECK</text>
+            {[
+              ["items = subtotal", true],
+              ["subtotal + tax = total", true],
+              ["line qty x price", true],
+            ].map(([t, ok], i) => (
+              <g key={t as string} transform={`translate(24 ${72 + i * 44})`}>
+                <circle cx="11" cy="11" r="11" fill={c} opacity="0.2" />
+                <path d="M5 11 l5 5 9-10" stroke={c} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                <text x="34" y="17" fill={ink} fontSize="16" fontFamily="ui-sans-serif,system-ui">{t as string}</text>
+              </g>
+            ))}
+            <rect x="24" y="214" width="202" height="34" rx="17" fill="#fbbf24" opacity="0.18" stroke="#fbbf24" />
+            <text x="125" y="236" textAnchor="middle" fill="#fbbf24" fontSize="14" fontWeight="700" fontFamily="ui-monospace,monospace">DOES NOT ADD UP → REVIEW</text>
+          </g>
+        </g>
+      );
     case "edgar":
       return (
         <g>

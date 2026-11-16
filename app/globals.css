@@ -1878,3 +1878,31 @@ ul {
   .projectBanner { border-radius: 16px; }
   .projectBanner figcaption { position: static; display: block; max-width: none; border-radius: 0; border: 0; border-top: 1px solid var(--border); font-size: 0.74rem; }
 }
+
+/* Doc Extract demo */
+.dxChipNote { color: var(--subtle); font-size: 0.85em; }
+.dxHead { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.dxHead .eaMeta { margin: 0; flex: 1 1 16rem; }
+.dxBadge {
+  display: inline-flex; align-items: center; padding: 0.3rem 0.8rem; border-radius: 999px;
+  font-weight: 700; font-size: 0.85rem; border: 1px solid currentColor;
+}
+.dxBadge[data-state="ok"] { color: #0f7a52; background: rgba(15, 157, 108, 0.1); }
+.dxBadge[data-state="review"] { color: #b45309; background: rgba(245, 158, 11, 0.14); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .dxBadge[data-state="ok"] { color: #48e0a4; }
+  :root:not([data-theme="light"]) .dxBadge[data-state="review"] { color: #fbbf24; }
+}
+:root[data-theme="dark"] .dxBadge[data-state="ok"] { color: #48e0a4; }
+:root[data-theme="dark"] .dxBadge[data-state="review"] { color: #fbbf24; }
+.dxGrid { display: grid; grid-template-columns: minmax(0, 220px) minmax(0, 1fr); gap: 1.25rem; align-items: start; margin-bottom: 1rem; }
+.dxPreview { width: 100%; height: auto; border-radius: 0.75rem; border: 1px solid var(--border); background: var(--surface-2); }
+.dxTotals { margin: 0.75rem 0 0; display: grid; gap: 0.25rem; }
+.dxTotals div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.35rem 0.6rem; border-radius: 0.5rem; }
+.dxTotals dt, .dxTotals dd { margin: 0; }
+.dxTotals dd { font-variant-numeric: tabular-nums; }
+.dxTotals [data-strong="true"] { font-weight: 700; border-top: 1px solid var(--border); border-radius: 0; }
+.dxTotals [data-flag="true"] { background: rgba(245, 158, 11, 0.16); outline: 1px solid rgba(245, 158, 11, 0.55); }
+.dxIssues { margin: 0 0 1rem; padding-left: 1.2rem; color: var(--muted); font-size: 0.92rem; }
+.dxIssues li { margin-bottom: 0.3rem; }
+@media (max-width: 640px) { .dxGrid { grid-template-columns: 1fr; } .dxPreview { max-width: 240px; } }

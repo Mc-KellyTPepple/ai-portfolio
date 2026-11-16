@@ -36,6 +36,21 @@ export const projects: Project[] = [
         repo: "https://github.com/Mc-KellyTPepple/sentinel-vision",
   },
   {
+    slug: "doc-extract",
+    title: "Doc Extract",
+    tagline: "Receipts to structured data, flagged when the numbers do not add up",
+    description:
+      "A vision model reads a receipt or invoice into JSON, and an arithmetic validator checks that the lines, subtotal, tax and total agree, re-reading once if they do not and flagging what still fails. Measured on the public CORD receipt set against OCR baselines, with the failures reported. Free models, free hosting.",
+    tags: ["Multimodal AI", "Document AI", "Vision LLM", "Validation", "Groq", "GitHub Actions"],
+    year: "2026",
+    featured: true,
+    url: "/doc-extract",
+    category: "Multimodal AI & Documents",
+    cta: "Extract a receipt",
+    accent: "cyan",
+    repo: "https://github.com/Mc-KellyTPepple/doc-extract",
+  },
+  {
     slug: "edgar-analyst",
     title: "EDGAR Analyst",
     tagline: "An agent for SEC filings that shows its evidence",
