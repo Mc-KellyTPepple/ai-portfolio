@@ -6,7 +6,7 @@ type Props = { mode: "wake" | "ask" };
 
 const TOTAL_SECONDS = 75;
 const WAKE_STEPS = [
-  "Waking the free server",
+  "Waking the server",
   "Opening the demo database",
   "Connecting to the model",
   "Getting the agent ready",
@@ -22,7 +22,7 @@ const ASK_STEPS = [
 const STORIES = [
   {
     title: "Why the wait?",
-    text: "This runs on a free server that sleeps when nobody is using it. Starting it takes up to a minute, and you are the one who woke it up.",
+    text: "This server sleeps when nobody is using it. Starting it takes up to a minute, and you are the one who woke it up.",
   },
   {
     title: "The model never touches your data",

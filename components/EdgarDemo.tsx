@@ -148,7 +148,7 @@ export default function EdgarDemo() {
       )}
 
       <p className="cvNote">
-        Free demo on a free model quota, so it can be slow or say it is busy. Each visitor gets 10
+        This demo runs on a limited daily model quota, so it can be slow or say it is busy. Each visitor gets 10
         questions an hour. Not investment advice.
       </p>
     </div>

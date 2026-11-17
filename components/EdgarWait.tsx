@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 
 type Props = {
-  /** "wake": the free server is starting up. "ask": the agent is working on a question. */
+  /** "wake": the server is starting up. "ask": the agent is working on a question. */
   mode: "wake" | "ask";
 };
 
 const TOTAL_SECONDS = 75;
 
 const WAKE_STEPS = [
-  "Waking the free server",
+  "Waking the server",
   "Loading the filings database",
   "Loading the search index",
   "Getting the agent ready",
@@ -28,7 +28,7 @@ const ASK_STEPS = [
 const STORIES = [
   {
     title: "Why the wait?",
-    text: "This runs on a free server that sleeps when nobody is using it. Starting it takes up to a minute, and you are the one who woke it up.",
+    text: "This server sleeps when nobody is using it. Starting it takes up to a minute, and you are the one who woke it up.",
   },
   {
     title: "What is a 10-K?",
@@ -51,8 +51,8 @@ const STORIES = [
     text: "Numbers come from structured filing data. Facts that only appear in prose, like employee counts, come from searching the filing text.",
   },
   {
-    title: "Free on every layer",
-    text: "Free Groq models with automatic fallback, free Render hosting and free GitHub Actions for the nightly evaluation.",
+    title: "Lean on every layer",
+    text: "Groq models with automatic fallback, Render hosting and GitHub Actions for the nightly evaluation.",
   },
   {
     title: "Try a comparison",

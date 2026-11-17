@@ -10,7 +10,7 @@ const EMAIL = "mckelly2014@gmail.com";
 export const metadata: Metadata = {
   title: "EDGAR Analyst | Mc-Kelly Pepple",
   description:
-    "A research agent that answers questions about SEC 10-K filings with calculator-checked numbers and filing citations, plus an automatic evaluation suite. Free Groq models, free hosting. Ask it a question.",
+    "A research agent that answers questions about SEC 10-K filings with calculator-checked numbers and filing citations, plus an automatic evaluation suite. Groq models, cloud hosting. Ask it a question.",
   alternates: { canonical: "/edgar-analyst" },
   openGraph: {
     title: "EDGAR Analyst | Mc-Kelly Pepple",
@@ -36,9 +36,9 @@ const stack = [
 
 const facts = [
   { label: "Data", value: "10-K filings of 10 large tech companies" },
-  { label: "Models", value: "Free Groq models with automatic fallback" },
+  { label: "Models", value: "Groq models with automatic fallback" },
   { label: "Evaluation", value: "187-question suite plus two held-out sets" },
-  { label: "Hosting", value: "Render free plan (sleeps when idle)" },
+  { label: "Hosting", value: "Render (sleeps when idle)" },
 ];
 
 const design = [
@@ -55,8 +55,8 @@ const design = [
     text: "For facts that only appear in prose, such as employee counts, it searches Item 1, 1A and 7 with keyword search and local embeddings fused by reciprocal rank fusion.",
   },
   {
-    title: "Built for a free quota",
-    text: "A rate limiter, a fallback chain across three Groq models, a response cache and a daily ledger keep it inside free limits. The web service adds per-visitor and daily caps.",
+    title: "Built for a limited quota",
+    text: "A rate limiter, a fallback chain across three Groq models, a response cache and a daily ledger keep it inside the provider's rate limits. The web service adds per-visitor and daily caps.",
   },
 ];
 
@@ -64,7 +64,7 @@ const limits = [
   "The held-out sets reuse the same question templates and the same 10 companies, so they test unseen questions, not unseen kinds of question.",
   "They contain no refusal or filing-text questions, and results came from a mix of prompt versions and models, partly the smaller 20B model.",
   "The 23 filing-text questions were used to find and fix failures, so 100% there is a tuned-on score; there is no held-out filing-text set yet.",
-  "On the free tier the first answer after idle can be slow, and the shared daily quota can run out, in which case the demo says so.",
+  "The first answer after idle can be slow, and the shared daily quota can run out, in which case the demo says so.",
 ];
 
 export default function EdgarAnalystPage() {
@@ -137,7 +137,7 @@ export default function EdgarAnalystPage() {
             <p className="eyebrow">Try it</p>
             <h2>Ask about a 10-K</h2>
             <p>
-              The API runs on a free server that sleeps when idle. This page wakes it as soon as
+              The API server sleeps when idle. This page wakes it as soon as
               you arrive. The first start takes about a minute, so there is a walkthrough of real runs to read while it loads.
             </p>
           </div>

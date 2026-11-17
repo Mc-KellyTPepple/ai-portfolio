@@ -5,12 +5,12 @@ import { useEffect, useState } from "react";
 type Props = { mode: "wake" | "extract" };
 
 const TOTAL_SECONDS = 75;
-const WAKE_STEPS = ["Waking the free server", "Starting the extractor", "Connecting to the vision model", "Getting ready"];
+const WAKE_STEPS = ["Waking the server", "Starting the extractor", "Connecting to the vision model", "Getting ready"];
 const EXTRACT_STEPS = ["Preparing the image", "Reading the receipt", "Writing the fields", "Checking the arithmetic", "Re-reading if something is off"];
 const STORIES = [
   {
     title: "Why the wait?",
-    text: "This runs on a free server that sleeps when nobody is using it. Starting it takes up to a minute, and you are the one who woke it up.",
+    text: "This server sleeps when nobody is using it. Starting it takes up to a minute, and you are the one who woke it up.",
   },
   {
     title: "It checks its own sums",

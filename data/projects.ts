@@ -40,7 +40,7 @@ export const projects: Project[] = [
     title: "Doc Extract",
     tagline: "Receipts to structured data, flagged when the numbers do not add up",
     description:
-      "A vision model reads a receipt or invoice into JSON, and an arithmetic validator checks that the lines, subtotal, tax and total agree, re-reading once if they do not and flagging what still fails. Measured on the public CORD receipt set against OCR baselines, with the failures reported. Free models, free hosting.",
+      "A vision model reads a receipt or invoice into JSON, and an arithmetic validator checks that the lines, subtotal, tax and total agree, re-reading once if they do not and flagging what still fails. Measured on the public CORD receipt set against OCR baselines, with the failures reported. Groq-hosted models, cloud hosting.",
     tags: ["Multimodal AI", "Document AI", "Vision LLM", "Validation", "Groq", "GitHub Actions"],
     year: "2026",
     featured: true,
@@ -55,7 +55,7 @@ export const projects: Project[] = [
     title: "EDGAR Analyst",
     tagline: "An agent for SEC filings that shows its evidence",
     description:
-      "A research agent over 10-K filings with calculator-checked numbers, filing citations and honest refusals, plus an automatic evaluation suite with held-out sets. Runs on free Groq models and free hosting, with a frontend that hides cold starts.",
+      "A research agent over 10-K filings with calculator-checked numbers, filing citations and honest refusals, plus an automatic evaluation suite with held-out sets. Runs on Groq models and cloud hosting, with a frontend that hides cold starts.",
     tags: ["LLM Agents", "Evaluation", "Tool Use", "Hybrid Retrieval", "Groq", "GitHub Actions"],
     year: "2026",
     featured: true,
@@ -70,7 +70,7 @@ export const projects: Project[] = [
     title: "Data Analyst Agent",
     tagline: "Ask your data in plain English, measured on Spider",
     description:
-      "A text-to-SQL agent that runs model-written queries read-only, reads results and errors, and asks when a question is ambiguous. Upload a CSV or use the demo shop. Scored on the public Spider benchmark with an ablation and an honest failure analysis, on free models and free hosting.",
+      "A text-to-SQL agent that runs model-written queries read-only, reads results and errors, and asks when a question is ambiguous. Upload a CSV or use the demo shop. Scored on the public Spider benchmark with an ablation and an honest failure analysis, on Groq-hosted models and cloud hosting.",
     tags: ["LLM Agents", "Text-to-SQL", "Evaluation", "SQLite", "Groq", "GitHub Actions"],
     year: "2026",
     featured: true,
@@ -85,7 +85,7 @@ export const projects: Project[] = [
     title: "Ask Your Files (RAG)",
     tagline: "Document Q&A with sources you can check",
     description:
-      "Upload PDFs, Office files, spreadsheets, web pages or images and ask questions. Hybrid vector and keyword search with reranking, OCR for scans, and numbered citations, running on free hosting with a frontend that hides cold starts.",
+      "Upload PDFs, Office files, spreadsheets, web pages or images and ask questions. Hybrid vector and keyword search with reranking, OCR for scans, and numbered citations, running on cloud hosting with a frontend that hides cold starts.",
     tags: ["RAG", "pgvector", "FastAPI", "Reranking", "OCR", "Supabase"],
     year: "2026",
     featured: true,

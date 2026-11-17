@@ -1,6 +1,6 @@
 /** Single place to configure the Doc Extract page (/doc-extract). */
 
-/** Live API on Render's free plan. It sleeps when idle; opening the page wakes it. */
+/** Live API on Render. It sleeps when idle; opening the page wakes it. */
 export const DOCX_API_URL = "https://doc-extract-mvhp.onrender.com";
 
 export const DOCX_REPO_URL = "https://github.com/Mc-KellyTPepple/doc-extract";
@@ -18,7 +18,7 @@ export const DOCX_MAX_SIDE = 1600;
 /**
  * Benchmark numbers. NOT PUBLISHED YET: the first run used a prompt that made the model write printed amounts like
  * "60.000" as the number 60.0, so its numbers measured the prompt, not the model. The fix is deployed and the benchmark
- * is re-running under Groq's free daily quota (about 45 vision receipts a day). When the run finishes, copy the table from
+ * is re-running under Groq's daily quota (about 45 vision receipts a day). When the run finishes, copy the table from
  * results/results.md in the repo into DOCX_RESULTS, then set DOCX_RESULTS_FINAL to true.
  */
 export const DOCX_RESULTS_FINAL = false;

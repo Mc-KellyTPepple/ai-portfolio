@@ -66,7 +66,7 @@ const facts = [
   { label: "Frontend", value: "Static PWA, no build step" },
   { label: "Backend", value: "Supabase Auth, Postgres + Edge Functions" },
   { label: "Scheduling", value: "pg_cron, SQL-only tick" },
-  { label: "Hosting", value: "Render static site (free)" },
+  { label: "Hosting", value: "Render static site" },
 ];
 
 const stack = [

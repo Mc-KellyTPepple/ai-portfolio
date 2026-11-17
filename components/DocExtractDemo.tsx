@@ -261,7 +261,7 @@ export default function DocExtractDemo() {
       )}
 
       <p className="cvNote">
-        Free demo on a free model quota, so it can be slow or say it is busy. Each visitor gets 6 receipts an hour. Always check
+        This demo runs on a limited daily model quota, so it can be slow or say it is busy. Each visitor gets 6 receipts an hour. Always check
         important amounts against the original document.
       </p>
     </div>

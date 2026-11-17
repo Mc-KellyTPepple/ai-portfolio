@@ -10,7 +10,7 @@ const EMAIL = "mckelly2014@gmail.com";
 export const metadata: Metadata = {
   title: "Data Analyst Agent | Mc-Kelly Pepple",
   description:
-    "Ask questions of a database or a CSV in plain English. A read-only SQL agent that fixes its own errors, measured on the Spider benchmark with the failures reported. Free models, free hosting.",
+    "Ask questions of a database or a CSV in plain English. A read-only SQL agent that fixes its own errors, measured on the Spider benchmark with the failures reported. Groq-hosted models, cloud hosting.",
   alternates: { canonical: "/data-analyst" },
   openGraph: {
     title: "Data Analyst Agent | Mc-Kelly Pepple",
@@ -26,7 +26,7 @@ const facts = [
   { label: "Task", value: "Plain-English questions over SQL data" },
   { label: "Safety", value: "Read-only, one statement, time-limited" },
   { label: "Evaluation", value: "Spider development set, execution accuracy" },
-  { label: "Hosting", value: "Render free plan, wakes on visit" },
+  { label: "Hosting", value: "Render, wakes on visit" },
 ];
 
 const design = [
@@ -55,7 +55,7 @@ const findings = [
   "The first run (before a prompt fix) had the agent about 3 points behind the baseline. 13 of its 32 wrong answers added helpful extra columns, which Spider's strict scoring rejects, and one was lost to a parsing bug. Fixing both closed the gap.",
   "Agreement between candidate queries is a useful confidence signal: on the first sample, when all five return the same rows, accuracy is 91 to 94%; when they split, it drops to 33 to 71%. That points to where a clarifying question or a warning belongs.",
   "The second sample scored lower than the first for every configuration (for example one shot 82% to 77% on the larger model), a reminder that single samples of 100 move by several points. Some misses also trace to errors in Spider's own gold queries.",
-  "The live demo uses the lean configuration: it matches the agent's accuracy at about 40% of its tokens, which is what lets a free quota serve more visitors.",
+  "The live demo uses the lean configuration: it matches the agent's accuracy at about 40% of its tokens, which is what lets a limited daily quota serve more visitors.",
 ];
 
 export default function DataAnalystPage() {
@@ -121,7 +121,7 @@ export default function DataAnalystPage() {
             <p className="eyebrow">Try it</p>
             <h2>Ask a database a question</h2>
             <p>
-              Use the made-up demo shop or upload your own CSV. The server is on a free plan that sleeps when idle; this
+              Use the made-up demo shop or upload your own CSV. The server sleeps when idle; this
               page wakes it as soon as you arrive, and a short tour plays while it starts.
             </p>
           </div>
@@ -160,7 +160,7 @@ export default function DataAnalystPage() {
             </table>
           </div>
           <p className="cvNote">
-            With 100 questions per sample, differences of a few points are within noise. Models are two free Groq models; every cell is a full 100 questions.
+            With 100 questions per sample, differences of a few points are within noise. Models are two Groq-hosted models; every cell is a full 100 questions.
           </p>
           <div className="toolkitCard eaTableWrap">
             <table className="eaTable">

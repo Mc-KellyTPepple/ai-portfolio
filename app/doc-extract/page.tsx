@@ -10,7 +10,7 @@ const EMAIL = "mckelly2014@gmail.com";
 export const metadata: Metadata = {
   title: "Doc Extract | Mc-Kelly Pepple",
   description:
-    "A vision model reads receipts and invoices into structured data, an arithmetic validator flags what does not add up, and it is measured on the public CORD set against OCR baselines. Free models, free hosting.",
+    "A vision model reads receipts and invoices into structured data, an arithmetic validator flags what does not add up, and it is measured on the public CORD set against OCR baselines. Groq-hosted models, cloud hosting.",
   alternates: { canonical: "/doc-extract" },
   openGraph: {
     title: "Doc Extract | Mc-Kelly Pepple",
@@ -26,7 +26,7 @@ const facts = [
   { label: "Task", value: "Receipt image to structured JSON" },
   { label: "Safety net", value: "Arithmetic check, flag for review" },
   { label: "Evaluation", value: "CORD v2 receipts vs OCR baselines" },
-  { label: "Hosting", value: "Render free plan, wakes on visit" },
+  { label: "Hosting", value: "Render, wakes on visit" },
 ];
 
 const configs = [
@@ -66,7 +66,7 @@ const limits = [
   "CORD receipts are Indonesian, photographed and mostly food and drink. Results do not automatically carry over to other languages, long multi-page invoices or handwriting.",
   "The sample is 100 receipts, so differences smaller than about ten points are noise. Intervals are published with the numbers.",
   "Arithmetic validation cannot catch an error that keeps the sums consistent, such as a wrong scale on every field or two misread digits that cancel out.",
-  "The free model quota limits how many receipts can be processed per day, which is why the benchmark takes several days.",
+  "The daily model quota limits how many receipts can be processed per day, which is why the benchmark takes several days.",
 ];
 
 export default function DocExtractPage() {
@@ -131,7 +131,7 @@ export default function DocExtractPage() {
             <p className="eyebrow">Try it</p>
             <h2>Read a receipt</h2>
             <p>
-              Pick a sample or upload your own. The server is on a free plan that sleeps when idle; this page wakes it as soon as you
+              Pick a sample or upload your own. The server sleeps when idle; this page wakes it as soon as you
               arrive, and a short tour plays while it starts. One sample is misprinted on purpose so you can see the review flag.
             </p>
           </div>
@@ -187,7 +187,7 @@ export default function DocExtractPage() {
             <div className="toolkitCard">
               <p className="eyebrow">Results pending</p>
               <p className="htCardText">
-                The benchmark is re-running after a fix (below). The free model quota allows about 45 vision receipts a day, so the
+                The benchmark is re-running after a fix (below). The daily model quota allows about 45 vision receipts a day, so the
                 full 100-receipt table will be added here when it finishes, with the failures.
               </p>
             </div>

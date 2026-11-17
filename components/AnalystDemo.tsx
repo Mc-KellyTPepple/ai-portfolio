@@ -267,7 +267,7 @@ export default function AnalystDemo() {
       )}
 
       <p className="cvNote">
-        Free demo on a free model quota, so it can be slow or say it is busy. Each visitor gets 10 questions an hour. The demo
+        This demo runs on a limited daily model quota, so it can be slow or say it is busy. Each visitor gets 10 questions an hour. The demo
         shop is made-up data. Check important numbers against the SQL shown.
       </p>
     </div>

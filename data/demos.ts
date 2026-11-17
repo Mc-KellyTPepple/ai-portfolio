@@ -44,7 +44,7 @@ export const plantDisease: Demo = {
     { label: "Model", value: "MobileNetV3-Large" },
     { label: "Runtime", value: "ONNX Runtime on CPU" },
     { label: "Interface", value: "Gradio" },
-    { label: "Hosting", value: "Render free plan" },
+    { label: "Hosting", value: "Render" },
   ],
   probe: "plant",
   statusLabel: "Plant model \u00b7 Render",
@@ -52,7 +52,7 @@ export const plantDisease: Demo = {
   embed: true,
   tryHeading: "Upload a leaf and see the prediction",
   tryText:
-    "The model runs on a free server that sleeps when idle. This page wakes it as soon as you arrive, and the demo appears below when it is ready.",
+    "The model server sleeps when idle. This page wakes it as soon as you arrive, and the demo appears below when it is ready.",
   openLabel: "Open in a new tab",
   frameTitle: "Plant disease detection demo",
   pointsEyebrow: "Getting good results",
@@ -87,7 +87,7 @@ export const animalClassifier: Demo = {
     { label: "Classes", value: "Cat, dog, bird" },
     { label: "Runtime", value: "ONNX Runtime on CPU" },
     { label: "Pipeline", value: "Preprocessing, training, deployment" },
-    { label: "Hosting", value: "Render free plan" },
+    { label: "Hosting", value: "Render" },
   ],
   probe: "animal",
   statusLabel: "Animal model \u00b7 Render",
@@ -95,7 +95,7 @@ export const animalClassifier: Demo = {
   embed: true,
   tryHeading: "Upload a photo and get a prediction",
   tryText:
-    "The model runs on a free server that sleeps when idle. This page wakes it as soon as you arrive, and the demo appears below when it is ready.",
+    "The model server sleeps when idle. This page wakes it as soon as you arrive, and the demo appears below when it is ready.",
   openLabel: "Open in a new tab",
   frameTitle: "Animal image classifier demo",
   pointsEyebrow: "Getting good results",
@@ -138,13 +138,13 @@ export const askYourFiles: Demo = {
   embed: false,
   tryHeading: "Private workspaces, by access code",
   tryText:
-    "Documents stay private to each access code, so the app asks for one. Request a code and I will send you one. The backend sleeps when idle on the free plan; this page wakes it while you read.",
+    "Documents stay private to each access code, so the app asks for one. Request a code and I will send you one. The backend sleeps when idle; this page wakes it while you read.",
   openLabel: "Open the app",
   frameTitle: "Ask your files",
   extra: { subject: "Ask your files access code", label: "Request an access code" },
   pointsEyebrow: "Under the hood",
   pointsHeading: "What makes the answers checkable",
-  pointsText: "The interesting parts are retrieval quality and running it all on free hosting.",
+  pointsText: "The interesting parts are retrieval quality and running it all on lean cloud hosting.",
   points: [
     {
       title: "Hybrid retrieval",

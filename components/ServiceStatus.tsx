@@ -116,7 +116,7 @@ export default function ServiceStatus({
     void run();
   };
 
-  // Visiting the page wakes the free-tier server in the background, so it is
+  // Visiting the page wakes the server in the background, so it is
   // usually warm by the time the visitor has read the page.
   // Only a real, visible visitor wakes it: crawlers, headless browsers and tabs opened in the background (prefetch, link previews)
   // do not, and it never pings again after it has come online, so the server falls asleep again 15 minutes after the visitor leaves.
@@ -159,14 +159,14 @@ export default function ServiceStatus({
   const detail = {
     checking: "Sending a quick health check.",
     waking:
-      "The backend runs on a free hosting plan that sleeps when idle. A cold start usually takes 30 to 60 seconds. This page stays available the whole time.",
+      "The backend sleeps when idle. A cold start usually takes 30 to 60 seconds. This page stays available the whole time.",
     online:
       readyText ??
       (verified
         ? "Health check passed. The API is ready for testing."
         : "The API answered. It is ready for testing."),
     offline:
-      "It did not wake within two minutes. This can happen on free hosting. Try again, or get in touch and I will look at it.",
+      "It did not wake within two minutes. This can happen after a long idle period. Try again, or get in touch and I will look at it.",
   }[state];
 
   return (

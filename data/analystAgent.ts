@@ -1,6 +1,6 @@
 /** Single place to configure the Data Analyst Agent page (/data-analyst). */
 
-/** Live API on Render's free plan. It sleeps when idle; opening the page wakes it. */
+/** Live API on Render. It sleeps when idle; opening the page wakes it. */
 export const ANALYST_API_URL = "https://data-analyst-agent-mti6.onrender.com";
 
 export const ANALYST_REPO_URL = "https://github.com/Mc-KellyTPepple/data-analyst-agent";

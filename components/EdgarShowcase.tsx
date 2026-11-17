@@ -10,11 +10,11 @@ type Props = {
 };
 
 const STAGES = [
-  { at: 0, title: "Waking the server", text: "Free hosting puts idle services to sleep. Your visit is the wake-up call." },
+  { at: 0, title: "Waking the server", text: "Idle services go to sleep. Your visit is the wake-up call." },
   { at: 15, title: "Starting the Python service", text: "The standard-library web server boots and opens its port." },
   { at: 30, title: "Opening the filings database", text: "Structured facts and filing text are read from two SQLite files." },
   { at: 45, title: "Warming the search index", text: "Keyword search and a small embedding model get ready for filing-text questions." },
-  { at: 60, title: "Almost there", text: "A cold start on the free plan can run a little past a minute." },
+  { at: 60, title: "Almost there", text: "A cold start can run a little past a minute." },
 ];
 
 const SAMPLES = [
@@ -101,7 +101,7 @@ export default function EdgarShowcase({ elapsed, ready }: Props) {
               );
             })}
           </ol>
-          <p className="eaNote">Typical steps and timing for a free-plan cold start, not a live log.</p>
+          <p className="eaNote">Typical steps and timing for a cold start, not a live log.</p>
         </div>
       )}
 
