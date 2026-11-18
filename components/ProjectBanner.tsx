@@ -23,20 +23,12 @@ function Scene({ kind, c }: { kind: BannerKind; c: string }) {
     case "docextract":
       return (
         <g>
-          <g transform="translate(130 40) rotate(-3 90 170)">
-            <path d="M0 0 H180 V330 l-15 -12 -15 12 -15 -12 -15 12 -15 -12 -15 12 -15 -12 -15 12 -15 -12 -15 12 -15 -12 -15 12 Z" fill="#f3efe4" stroke={dim} strokeWidth="2" />
-            <rect x="40" y="28" width="100" height="12" rx="6" fill="#26304f" />
-            {[70, 98, 126, 154].map((y, k) => (
-              <g key={y}>
-                <rect x="22" y={y} width={80 - k * 6} height="9" rx="4.5" fill="#8b93a8" />
-                <rect x="124" y={y} width="34" height="9" rx="4.5" fill="#8b93a8" />
-              </g>
+          <g transform="translate(110 78) rotate(-2.5 114 113)">
+            <rect x="6" y="8" width="228" height="226" rx="4" fill="#000" opacity="0.35" />
+            <image href="/doc-extract/sample-cafe.jpg" width="228" height="226" preserveAspectRatio="xMidYMid slice" />
+            {[[126, 14], [141.5, 14], [157.5, 15]].map(([y, h]) => (
+              <rect key={y} x="12" y={y} width="204" height={h} rx="3" fill="none" stroke={c} strokeWidth="2" />
             ))}
-            <path d="M22 196 H158" stroke="#8b93a8" strokeWidth="2" />
-            <rect x="22" y="212" width="60" height="9" rx="4.5" fill="#8b93a8" />
-            <rect x="110" y="212" width="48" height="9" rx="4.5" fill="#8b93a8" />
-            <rect x="22" y="246" width="60" height="12" rx="6" fill="#26304f" />
-            <rect x="106" y="246" width="52" height="12" rx="6" fill="#26304f" />
           </g>
           <path d="M360 210 H430" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
           <g transform="translate(445 80)">
@@ -70,8 +62,8 @@ function Scene({ kind, c }: { kind: BannerKind; c: string }) {
                 <text x="34" y="17" fill={ink} fontSize="16" fontFamily="ui-sans-serif,system-ui">{t as string}</text>
               </g>
             ))}
-            <rect x="24" y="214" width="202" height="34" rx="17" fill="#fbbf24" opacity="0.18" stroke="#fbbf24" />
-            <text x="125" y="236" textAnchor="middle" fill="#fbbf24" fontSize="14" fontWeight="700" fontFamily="ui-monospace,monospace">DOES NOT ADD UP → REVIEW</text>
+            <rect x="24" y="214" width="202" height="34" rx="17" fill={c} opacity="0.16" stroke={c} />
+            <text x="125" y="236" textAnchor="middle" fill={c} fontSize="14" fontWeight="700" fontFamily="ui-monospace,monospace">ALL CHECKS PASSED</text>
           </g>
         </g>
       );
