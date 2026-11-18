@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ProjectBanner from "@/components/ProjectBanner";
 import SocialLinks from "@/components/SocialLinks";
 import { HABIT_APP_URL, HABIT_REPO_URL } from "@/data/habitTracker";
 
@@ -152,7 +151,17 @@ export default function HabitTrackerPage() {
           </dl>
         </section>
 
-        <ProjectBanner kind="habit" />
+        <figure className="projectBanner dxHeroImage">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/habit-tracker/banner.webp"
+            width={1600}
+            height={900}
+            alt="Concept artwork: a habit tracker on a laptop and a phone showing a list of daily habits with streaks and progress"
+            decoding="async"
+          />
+          <figcaption>Concept artwork. The live app is linked above.</figcaption>
+        </figure>
 
         <section id="how" className="section">
           <div className="sectionHeading">
