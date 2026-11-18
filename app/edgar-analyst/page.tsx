@@ -63,7 +63,7 @@ const design = [
 
 const limits = [
   "The held-out sets reuse the same question templates and the same 10 companies, so they test unseen questions, not unseen kinds of question.",
-  "They contain no refusal or filing-text questions, and results came from a mix of prompt versions and models, partly the smaller 20B model.",
+  "They contain no refusal or filing-text questions, and results came from a mix of prompt versions and models, partly gpt-oss-20b (the smaller model) rather than gpt-oss-120b (the larger).",
   "The 23 filing-text questions were used to find and fix failures, so 100% there is a tuned-on score; there is no held-out filing-text set yet.",
   "The first answer after idle can be slow, and the shared daily quota can run out, in which case the demo says so.",
 ];
