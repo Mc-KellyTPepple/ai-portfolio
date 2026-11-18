@@ -16,23 +16,32 @@ const mk = (label: string, k: number, n: number, detail = "") => {
 export default function AnalystBoard() {
   return (
     <div className="abBoard toolkitCard">
+      <div className="abGroup">
+        <h4>Execution accuracy on 200 Spider questions, both models side by side</h4>
+        <p className="eaMeta" style={{ margin: "0 0 0.5rem" }}>
+          Same 200 questions for every bar. The thin line is the 95% interval; all the bars overlap, so the four approaches tie.
+        </p>
+        <p className="abLegend">
+          <span><i className="abDot" /> gpt-oss-120b (larger)</span>
+          <span><i className="abDot" data-tone="alt" /> gpt-oss-20b (smaller)</span>
+        </p>
+        {CONFIGS.map((c) => (
+          <div className="abPair" key={c.label}>
+            <p className="abPairTitle">
+              {c.label} <span className="eaMeta">· about {c.tokens.toLocaleString()} tokens per question</span>
+            </p>
+            <BenchBars title="" rows={[mk("120b", c.big, 200), { ...mk("20b", c.small, 200), tone: "alt" as const }]} />
+          </div>
+        ))}
+      </div>
       <BenchBars
-        title="Smaller model, execution accuracy on 200 Spider questions"
-        sub="Same questions for every row. The thin line is the 95% interval; the rows overlap, so the approaches tie."
-        rows={CONFIGS.map((c) => mk(`${c.label} · ~${c.tokens.toLocaleString()} tokens`, c.small, 200))}
-      />
-      <BenchBars
-        title="Larger model, same questions"
-        rows={CONFIGS.map((c) => mk(`${c.label} · ~${c.tokens.toLocaleString()} tokens`, c.big, 200))}
-      />
-      <BenchBars
-        title="Agreement as a confidence signal (five candidates, sample 1)"
+        title="Agreement as a confidence signal (five candidates, sample 1, 100 questions per model)"
         sub="When all five queries return the same rows the answer is far more likely to be right."
         rows={[
-          mk("Smaller model · all five agree", 68, 72),
-          mk("Smaller model · candidates split", 20, 28),
-          mk("Larger model · all five agree", 77, 85),
-          mk("Larger model · candidates split", 5, 15),
+          mk("120b · all five agree", 77, 85),
+          mk("120b · candidates split", 5, 15),
+          { ...mk("20b · all five agree", 68, 72), tone: "alt" as const },
+          { ...mk("20b · candidates split", 20, 28), tone: "alt" as const },
         ]}
       />
       <div className="abStats">

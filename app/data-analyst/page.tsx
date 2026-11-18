@@ -50,12 +50,12 @@ const design = [
 ];
 
 const findings = [
-  "Across 200 questions per model, the one-shot baseline, the tool-using agent and majority voting land within about three points of each other (78.5 to 80% on the larger model, 81.5 to 84.5% on the smaller one). Tools and retries did not raise Spider accuracy; they cost about four times the tokens.",
+  "Across 200 questions per model, the one-shot baseline, the tool-using agent and majority voting land within about three points of each other (78.5 to 80% on gpt-oss-120b, 81.5 to 84.5% on gpt-oss-20b). Tools and retries did not raise Spider accuracy; they cost about four times the tokens.",
   "Two ablations point the same way. Allowing only one try scored the same as five (82% and 84% against 81% and 86%), and leaving the sample rows out of the prompt scored no worse (83% and 87%) at about 30% fewer tokens.",
   "The reason is where the errors are: the agent hits about 0.01 SQL errors per question, so retry-on-error rarely fires. Wrong answers are mostly valid SQL that returns the wrong rows.",
   "The first run (before a prompt fix) had the agent about 3 points behind the baseline. 13 of its 32 wrong answers added helpful extra columns, which Spider's strict scoring rejects, and one was lost to a parsing bug. Fixing both closed the gap.",
   "Agreement between candidate queries is a useful confidence signal: on the first sample, when all five return the same rows, accuracy is 91 to 94%; when they split, it drops to 33 to 71%. That points to where a clarifying question or a warning belongs.",
-  "The second sample scored lower than the first for every configuration (for example one shot 82% to 77% on the larger model), a reminder that single samples of 100 move by several points. Some misses also trace to errors in Spider's own gold queries.",
+  "The second sample scored lower than the first for every configuration (for example one shot 82% to 77% on gpt-oss-120b), a reminder that single samples of 100 move by several points. Some misses also trace to errors in Spider's own gold queries.",
   "The live demo uses the lean configuration: it matches the agent's accuracy at about 40% of its tokens, which is what lets a limited daily quota serve more visitors.",
 ];
 
@@ -135,7 +135,7 @@ export default function DataAnalystPage() {
             <h2>What the benchmark showed</h2>
             <p>
               Execution accuracy on two reproducible 100-question samples of Spider&apos;s development set: the predicted and gold
-              queries must return the same rows. Each model was tested separately, with the same questions for every row. Cells read: sample 1 / sample 2, then the score over all 200.
+              queries must return the same rows. Each of the two models (gpt-oss-120b, the larger, and gpt-oss-20b, the smaller) was tested separately, with the same questions for every row. Cells read: sample 1 / sample 2, then the score over all 200.
             </p>
           </div>
           <AnalystBoard />
@@ -144,8 +144,8 @@ export default function DataAnalystPage() {
               <thead>
                 <tr>
                   <th scope="col">Configuration</th>
-                  <th scope="col">Larger model</th>
-                  <th scope="col">Smaller model</th>
+                  <th scope="col">gpt-oss-120b (larger)</th>
+                  <th scope="col">gpt-oss-20b (smaller)</th>
                   <th scope="col">Tokens per question</th>
                 </tr>
               </thead>
@@ -169,8 +169,8 @@ export default function DataAnalystPage() {
               <thead>
                 <tr>
                   <th scope="col">Ablations (sample 1): what the agent&apos;s extras are worth</th>
-                  <th scope="col">Larger model</th>
-                  <th scope="col">Smaller model</th>
+                  <th scope="col">gpt-oss-120b (larger)</th>
+                  <th scope="col">gpt-oss-20b (smaller)</th>
                   <th scope="col">Tokens per question</th>
                 </tr>
               </thead>
@@ -191,8 +191,8 @@ export default function DataAnalystPage() {
               <thead>
                 <tr>
                   <th scope="col">Majority vote: how much the candidates agreed</th>
-                  <th scope="col">Larger model</th>
-                  <th scope="col">Smaller model</th>
+                  <th scope="col">gpt-oss-120b (larger)</th>
+                  <th scope="col">gpt-oss-20b (smaller)</th>
                 </tr>
               </thead>
               <tbody>

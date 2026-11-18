@@ -1942,3 +1942,9 @@ ul {
 @media (max-width: 560px) { .abRow { grid-template-columns: 1fr 4rem; } .abRow .abTrack { grid-column: 1 / -1; order: 3; } }
 .dxSources { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; margin: 0.5rem 0; }
 .dxSources code { padding: 0.15rem 0.5rem; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); font-size: 0.8rem; }
+.abBar[data-tone="alt"] { background: var(--brand-2); }
+.abLegend { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0 0 0.5rem; font-size: 0.88rem; color: var(--muted); }
+.abDot { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--brand); margin-right: 0.35rem; }
+.abDot[data-tone="alt"] { background: var(--brand-2); }
+.abPair { margin: 0.6rem 0 0.9rem; }
+.abPairTitle { margin: 0; font-weight: 600; font-size: 0.92rem; }
