@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ProjectBanner from "@/components/ProjectBanner";
 import AnalystDemo from "@/components/AnalystDemo";
 import AnalystBoard from "@/components/AnalystBoard";
 import SocialLinks from "@/components/SocialLinks";
@@ -115,7 +114,17 @@ export default function DataAnalystPage() {
           </dl>
         </section>
 
-        <ProjectBanner kind="analyst" />
+        <figure className="projectBanner dxHeroImage">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/data-analyst/banner.webp"
+            width={1600}
+            height={900}
+            alt="Concept artwork: a laptop showing a sales dashboard and a chat window where a plain-English question returns a table of monthly sales"
+            decoding="async"
+          />
+          <figcaption>Concept artwork. The live demo below is the real thing.</figcaption>
+        </figure>
 
         <section id="try" className="section">
           <div className="sectionHeading">
