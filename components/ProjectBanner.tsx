@@ -305,7 +305,22 @@ function Scene({ kind, c }: { kind: BannerKind; c: string }) {
   }
 }
 
+const PHOTOS: Partial<Record<BannerKind, { src: string; width: number; height: number; alt: string; caption: string }>> = {
+  plant: { src: "/plant/leaf-comparison.webp", width: 800, height: 534, alt: "A healthy green leaf next to a diseased leaf with yellow and brown spots", caption: "Healthy leaf and diseased leaf, side by side" },
+  animal: { src: "/animal/cat-and-dog.webp", width: 858, height: 536, alt: "A small brown puppy facing an orange kitten", caption: "Cat or dog? The classifier decides" },
+};
+
 export default function ProjectBanner({ kind }: { kind: BannerKind }) {
+  const photo = PHOTOS[kind];
+  if (photo) {
+    return (
+      <figure className="projectBanner photoBanner">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} decoding="async" />
+        <figcaption>{photo.caption}</figcaption>
+      </figure>
+    );
+  }
   const { color, caption } = META[kind];
   const id = `pb-${kind}`;
   return (

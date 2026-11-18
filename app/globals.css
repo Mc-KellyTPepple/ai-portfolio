@@ -1949,3 +1949,5 @@ ul {
 .abPair { margin: 0.6rem 0 0.9rem; }
 .abPairTitle { margin: 0; font-weight: 600; font-size: 0.92rem; }
 .projectBanner.dxHeroImage img { display: block; width: 100%; height: auto; }
+.projectBanner.photoBanner { background: #0b1024; display: grid; place-items: center; }
+.projectBanner.photoBanner img { display: block; width: auto; max-width: 100%; height: auto; max-height: 440px; object-fit: contain; }
