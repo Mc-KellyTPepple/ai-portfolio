@@ -11,7 +11,7 @@ const META: Record<BannerKind, { color: string; caption: string }> = {
   analyst: { color: "#34d399", caption: "Plain English → read-only SQL → result table" },
   rag: { color: "#22d3ee", caption: "Documents → hybrid search → cited answer" },
   habit: { color: "#a78bfa", caption: "Scheduled reminder → device confirms → retries stop" },
-  plant: { color: "#a3e635", caption: "Leaf photo → disease class → confidence" },
+  plant: { color: "#a3e635", caption: "Leaf photo → disease class → confidence. Photo: PlantVillage dataset (Hughes & Salathé)." },
   animal: { color: "#fbbf24", caption: "Image → classifier → cat, dog or bird" },
 };
 
@@ -225,22 +225,20 @@ function Scene({ kind, c }: { kind: BannerKind; c: string }) {
       return (
         <g>
           <g transform="translate(150 50)">
-            <rect width="360" height="320" rx="18" fill="#0d1a24" stroke={dim} strokeWidth="2" />
-            <path d="M180 270 C 40 220 40 90 180 36 C 320 90 320 220 180 270 Z" fill={c} opacity="0.35" />
-            <path d="M180 270 V60 M180 120 L120 90 M180 160 L110 135 M180 120 L240 90 M180 160 L250 135 M180 205 L130 185 M180 205 L230 185" stroke="#0d1a24" strokeWidth="4" strokeLinecap="round" fill="none" opacity="0.7" />
-            <circle cx="132" cy="148" r="15" fill="#7c4a1d" opacity="0.9" />
-            <circle cx="238" cy="118" r="11" fill="#7c4a1d" opacity="0.9" />
-            <circle cx="214" cy="196" r="9" fill="#7c4a1d" opacity="0.9" />
-            <rect x="100" y="116" width="64" height="64" rx="6" fill="none" stroke={ink} strokeWidth="3" strokeDasharray="8 6" />
-            <rect x="100" y="94" width="108" height="22" rx="6" fill={ink} />
-            <text x="110" y="110" fill="#0d1a24" fontSize="13" fontWeight="700" fontFamily="ui-monospace,monospace">BLIGHT 0.96</text>
+            <clipPath id="pb-plant-clip">
+              <rect width="320" height="320" rx="18" />
+            </clipPath>
+            <image href="/plant/tomato-early-blight.jpg" width="320" height="320" clipPath="url(#pb-plant-clip)" preserveAspectRatio="xMidYMid slice" />
+            <rect width="320" height="320" rx="18" fill="none" stroke={c} strokeWidth="3" />
+            <rect x="14" y="14" width="150" height="26" rx="13" fill="#0b1024" opacity="0.8" />
+            <text x="26" y="32" fill={ink} fontSize="13" fontWeight="700" fontFamily="ui-monospace,monospace">LEAF PHOTO</text>
           </g>
-          <path d="M545 210 H625" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
+          <path d="M495 210 H625" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
           <g transform="translate(640 80)">
             <rect width="420" height="260" rx="16" fill="#101734" stroke={c} strokeWidth="2" />
             {[
-              ["Leaf blight", 0.96],
-              ["Rust", 0.03],
+              ["Early blight", 0.96],
+              ["Late blight", 0.03],
               ["Healthy", 0.01],
             ].map(([n, v], i) => (
               <g key={n as string} transform={`translate(28 ${40 + i * 74})`}>
