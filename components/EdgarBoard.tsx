@@ -43,6 +43,30 @@ export default function EdgarBoard() {
           <span>Tool calls per question, about 2,700 tokens for the full agent</span>
         </div>
       </div>
+      <div className="abGroup">
+        <h4>Operations</h4>
+        <p className="eaMeta" style={{ margin: "0 0 0.5rem" }}>
+          Cost and latency are from the stored evaluation records. The load test ran the real HTTP server with the model stubbed, so it measures the service, not the model.
+        </p>
+        <div className="abStats">
+          <div className="abStat">
+            <b>~2,500</b>
+            <span>Tokens per question for the agents (about 2,100 to 2,750 across the three sets)</span>
+          </div>
+          <div className="abStat">
+            <b>2 to 6 s</b>
+            <span>Median answer time. The 95th percentile (~59 s) is rate-limit waiting during the evaluation</span>
+          </div>
+          <div className="abStat">
+            <b>200 / 200</b>
+            <span>Requests served with 20 visitors at once; a visitor sending 60 got 10 answers and 50 refusals</span>
+          </div>
+          <div className="abStat">
+            <b>1 bug found</b>
+            <span>The load test exposed connection resets under bursts (194 of 200); fixed by enlarging the listen queue</span>
+          </div>
+        </div>
+      </div>
       <p className="eaMeta">
         100% on 89 questions is consistent with a true rate of roughly 96 to 100%. The held-out sets reuse the same question templates and 10 companies, so they show
         the agent handles new instances of these question types, not new kinds of question. Filing-text questions (23) are covered only by the tuned set.
