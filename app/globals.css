@@ -1948,3 +1948,4 @@ ul {
 .abDot[data-tone="alt"] { background: var(--brand-2); }
 .abPair { margin: 0.6rem 0 0.9rem; }
 .abPairTitle { margin: 0; font-weight: 600; font-size: 0.92rem; }
+.projectBanner.dxHeroImage img { display: block; width: 100%; height: auto; }

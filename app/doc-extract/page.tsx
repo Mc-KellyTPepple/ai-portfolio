@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ProjectBanner from "@/components/ProjectBanner";
 import DocExtractDemo from "@/components/DocExtractDemo";
 import AccuracyBoard from "@/components/AccuracyBoard";
 import SocialLinks from "@/components/SocialLinks";
@@ -125,7 +124,17 @@ export default function DocExtractPage() {
           </dl>
         </section>
 
-        <ProjectBanner kind="docextract" />
+        <figure className="projectBanner dxHeroImage">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/doc-extract/banner.webp"
+            width={1600}
+            height={900}
+            alt="Concept artwork: an invoice on a desk next to a laptop showing a document being uploaded, processed and returned as structured JSON"
+            decoding="async"
+          />
+          <figcaption>Concept artwork. The live demo below is the real thing.</figcaption>
+        </figure>
 
         <section id="try" className="section">
           <div className="sectionHeading">
