@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import DocExtractWait from "@/components/DocExtractWait";
 import ServiceStatus from "@/components/ServiceStatus";
 import { DOCX_API_URL, DOCX_MAX_SIDE, DOCX_SAMPLES } from "@/data/docExtract";
+import { receiptToCsv, verify, type DocReceipt } from "@/lib/docValidate";
 
 type Item = { name: string; qty: number | null; unit_price: number | null; price: number | null };
 type Receipt = {
@@ -62,6 +63,7 @@ export default function DocExtractDemo() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [reply, setReply] = useState<Reply | null>(null);
+  const [edited, setEdited] = useState<DocReceipt | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const previewUrl = useRef<string | null>(null);
 
@@ -82,6 +84,7 @@ export default function DocExtractDemo() {
     if (busy) return;
     setError("");
     setReply(null);
+    setEdited(null);
     if (!blob.type.startsWith("image/")) {
       setError("Please choose a photo or image file (JPG, PNG or WebP).");
       return;
@@ -101,7 +104,10 @@ export default function DocExtractDemo() {
       });
       const data = (await res.json().catch(() => ({}))) as Reply & { error?: string };
       if (!res.ok) setError(data.error ?? "Something went wrong. Please try again.");
-      else setReply(data);
+      else {
+        setReply(data);
+        setEdited(data.receipt);
+      }
     } catch {
       setError("Could not reach the server. It may still be waking up; wait a few seconds and try again.");
     } finally {
@@ -118,7 +124,31 @@ export default function DocExtractDemo() {
     }
   }
 
-  const flagged = (field: string) => !!reply?.issues.some((i) => i.fields.includes(field));
+  const receipt: DocReceipt | null = edited ?? reply?.receipt ?? null;
+  const live = receipt ? verify(receipt) : null;
+  const issues = live?.issues ?? [];
+  const needsReview = reply ? (edited ? issues.length > 0 || !reply.parsed : reply.needs_review) : false;
+  const changed = !!(reply && edited && JSON.stringify(edited) !== JSON.stringify(reply.receipt));
+  const flagged = (field: string) => issues.some((i) => i.fields.includes(field));
+
+  function setAmount(key: "subtotal" | "discount" | "service" | "tax" | "total", text: string) {
+    const v = text.trim() === "" ? null : Number(text);
+    if (v !== null && !Number.isFinite(v)) return;
+    setEdited((r) => (r ? { ...r, [key]: v } : r));
+  }
+  function setPrice(index: number, text: string) {
+    const v = text.trim() === "" ? null : Number(text);
+    if (v !== null && !Number.isFinite(v)) return;
+    setEdited((r) => (r ? { ...r, items: r.items.map((it, n) => (n === index ? { ...it, price: v } : it)) } : r));
+  }
+  function download(name: string, type: string, body: string) {
+    const url = URL.createObjectURL(new Blob([body], { type }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
 
   return (
     <div className="demoWrap">
@@ -169,18 +199,22 @@ export default function DocExtractDemo() {
         </div>
       )}
 
-      {reply && (
+      {reply && receipt && live && (
         <div className="toolkitCard eaResult dxResult" aria-live="polite">
           <div className="dxHead">
-            <span className="dxBadge" data-state={reply.needs_review ? "review" : "ok"}>
-              {reply.needs_review ? "Needs review" : "Checks passed"}
+            <span className="dxBadge" data-state={needsReview ? "review" : "ok"}>
+              {needsReview ? "Needs review" : "Checks passed"}
             </span>
             <p className="eaMeta">
-              {reply.needs_review
-                ? "The numbers on this document do not add up, so a person should look at it."
-                : reply.repaired
-                  ? "The first reading failed a check; the second reading passed."
-                  : "The line items, subtotal, tax and total are consistent."}
+              {changed
+                ? needsReview
+                  ? "You edited an amount. It is re-checked in your browser, and the numbers still do not add up."
+                  : "You edited an amount and the numbers now add up."
+                : needsReview
+                  ? "The numbers on this document do not add up, so a person should look at it."
+                  : reply.repaired
+                    ? "The first reading failed a check; the second reading passed."
+                    : "The line items, subtotal, tax and total are consistent."}
             </p>
           </div>
 
@@ -190,11 +224,7 @@ export default function DocExtractDemo() {
               <img className="dxPreview" src={preview} alt="The receipt that was read" />
             )}
             <div>
-              {(reply.receipt.vendor || reply.receipt.date) && (
-                <p className="eaFinal">
-                  {[reply.receipt.vendor, reply.receipt.date].filter(Boolean).join(" · ")}
-                </p>
-              )}
+              {(receipt.vendor || receipt.date) && <p className="eaFinal">{[receipt.vendor, receipt.date].filter(Boolean).join(" · ")}</p>}
               <div className="eaTableWrap">
                 <table className="eaTable">
                   <thead>
@@ -205,14 +235,22 @@ export default function DocExtractDemo() {
                     </tr>
                   </thead>
                   <tbody>
-                    {reply.receipt.items.map((it, i) => (
+                    {receipt.items.map((it, i) => (
                       <tr key={i}>
                         <td>{it.name || "–"}</td>
                         <td>{it.qty ?? "–"}</td>
-                        <td>{money(it.price)}</td>
+                        <td>
+                          <input
+                            className="dxEdit"
+                            inputMode="decimal"
+                            aria-label={`Price of ${it.name || "item " + (i + 1)}`}
+                            value={it.price ?? ""}
+                            onChange={(e) => setPrice(i, e.target.value)}
+                          />
+                        </td>
                       </tr>
                     ))}
-                    {reply.receipt.items.length === 0 && (
+                    {receipt.items.length === 0 && (
                       <tr>
                         <td colSpan={3}>No line items were read.</td>
                       </tr>
@@ -230,32 +268,71 @@ export default function DocExtractDemo() {
                     ["Total", "total"],
                   ] as const
                 )
-                  .filter(([, key]) => reply.receipt[key] !== null || key === "total")
+                  .filter(([, key]) => receipt[key] !== null || key === "total")
                   .map(([label, key]) => (
                     <div key={key} data-flag={flagged(key)} data-strong={key === "total"}>
-                      <dt>{label}</dt>
-                      <dd>{money(reply.receipt[key])}</dd>
+                      <dt>
+                        <label htmlFor={`dx-${key}`}>{label}</label>
+                      </dt>
+                      <dd>
+                        <input
+                          id={`dx-${key}`}
+                          className="dxEdit"
+                          inputMode="decimal"
+                          value={receipt[key] ?? ""}
+                          onChange={(e) => setAmount(key, e.target.value)}
+                        />
+                      </dd>
                     </div>
                   ))}
               </dl>
+              <p className="eaMeta dxHint">
+                Amounts are editable. Correct one and the checks below re-run in your browser.
+                {changed && (
+                  <>
+                    {" "}
+                    <button type="button" className="dxLink" onClick={() => setEdited(reply.receipt)}>
+                      Reset to what the model read
+                    </button>
+                  </>
+                )}
+              </p>
             </div>
           </div>
 
-          {reply.issues.length > 0 && (
-            <ul className="dxIssues">
-              {reply.issues.map((i, n) => (
-                <li key={n}>{i.message}</li>
-              ))}
-            </ul>
-          )}
+          <h3 className="dxH3">Verification report</h3>
+          <ul className="dxChecks">
+            {live.checks.map((c) => (
+              <li key={c.id} data-status={c.status}>
+                <span className="dxMark" aria-hidden="true">
+                  {c.status === "pass" ? "✓" : c.status === "fail" ? "!" : "–"}
+                </span>
+                <div>
+                  <strong>{c.label}</strong>
+                  <span className="sr-only"> {c.status}.</span>
+                  <p>{c.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
           {!reply.parsed && <p className="eaMeta">The model&apos;s reply could not be read as a receipt, so nothing is shown as trusted.</p>}
+
+          <div className="htTryActions">
+            <button type="button" className="btn" onClick={() => download("receipt.json", "application/json", JSON.stringify({ ...receipt, needs_review: needsReview, issues }, null, 2))}>
+              Download JSON
+            </button>
+            <button type="button" className="btn" onClick={() => download("receipt.csv", "text/csv", receiptToCsv(receipt))}>
+              Download CSV
+            </button>
+          </div>
 
           <details>
             <summary>The extracted JSON</summary>
-            <pre className="eaPre">{JSON.stringify(reply.receipt, null, 2)}</pre>
+            <pre className="eaPre">{JSON.stringify(receipt, null, 2)}</pre>
           </details>
           <p className="eaMeta">
-            Model {reply.model || "unknown"}, {reply.calls} model {reply.calls === 1 ? "call" : "calls"}, {reply.seconds}s.
+            Model {reply.model || "unknown"}, {reply.calls} model {reply.calls === 1 ? "call" : "calls"}
+            {reply.repaired ? " (re-read after a failed check)" : ""}, {reply.seconds}s.
           </p>
         </div>
       )}

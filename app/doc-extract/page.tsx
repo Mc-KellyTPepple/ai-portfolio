@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ProjectBanner from "@/components/ProjectBanner";
 import DocExtractDemo from "@/components/DocExtractDemo";
+import AccuracyBoard from "@/components/AccuracyBoard";
 import SocialLinks from "@/components/SocialLinks";
-import { DOCX_REPO_URL, DOCX_RESULTS, DOCX_RESULTS_DOCS, DOCX_RESULTS_FINAL } from "@/data/docExtract";
+import { DOCX_REPO_URL } from "@/data/docExtract";
 
 const EMAIL = "mckelly2014@gmail.com";
 
@@ -157,41 +158,7 @@ export default function DocExtractPage() {
             ))}
           </div>
 
-          {DOCX_RESULTS_FINAL ? (
-            <div className="toolkitCard eaTableWrap">
-              <table className="eaTable">
-                <thead>
-                  <tr>
-                    <th scope="col">Configuration ({DOCX_RESULTS_DOCS} receipts)</th>
-                    <th scope="col">Total right</th>
-                    <th scope="col">All key fields right</th>
-                    <th scope="col">Item F1</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {DOCX_RESULTS.map((row) => (
-                    <tr key={row.name}>
-                      <th scope="row">
-                        {row.name}
-                        <span className="eaMeta"> {row.note}</span>
-                      </th>
-                      <td>{row.total}</td>
-                      <td>{row.allFields}</td>
-                      <td>{row.items}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="toolkitCard">
-              <p className="eyebrow">Results pending</p>
-              <p className="htCardText">
-                The benchmark is re-running after a fix (below). The daily model quota allows about 45 vision receipts a day, so the
-                full 100-receipt table will be added here when it finishes, with the failures.
-              </p>
-            </div>
-          )}
+          <AccuracyBoard />
         </section>
 
         <section className="section">
