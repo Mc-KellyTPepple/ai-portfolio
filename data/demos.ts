@@ -33,7 +33,7 @@ export const plantDisease: Demo = {
   metaDescription:
     "A MobileNetV3-Large classifier that identifies plant diseases from leaf photos, served with ONNX Runtime. Upload a leaf and try it.",
   path: "/plant-disease",
-  eyebrow: "Computer Vision \u00b7 Deployed \u00b7 2024",
+  eyebrow: "Computer Vision \u00b7 Deployed",
   lead: "Spot plant disease from",
   accent: "a single leaf photo",
   intro:
@@ -76,7 +76,7 @@ export const animalClassifier: Demo = {
   metaDescription:
     "A deployed image classifier for cats, dogs and birds, covering preprocessing, training and real-time inference. Upload a photo and try it.",
   path: "/animal-classifier",
-  eyebrow: "Computer Vision \u00b7 Deployed \u00b7 2024",
+  eyebrow: "Computer Vision \u00b7 Deployed",
   lead: "Is it a cat, a dog",
   accent: "or a bird?",
   intro:
@@ -119,7 +119,7 @@ export const askYourFiles: Demo = {
   metaDescription:
     "Upload documents and ask questions. Hybrid search, reranking and OCR, with numbered citations to the passages each answer came from.",
   path: "/ask-your-files",
-  eyebrow: "Retrieval \u00b7 Full-Stack \u00b7 2026",
+  eyebrow: "Retrieval \u00b7 Full-Stack",
   lead: "Ask questions of your documents,",
   accent: "with sources you can check",
   intro:

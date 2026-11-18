@@ -82,8 +82,6 @@ const principles = [
 
 export default function Home() {
   const featuredProjects = projects.filter((project) => project.featured);
-  const years = featuredProjects.map((p) => Number(p.year));
-  const span = `${Math.min(...years)}\u2013${Math.max(...years)}`;
 
   return (
     <>
@@ -149,8 +147,8 @@ export default function Home() {
               <dt>Projects with published evaluations</dt>
             </div>
             <div>
-              <dd>{span}</dd>
-              <dt>Project timeline</dt>
+              <dd className="statsText">CORD &middot; Spider &middot; SEC filings</dd>
+              <dt>Public benchmarks used</dt>
             </div>
             <div>
               <dd className="statsText">Agents &middot; RAG &middot; Vision</dd>

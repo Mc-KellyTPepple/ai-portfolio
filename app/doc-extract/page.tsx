@@ -90,7 +90,7 @@ export default function DocExtractPage() {
       <main id="top">
         <section className="htHero">
           <div className="htHeroText">
-            <p className="eyebrow">Multimodal AI &middot; Document AI &middot; 2026</p>
+            <p className="eyebrow">Multimodal AI &middot; Document AI</p>
             <h1>
               Doc Extract: receipts to data, <span className="gradientText">flagged when it does not add up</span>
             </h1>

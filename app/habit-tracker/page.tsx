@@ -102,7 +102,7 @@ export default function HabitTrackerPage() {
       <main id="top">
         <section className="htHero">
           <div className="htHeroText">
-            <p className="eyebrow">Full-Stack &middot; PWA &middot; 2026</p>
+            <p className="eyebrow">Full-Stack &middot; PWA</p>
             <h1>
               Habit Tracker with{" "}
               <span className="gradientText">reminders that stop on delivery</span>

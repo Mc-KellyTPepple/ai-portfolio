@@ -59,7 +59,6 @@ export default function ProjectCard({ project, index, featured = false }: Projec
           <span>{number}</span>
           <span aria-hidden="true">&middot;</span>
           <span>{project.category}</span>
-          <span className="pcYear">{project.year}</span>
         </p>
         <h3 className="pcTitle">{project.title}</h3>
         <p className="pcTagline">{project.tagline}</p>

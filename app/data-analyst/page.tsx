@@ -79,7 +79,7 @@ export default function DataAnalystPage() {
       <main id="top">
         <section className="htHero">
           <div className="htHeroText">
-            <p className="eyebrow">LLM Agents &middot; Text-to-SQL &middot; 2026</p>
+            <p className="eyebrow">LLM Agents &middot; Text-to-SQL</p>
             <h1>
               Data Analyst Agent: ask your data{" "}
               <span className="gradientText">in plain English</span>

@@ -88,7 +88,7 @@ export default function EdgarAnalystPage() {
       <main id="top">
         <section className="htHero">
           <div className="htHeroText">
-            <p className="eyebrow">LLM Agents &middot; Evaluation &middot; 2026</p>
+            <p className="eyebrow">LLM Agents &middot; Evaluation</p>
             <h1>
               EDGAR Analyst: an agent for SEC filings{" "}
               <span className="gradientText">that shows its evidence</span>
