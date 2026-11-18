@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ProjectBanner from "@/components/ProjectBanner";
 import AnalystDemo from "@/components/AnalystDemo";
+import AnalystBoard from "@/components/AnalystBoard";
 import SocialLinks from "@/components/SocialLinks";
 import { ANALYST_ABLATIONS, ANALYST_AGREEMENT, ANALYST_REPO_URL, ANALYST_RESULTS } from "@/data/analystAgent";
 
@@ -137,6 +138,7 @@ export default function DataAnalystPage() {
               queries must return the same rows. Each model was tested separately, with the same questions for every row. Cells read: sample 1 / sample 2, then the score over all 200.
             </p>
           </div>
+          <AnalystBoard />
           <div className="toolkitCard eaTableWrap">
             <table className="eaTable">
               <thead>

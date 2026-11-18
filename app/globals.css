@@ -1940,3 +1940,5 @@ ul {
 .abStat b { display: block; font-size: 1.35rem; font-variant-numeric: tabular-nums; }
 .abStat span { color: var(--muted); font-size: 0.85rem; }
 @media (max-width: 560px) { .abRow { grid-template-columns: 1fr 4rem; } .abRow .abTrack { grid-column: 1 / -1; order: 3; } }
+.dxSources { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0; margin: 0.5rem 0; }
+.dxSources code { padding: 0.15rem 0.5rem; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); font-size: 0.8rem; }

@@ -25,6 +25,20 @@ function show(v: unknown): string {
   return typeof v === "number" && !Number.isInteger(v) ? String(Math.round(v * 1000) / 1000) : String(v);
 }
 
+function downloadCsv(r: Result) {
+  const q = (v: unknown) => {
+    const t = v === null || v === undefined ? "" : String(v);
+    return /[",\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t;
+  };
+  const body = [r.columns, ...r.rows].map((row) => row.map(q).join(",")).join("\n") + "\n";
+  const url = URL.createObjectURL(new Blob([body], { type: "text/csv" }));
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "result.csv";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 function summary(reply: Reply): string {
   const text = reply.answer.split("FINAL SQL:")[0].trim();
   if (text) return text;
@@ -235,6 +249,21 @@ export default function AnalystDemo() {
                     <p className="eaMeta">Showing the first 25 rows.</p>
                   )}
                 </>
+              )}
+              {reply.result && reply.result.columns.length > 0 && (
+                <div className="htTryActions">
+                  <button type="button" className="btn" onClick={() => downloadCsv(reply.result as Result)}>
+                    Download CSV
+                  </button>
+                  {reply.sql && (
+                    <button type="button" className="btn" onClick={() => void navigator.clipboard?.writeText(reply.sql as string)}>
+                      Copy SQL
+                    </button>
+                  )}
+                  <span className="eaCount">
+                    {reply.result.rows.length} {reply.result.rows.length === 1 ? "row" : "rows"}, {reply.result.columns.length} columns · ran read-only
+                  </span>
+                </div>
               )}
               {reply.result?.error && <p className="eaMeta">The final query failed: {reply.result.error}</p>}
               {reply.sql && (

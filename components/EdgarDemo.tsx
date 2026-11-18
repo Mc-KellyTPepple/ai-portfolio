@@ -130,8 +130,28 @@ export default function EdgarDemo() {
 
       {result && (
         <div className="toolkitCard eaResult" aria-live="polite">
-          <p className="eyebrow">Answer</p>
+          <div className="dxHead">
+            <span className="dxBadge" data-state={result.sources.length > 0 ? "ok" : "review"}>
+              {result.sources.length > 0
+                ? `Grounded in ${result.sources.length} cited ${result.sources.length === 1 ? "filing" : "filings"}`
+                : /cannot|can't|unable|not available|no data|outside/i.test(result.final_answer || "")
+                  ? "Declined, nothing to cite"
+                  : "No filing cited, check the answer"}
+            </span>
+            <button type="button" className="btn" onClick={() => void navigator.clipboard?.writeText(`${result.final_answer}\n\nFilings: ${result.sources.join(", ") || "none"}`)}>
+              Copy answer
+            </button>
+          </div>
           <p className="eaFinal">{result.final_answer || "No answer was returned."}</p>
+          {result.sources.length > 0 && (
+            <ul className="dxSources" aria-label="Cited filings">
+              {result.sources.map((s) => (
+                <li key={s}>
+                  <code>{s}</code>
+                </li>
+              ))}
+            </ul>
+          )}
           <details>
             <summary>Full reasoning and sources</summary>
             <pre className="eaPre">{result.answer}</pre>
