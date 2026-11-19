@@ -7,8 +7,8 @@ import { projects } from "@/data/projects";
 
 const EMAIL = "mckelly2014@gmail.com";
 
-// EDGAR Analyst and Data Analyst Agent publish their benchmark results, including failures.
-const PUBLISHED_EVALUATIONS = 2;
+// EDGAR Analyst, Data Analyst Agent and Doc Extract publish their benchmark results, including failures.
+const PUBLISHED_EVALUATIONS = 3;
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -118,7 +118,7 @@ export default function Home() {
             </ul>
 
             <p className="heroDescription">
-              Every project is deployed and measurable, and the newest ones
+              Every project is deployed and open to try, and the newest ones
               publish their evaluation results, including where they fail.
             </p>
 
