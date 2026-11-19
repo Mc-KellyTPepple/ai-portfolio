@@ -46,10 +46,6 @@ export default function AnalystBoard() {
       />
       <div className="abStats">
         <div className="abStat">
-          <b>~0.01</b>
-          <span>SQL errors per question, so retry rarely fires</span>
-        </div>
-        <div className="abStat">
           <b>~40%</b>
           <span>Tokens the lean mode uses compared with the full agent, at the same accuracy</span>
         </div>

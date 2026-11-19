@@ -61,10 +61,6 @@ export default function EdgarBoard() {
             <b>200 / 200</b>
             <span>Requests served with 20 visitors at once; a visitor sending 60 got 10 answers and 50 refusals</span>
           </div>
-          <div className="abStat">
-            <b>1 bug found</b>
-            <span>The load test exposed connection resets under bursts (194 of 200); fixed by enlarging the listen queue</span>
-          </div>
         </div>
       </div>
       <p className="eaMeta">

@@ -106,9 +106,9 @@ export default function Home() {
             </p>
 
             <h1>
-              I build and ship{" "}
+              I build{" "}
               <span className="gradientText">AI systems you can use</span>
-              , from LLM agents and RAG to computer vision and full-stack products.
+              , and I publish where they fail.
             </h1>
 
             <ul className="heroKeywords" aria-label="Focus areas">
