@@ -305,8 +305,8 @@ function Scene({ kind, c }: { kind: BannerKind; c: string }) {
   }
 }
 
-const PHOTOS: Partial<Record<BannerKind, { src: string; width: number; height: number; alt: string; caption: string }>> = {
-  plant: { src: "/plant/leaf-comparison.webp", width: 800, height: 534, alt: "A healthy green leaf next to a diseased leaf with yellow and brown spots", caption: "Healthy leaf and diseased leaf, side by side" },
+const PHOTOS: Partial<Record<BannerKind, { src: string; width: number; height: number; alt: string; caption: string; bg?: string }>> = {
+  plant: { src: "/plant/leaf-comparison.webp", width: 800, height: 534, alt: "A healthy green leaf next to a diseased leaf with yellow and brown spots", caption: "Healthy leaf and diseased leaf, side by side", bg: "linear-gradient(90deg, #e8e8f6, #ffffff)" },
   animal: { src: "/animal/cat-and-dog.webp", width: 858, height: 536, alt: "A small brown puppy facing an orange kitten", caption: "Cat or dog? The classifier decides" },
 };
 
@@ -314,9 +314,13 @@ export default function ProjectBanner({ kind }: { kind: BannerKind }) {
   const photo = PHOTOS[kind];
   if (photo) {
     return (
-      <figure className="projectBanner photoBanner">
+      <figure className="projectBanner photoBanner" style={photo.bg ? { background: photo.bg } : undefined}>
+        {!photo.bg && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className="photoBackdrop" src={photo.src} alt="" aria-hidden="true" decoding="async" />
+        )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} decoding="async" />
+        <img className="photoMain" src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} decoding="async" />
         <figcaption>{photo.caption}</figcaption>
       </figure>
     );

@@ -1949,5 +1949,8 @@ ul {
 .abPair { margin: 0.6rem 0 0.9rem; }
 .abPairTitle { margin: 0; font-weight: 600; font-size: 0.92rem; }
 .projectBanner.dxHeroImage img { display: block; width: 100%; height: auto; }
-.projectBanner.photoBanner { background: #0b1024; display: grid; place-items: center; }
-.projectBanner.photoBanner img { display: block; width: auto; max-width: 100%; height: auto; max-height: 440px; object-fit: contain; }
+.projectBanner.photoBanner { background: #e9edf2; display: grid; place-items: center; }
+.projectBanner.photoBanner .photoBackdrop { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); max-height: none; object-fit: cover; filter: blur(36px) saturate(1.1); opacity: 0.95; }
+.projectBanner.photoBanner .photoMain { position: relative; display: block; width: auto; max-width: 100%; height: auto; max-height: 440px; object-fit: contain; }
+.eaKind { display: inline-block; margin-right: 0.5rem; padding: 0.05rem 0.5rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; color: var(--brand); background: rgba(34, 211, 238, 0.12); }
+.eaKind[data-decline="true"] { color: #b45309; background: rgba(245, 158, 11, 0.16); }

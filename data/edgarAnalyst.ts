@@ -6,11 +6,17 @@ export const EDGAR_API_URL = "https://edgar-analyst.onrender.com";
 export const EDGAR_REPO_URL = "https://github.com/Mc-KellyTPepple/edgar-analyst";
 
 export const EDGAR_EXAMPLES = [
-  "What was NVIDIA's net profit margin for the fiscal year ended January 28, 2024?",
-  "How many employees did Apple have in its fiscal 2024 10-K?",
-  "Compare Microsoft and Alphabet operating margins for their latest fiscal years.",
-  "What was NVIDIA's revenue in 2031?",
+  { kind: "Multi-step maths", q: "What was NVIDIA's net profit margin for the fiscal year ended January 28, 2024?" },
+  { kind: "From filing text", q: "How many employees did Apple have in its fiscal 2024 10-K?" },
+  { kind: "Comparison", q: "Compare Microsoft and Alphabet operating margins for their latest fiscal years." },
+  { kind: "Should decline", q: "What was NVIDIA's revenue in 2031?" },
 ];
+
+/** The ten companies in the corpus (10-K filings). */
+export const EDGAR_COMPANIES = [
+  ["NVDA", "NVIDIA"], ["AMD", "AMD"], ["INTC", "Intel"], ["MSFT", "Microsoft"], ["AAPL", "Apple"],
+  ["GOOGL", "Alphabet"], ["AMZN", "Amazon"], ["META", "Meta"], ["TSLA", "Tesla"], ["ORCL", "Oracle"],
+] as const;
 
 export type EdgarResult = { label: string; facts: string; full: string };
 

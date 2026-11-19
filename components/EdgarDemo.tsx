@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import EdgarShowcase from "@/components/EdgarShowcase";
 import EdgarWait from "@/components/EdgarWait";
 import ServiceStatus from "@/components/ServiceStatus";
-import { EDGAR_API_URL, EDGAR_EXAMPLES } from "@/data/edgarAnalyst";
+import { EDGAR_API_URL, EDGAR_COMPANIES, EDGAR_EXAMPLES } from "@/data/edgarAnalyst";
 
 type Answer = {
   final_answer: string;
@@ -93,15 +93,19 @@ export default function EdgarDemo() {
           onChange={(e) => setQuestion(e.target.value)}
           placeholder="Ask about the 10-K filings of NVDA, AMD, INTC, MSFT, AAPL, GOOGL, AMZN, META, TSLA or ORCL"
         />
+        <p className="eaMeta" style={{ margin: "0.6rem 0 0.3rem" }}>Ten companies are covered. Try an example:</p>
+        <ul className="dxSources" aria-label="Companies covered">
+          {EDGAR_COMPANIES.map(([t, n]) => (
+            <li key={t}>
+              <code title={n}>{t}</code>
+            </li>
+          ))}
+        </ul>
         <div className="eaExamples" aria-label="Example questions">
           {EDGAR_EXAMPLES.map((ex) => (
-            <button
-              key={ex}
-              type="button"
-              className="eaChip"
-              onClick={() => setQuestion(ex)}
-            >
-              {ex}
+            <button key={ex.q} type="button" className="eaChip" onClick={() => setQuestion(ex.q)}>
+              <span className="eaKind" data-decline={ex.kind === "Should decline"}>{ex.kind}</span>
+              {ex.q}
             </button>
           ))}
         </div>
