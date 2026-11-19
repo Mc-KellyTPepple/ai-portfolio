@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ProjectBanner from "@/components/ProjectBanner";
 import EdgarDemo from "@/components/EdgarDemo";
 import EdgarBoard from "@/components/EdgarBoard";
 import SocialLinks from "@/components/SocialLinks";
@@ -131,7 +130,17 @@ export default function EdgarAnalystPage() {
           </dl>
         </section>
 
-        <ProjectBanner kind="edgar" />
+        <figure className="projectBanner dxHeroImage">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/edgar-analyst/banner.webp"
+            width={1600}
+            height={900}
+            alt="Concept artwork: a stack of financial reports beside a laptop showing charts, with filing documents linked to a central analysis node"
+            decoding="async"
+          />
+          <figcaption>Concept artwork. The live demo below is the real thing.</figcaption>
+        </figure>
 
         <section id="try" className="section">
           <div className="sectionHeading">
