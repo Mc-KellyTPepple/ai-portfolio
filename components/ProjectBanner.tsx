@@ -310,7 +310,21 @@ const PHOTOS: Partial<Record<BannerKind, { src: string; width: number; height: n
   animal: { src: "/animal/cat-and-dog.webp", width: 858, height: 536, alt: "A small brown puppy facing an orange kitten", caption: "Cat or dog? The classifier decides" },
 };
 
+const CONCEPTS: Partial<Record<BannerKind, { src: string; alt: string }>> = {
+  rag: { src: "/ask-your-files/banner.webp", alt: "Concept artwork: documents flowing through a retrieval pipeline into a chat window that answers a question with cited sources" },
+};
+
 export default function ProjectBanner({ kind }: { kind: BannerKind }) {
+  const concept = CONCEPTS[kind];
+  if (concept) {
+    return (
+      <figure className="projectBanner dxHeroImage">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={concept.src} width={1600} height={900} alt={concept.alt} decoding="async" />
+        <figcaption>Concept artwork. The live demo below is the real thing.</figcaption>
+      </figure>
+    );
+  }
   const photo = PHOTOS[kind];
   if (photo) {
     return (
