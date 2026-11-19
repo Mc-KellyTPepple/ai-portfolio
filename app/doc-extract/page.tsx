@@ -58,8 +58,9 @@ const design = [
 const lessons = [
   "The first benchmark run measured my prompt, not the model. Receipts in the dataset print Indonesian rupiah with a thousands dot, so 60,000 appears as \"60.000\". The prompt asked for plain numbers, and the model wrote that as the JSON number 60.0. In the 45 vision receipts scored, 11 of the 15 wrong ones were this single mistake, a factor of 1,000 on every field.",
   "The arithmetic check could not catch it. When every amount on a receipt is scaled by the same factor, the sums still agree. That is a real limit of validating by arithmetic: it finds misread digits, not a consistent change of scale.",
-  "The fix is to ask for amounts as text exactly as printed and read the scale in code. It is deployed, covered by tests, and the benchmark is re-running. The first run is kept in the repository as evidence.",
+  "The fix is to ask for amounts as text exactly as printed and read the scale in code. It is deployed, covered by tests, and the benchmark was re-run from scratch on all 100 receipts. The first run is kept in the repository as evidence.",
   "Even in that flawed run, reading the image directly was far ahead of OCR followed by a text model (about two thirds of receipts fully right against under a fifth), but those numbers carried the bug too, so they are not reported as results.",
+  "The clean re-run held up that ordering (every key field right on 88% of receipts against 24%), and it taught me something I had not expected: the arithmetic check and the re-read did not improve accuracy. Most of the vision model's mistakes are a missed line or an empty tax field, and those leave the sums consistent. I report that plainly because a check that looks clever but measures as neutral is exactly what the benchmark is for.",
 ];
 
 const limits = [

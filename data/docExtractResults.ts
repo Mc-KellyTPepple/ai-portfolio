@@ -3,67 +3,113 @@ export type DocxConfigResult = {
   key: string; name: string; note: string;
   /** [percent right, 95% interval low, high] */
   total: number[]; subtotal: number[]; tax: number[]; allFields: number[];
-  itemF1: number; tokensPerReceipt: number;
+  itemF1: number; tokensPerReceipt: number | null;
+  review: { flagged: number; rightWhenFlagged: number | null; rightWhenNotFlagged: number | null; wrongCaught: number | null };
 };
-export const DOCX_BENCH: { final: boolean; documentsScored: number; documentsPlanned: number; visionDocuments: number; configs: DocxConfigResult[]; visionFailures: { label: string; documents: number }[]; visionFlagged: number; visionTokensPerReceipt: number | null } = {
-  "final": false,
-  "documentsScored": 75,
+export const DOCX_BENCH: { final: boolean; documentsScored: number; documentsPlanned: number; visionDocuments: number; configs: DocxConfigResult[]; visionFailures: { label: string; documents: number }[]; visionFlagged: number; visionTokensPerReceipt: number | null; reread: { documents: number; rereads: number; adopted: number; stillFlagged: number } } = {
+  "final": true,
+  "documentsScored": 100,
   "documentsPlanned": 100,
-  "visionDocuments": 84,
+  "visionDocuments": 100,
   "configs": [
     {
       "key": "ocr_llm",
       "name": "OCR + text model",
       "note": "The classic two-stage pipeline.",
       "total": [
-        32.9,
-        23.0,
-        44.5
+        37.9,
+        28.8,
+        47.9
       ],
       "subtotal": [
-        34.1,
-        21.9,
-        48.9
+        32.3,
+        22.2,
+        44.4
       ],
       "tax": [
-        14.8,
-        5.9,
-        32.5
+        19.5,
+        10.2,
+        34.0
       ],
       "allFields": [
-        25.3,
-        16.9,
-        36.2
+        24.0,
+        16.7,
+        33.2
       ],
-      "itemF1": 0.35,
-      "tokensPerReceipt": 650
+      "itemF1": 0.38,
+      "tokensPerReceipt": 676,
+      "review": {
+        "flagged": 76,
+        "rightWhenFlagged": 9.2,
+        "rightWhenNotFlagged": 70.8,
+        "wrongCaught": 90.8
+      }
     },
     {
       "key": "ocr_rules",
       "name": "OCR + keyword rules",
       "note": "No model. Finds totals only.",
       "total": [
-        21.4,
-        13.4,
-        32.4
+        25.3,
+        17.6,
+        34.8
       ],
       "subtotal": [
-        20.5,
-        11.2,
-        34.5
+        18.5,
+        10.9,
+        29.6
       ],
       "tax": [
-        11.1,
-        3.9,
-        28.1
+        14.6,
+        6.9,
+        28.4
       ],
       "allFields": [
-        12.0,
-        6.4,
-        21.3
+        11.0,
+        6.3,
+        18.6
       ],
       "itemF1": 0.0,
-      "tokensPerReceipt": 0
+      "tokensPerReceipt": 0,
+      "review": {
+        "flagged": 76,
+        "rightWhenFlagged": 0.0,
+        "rightWhenNotFlagged": 45.8,
+        "wrongCaught": 85.4
+      }
+    },
+    {
+      "key": "verified",
+      "name": "Vision + re-read",
+      "note": "Re-reads once when the arithmetic fails.",
+      "total": [
+        100.0,
+        96.1,
+        100.0
+      ],
+      "subtotal": [
+        98.5,
+        91.8,
+        99.7
+      ],
+      "tax": [
+        82.9,
+        68.7,
+        91.5
+      ],
+      "allFields": [
+        88.0,
+        80.2,
+        93.0
+      ],
+      "itemF1": 0.92,
+      "tokensPerReceipt": null,
+      "review": {
+        "flagged": 9,
+        "rightWhenFlagged": 88.9,
+        "rightWhenNotFlagged": 87.9,
+        "wrongCaught": 8.3
+      }
     },
     {
       "key": "vision",
@@ -71,42 +117,54 @@ export const DOCX_BENCH: { final: boolean; documentsScored: number; documentsPla
       "note": "Reads the image directly.",
       "total": [
         100.0,
-        94.8,
+        96.1,
         100.0
       ],
       "subtotal": [
-        97.7,
-        88.2,
-        99.6
+        98.5,
+        91.8,
+        99.7
       ],
       "tax": [
-        81.5,
-        63.3,
-        91.8
+        82.9,
+        68.7,
+        91.5
       ],
       "allFields": [
-        86.7,
-        77.2,
-        92.6
+        88.0,
+        80.2,
+        93.0
       ],
-      "itemF1": 0.95,
-      "tokensPerReceipt": 2113
+      "itemF1": 0.92,
+      "tokensPerReceipt": 2120,
+      "review": {
+        "flagged": 9,
+        "rightWhenFlagged": 88.9,
+        "rightWhenNotFlagged": 87.9,
+        "wrongCaught": 8.3
+      }
     }
   ],
   "visionFailures": [
     {
       "label": "line items missed or extra",
-      "documents": 14
+      "documents": 15
     },
     {
       "label": "tax left empty",
-      "documents": 6
+      "documents": 7
     },
     {
       "label": "label error in the dataset",
       "documents": 1
     }
   ],
+  "reread": {
+    "documents": 100,
+    "rereads": 9,
+    "adopted": 8,
+    "stillFlagged": 9
+  },
   "visionFlagged": 9,
-  "visionTokensPerReceipt": 2095
+  "visionTokensPerReceipt": 2120
 };

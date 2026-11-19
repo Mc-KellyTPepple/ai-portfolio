@@ -35,6 +35,7 @@ function Bars({ metric, configs }: { metric: Metric; configs: DocxConfigResult[]
 export default function AccuracyBoard() {
   const b = DOCX_BENCH;
   const vision = b.configs.find((c) => c.key === "vision");
+  const verified = b.configs.find((c) => c.key === "verified");
   const failureTotal = b.visionFailures.reduce((s, f) => s + f.documents, 0);
   return (
     <div className="abBoard toolkitCard">
@@ -71,6 +72,32 @@ export default function AccuracyBoard() {
             <b>{b.visionFlagged}</b>
             <span>Of {b.visionDocuments} vision-read receipts flagged for review by the arithmetic check</span>
           </div>
+        </div>
+      )}
+
+      {verified && vision && (
+        <div className="abGroup">
+          <h4>Does the arithmetic check and re-read help?</h4>
+          <p className="eaMeta" style={{ margin: "0 0 0.6rem" }}>
+            Honest answer from the {b.documentsScored} receipts: not on this data. Vision with a re-read scores the same as vision alone ({Math.round(verified.allFields[0])}% vs {Math.round(vision.allFields[0])}% on all key fields).
+          </p>
+          <div className="abStats">
+            <div className="abStat">
+              <b>{b.reread.rereads}</b>
+              <span>Receipts failed a check and were re-read; the second reading was adopted on {b.reread.adopted}, and all {b.reread.stillFlagged} stayed flagged</span>
+            </div>
+            <div className="abStat">
+              <b>{verified.review.wrongCaught === null ? "–" : Math.round(verified.review.wrongCaught)}%</b>
+              <span>Of receipts with a wrong key field that the check flagged. Most vision errors (a missed line, an empty tax field) keep the arithmetic consistent, so it cannot see them</span>
+            </div>
+            <div className="abStat">
+              <b>{verified.review.rightWhenFlagged === null ? "–" : Math.round(verified.review.rightWhenFlagged)}%</b>
+              <span>Of flagged receipts had every key field right. The flags point at line-item problems rather than wrong totals</span>
+            </div>
+          </div>
+          <p className="eaMeta">
+            Where the check does earn its place: it is the only thing that flagged the receipts it did, and on the two baselines it caught most wrong answers (it flagged {b.configs.find((c) => c.key === "ocr_llm")?.review.flagged} of {b.documentsScored} for the OCR methods). For the vision model it is a cheap sanity check, not a safety net.
+          </p>
         </div>
       )}
 
