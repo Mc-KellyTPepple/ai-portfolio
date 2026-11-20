@@ -41,7 +41,7 @@ const steps = [
 const design = [
   { title: "Every task shows its evidence", text: "The model must quote the exact words behind each task. If the quote is not in the transcript, the task is marked as not found in the transcript instead of being presented as fact." },
   { title: "No invented owners or deadlines", text: "A person or a date appears on a task only when you said it. Anything else the model adds is removed before you see the list." },
-  { title: "Urgent means you said so", text: "A task is tagged urgent only when its quoted words contain something like \"urgent\" or \"ASAP\". The model's opinion of what is important is ignored." },
+  { title: "Urgent means you said so", text: "A task is tagged urgent only when you said an urgency word such as \"urgent\" or \"ASAP\" about it, and those words are found in the transcript. The model's opinion of what is important is ignored." },
   { title: "Dates are placed, not guessed", text: "\"Tomorrow\", \"tonight\" and weekday names become calendar days. Anything vaguer, such as \"soon\", stays out of the calendar file instead of getting an invented date." },
   { title: "Unsure speech is marked", text: "Parts of the transcript where the speech model reported low confidence are underlined, so you know what to double-check." },
   { title: "Silence stays silent", text: "Speech models tend to produce text for silent audio. When every segment is probably not speech, the clip is reported as empty and no tasks are made." },

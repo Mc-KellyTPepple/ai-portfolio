@@ -29,9 +29,9 @@ function confirmation(r: Reply): string {
   if (!ok.length) return "I did not hear anything that needs doing. " + (r.summary ? `What I understood: ${r.summary}` : "");
   const parts = ok.map((t) => {
     const due = t.due && !t.task.toLowerCase().includes(t.due.toLowerCase()) ? ` ${t.due}` : "";
-    return `${t.owner ? `${t.owner} to ` : ""}${lowerFirst(t.task.replace(/[.!]+$/, ""))}${due}`;
+    return `${t.priority ? "urgent: " : ""}${t.owner ? `${t.owner} to ` : ""}${lowerFirst(t.task.replace(/[.!]+$/, ""))}${due}`;
   });
-  const list = parts.length === 1 ? parts[0] : `${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}`;
+  const list = parts.length === 1 ? parts[0] : parts.length === 2 ? `${parts[0]} and ${parts[1]}` : `${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}`;
   return `Got it. You have ${ok.length === 1 ? "one task" : `${ok.length} tasks`}: ${list}.`;
 }
 
