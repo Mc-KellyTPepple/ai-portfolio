@@ -53,9 +53,9 @@ export const projects: Project[] = [
   {
     slug: "voice-to-tasks",
     title: "Voice to Tasks",
-    tagline: "Speak for 30 seconds, get a to-do list that quotes your words",
+    tagline: "Voice reminders and meeting notes that quote your words",
     description:
-      "Whisper turns a voice note into a transcript, and a text model writes a summary and a to-do list. Every task must quote the words you said, and owners or deadlines you never mentioned are removed. Transcription accuracy is measured as word error rate on public LibriSpeech recordings. Groq-hosted models, cloud hosting.",
+      "Whisper turns a voice note into a transcript, and a text model writes personal reminders or meeting notes: decisions, action items with owners and open questions. Every item must quote the words you said, and owners, deadlines and urgency you never mentioned are removed. Transcription accuracy is measured as word error rate on public LibriSpeech recordings. Groq-hosted models, cloud hosting.",
     tags: ["Speech AI", "Whisper", "LLM Extraction", "Evaluation", "Groq", "GitHub Actions"],
     year: "2026",
     featured: true,

@@ -1997,3 +1997,8 @@ ul {
 .vtMarkQuote { background: rgba(16, 185, 129, 0.28); border-radius: 0.25rem; }
 .vtMarkLow { text-decoration: underline wavy #d97706; text-underline-offset: 3px; }
 .vtRow input { margin-top: 0; }
+.vtModes { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 0.75rem; }
+.vtMode[data-on="true"] { background: var(--brand); color: #fff; border-color: var(--brand); }
+.vtNotes { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.6rem; }
+.vtNotes li { display: grid; gap: 0.25rem; padding: 0.7rem 0.85rem; border: 1px solid var(--border); border-radius: 0.7rem; background: var(--surface); font-weight: 600; }
+.vtNotes li[data-active="true"] { border-color: var(--brand); }

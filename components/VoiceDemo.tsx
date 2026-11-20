@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import ServiceStatus from "@/components/ServiceStatus";
 import VoiceWait from "@/components/VoiceWait";
-import { resolveDue, tasksToIcs } from "@/lib/dueDate";
-import { VOICE_API_URL, VOICE_MAX_SECONDS, VOICE_SAMPLE_NOTES } from "@/data/voiceToTasks";
+import { resolveDue, resolveTime, tasksToIcs } from "@/lib/dueDate";
+import { VOICE_API_URL, VOICE_MODES, VOICE_SAMPLE_NOTES, type VoiceMode } from "@/data/voiceToTasks";
 
 type Task = { task: string; owner: string | null; due: string | null; quote: string; grounded: boolean; priority?: "high" | null; removed: string[] };
 type Item = Task & { id: number; edited?: boolean };
+type Note = { text: string; quote: string; grounded: boolean };
 type Segment = { start: number; end: number; text: string; low: boolean };
 type Mark = { start: number; end: number; kind: "quote" | "low" };
 type Reply = {
@@ -15,6 +16,9 @@ type Reply = {
   empty: boolean;
   note?: string;
   summary: string;
+  mode?: VoiceMode;
+  decisions?: Note[];
+  questions?: Note[];
   tasks: Task[];
   segments?: Segment[];
   audio_seconds?: number;
@@ -24,12 +28,23 @@ type Reply = {
 const lowerFirst = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
 
 /** Built only from tasks that were found in the transcript, so the spoken line cannot add anything you did not say. */
+const clock = (t: { h: number; m: number }) => `${t.h % 12 || 12}${t.m ? `:${String(t.m).padStart(2, "0")}` : ""} ${t.h < 12 ? "AM" : "PM"}`;
+const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+
 function confirmation(r: Reply): string {
   const ok = r.tasks.filter((t) => t.grounded);
+  if (r.mode === "meeting") {
+    const d = (r.decisions ?? []).filter((x) => x.grounded).length;
+    const q = (r.questions ?? []).filter((x) => x.grounded).length;
+    if (!d && !ok.length && !q) return "I did not hear any decisions, action items or open questions. " + (r.summary ? `What I understood: ${r.summary}` : "");
+    return `Got it. I noted ${plural(d, "decision", "decisions")}, ${plural(ok.length, "action item", "action items")} and ${plural(q, "open question", "open questions")}.`;
+  }
   if (!ok.length) return "I did not hear anything that needs doing. " + (r.summary ? `What I understood: ${r.summary}` : "");
   const parts = ok.map((t) => {
     const due = t.due && !t.task.toLowerCase().includes(t.due.toLowerCase()) ? ` ${t.due}` : "";
-    return `${t.priority ? "urgent: " : ""}${t.owner ? `${t.owner} to ` : ""}${lowerFirst(t.task.replace(/[.!]+$/, ""))}${due}`;
+    const tm = resolveTime(t.due) ?? resolveTime(t.quote);
+    const at = tm && !resolveTime(`${t.task} ${t.due ?? ""}`) ? ` at ${clock(tm)}` : "";
+    return `${t.priority ? "urgent: " : ""}${t.owner ? `${t.owner} to ` : ""}${lowerFirst(t.task.replace(/[.!]+$/, ""))}${due}${at}`;
   });
   const list = parts.length === 1 ? parts[0] : parts.length === 2 ? `${parts[0]} and ${parts[1]}` : `${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}`;
   return `Got it. You have ${ok.length === 1 ? "one task" : `${ok.length} tasks`}: ${list}.`;
@@ -93,7 +108,8 @@ export default function VoiceDemo() {
   const [reply, setReply] = useState<Reply | null>(null);
   const [done, setDone] = useState<Record<number, boolean>>({});
   const [items, setItems] = useState<Item[]>([]);
-  const [active, setActive] = useState<number | null>(null);
+  const [mode, setMode] = useState<VoiceMode>("reminders");
+  const [activeKey, setActiveKey] = useState<string | null>(null);
   const nextId = useRef(1000);
   const [copied, setCopied] = useState(false);
   const [readAloud, setReadAloud] = useState(true);
@@ -141,6 +157,9 @@ export default function VoiceDemo() {
     [],
   );
 
+  const cfg = VOICE_MODES.find((m) => m.id === mode)!;
+  const maxSec = cfg.maxSeconds;
+
   async function start() {
     stopSpeaking();
     setError("");
@@ -176,7 +195,7 @@ export default function VoiceDemo() {
       timer.current = setInterval(() => {
         const sec = Math.floor((Date.now() - began) / 1000);
         setElapsed(sec);
-        if (sec >= VOICE_MAX_SECONDS) stop();
+        if (sec >= maxSec) stop();
       }, 250);
       try {
         const ctx = new AudioContext();
@@ -222,7 +241,7 @@ export default function VoiceDemo() {
       }
       setReply(body);
       setItems((body.tasks ?? []).map((t, i) => ({ ...t, id: i })));
-      setActive(null);
+      setActiveKey(null);
       if (readAloud && !body.empty) speak(confirmation(body));
     } catch {
       setError("Could not reach the server. Check your connection and try again.");
@@ -231,17 +250,24 @@ export default function VoiceDemo() {
     }
   }
 
-  const sendClip = () => clip && call("/transcribe", { method: "POST", headers: { "Content-Type": clip.type || "audio/webm" }, body: clip });
-  const sendText = () => call("/tasks", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+  const sendClip = () => clip && call(`/transcribe${mode === "meeting" ? "?mode=meeting" : ""}`, { method: "POST", headers: { "Content-Type": clip.type || "audio/webm" }, body: clip });
+  const sendText = () => call("/tasks", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, mode }) });
 
+  const notesText = () =>
+    [
+      reply?.decisions?.length ? `Decisions:\n${reply.decisions.map((d) => `- ${d.text}`).join("\n")}\n` : "",
+      reply?.questions?.length ? `Open questions:\n${reply.questions.map((d) => `- ${d.text}`).join("\n")}\n` : "",
+    ].join("\n");
   const listText = () =>
     items.map((t) => `- [${done[t.id] ? "x" : " "}] ${t.task}${t.owner ? ` (${t.owner})` : ""}${t.due ? ` — ${t.due}` : ""}${t.priority ? " [urgent]" : ""}`).join("\n");
   const placeable = items.filter((t) => resolveDue(t.due)).length;
+  const quoteFor = (key: string | null) =>
+    !key ? "" : key[0] === "t" ? items.find((x) => `t${x.id}` === key)?.quote ?? "" : (key[0] === "d" ? reply?.decisions : reply?.questions)?.[Number(key.slice(1))]?.quote ?? "";
 
   async function copy() {
     if (!reply) return;
     try {
-      await navigator.clipboard.writeText(`${reply.summary}\n\n${listText()}`);
+      await navigator.clipboard.writeText(`${reply.summary}\n\n${notesText()}${mode === "meeting" ? "Action items:\n" : ""}${listText()}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
@@ -256,10 +282,10 @@ export default function VoiceDemo() {
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
-  const downloadTxt = () => reply && save("tasks.txt", "text/plain", `${reply.summary}\n\n${listText()}\n\nTranscript:\n${reply.transcript}\n`);
-  const downloadJson = () => reply && save("tasks.json", "application/json", JSON.stringify({ summary: reply.summary, tasks: items.map(({ id, ...t }) => ({ ...t, done: !!done[id] })), transcript: reply.transcript }, null, 2));
+  const downloadTxt = () => reply && save("tasks.txt", "text/plain", `${reply.summary}\n\n${notesText()}${mode === "meeting" ? "Action items:\n" : ""}${listText()}\n\nTranscript:\n${reply.transcript}\n`);
+  const downloadJson = () => reply && save("tasks.json", "application/json", JSON.stringify({ mode: reply.mode, summary: reply.summary, decisions: reply.decisions, questions: reply.questions, tasks: items.map(({ id, ...t }) => ({ ...t, done: !!done[id] })), transcript: reply.transcript }, null, 2));
   const downloadIcs = () => {
-    const out = tasksToIcs(items);
+    const out = tasksToIcs(items, new Date(), { alarm: reply?.mode !== "meeting" });
     if (out) save("tasks.ics", "text/calendar", out.ics);
   };
   const edit = (id: number, patch: Partial<Item>) => setItems((xs) => xs.map((t) => (t.id === id ? { ...t, ...patch } : t)));
@@ -281,9 +307,16 @@ export default function VoiceDemo() {
       {!ready && !busy && <VoiceWait />}
 
       <div className="toolkitCard eaForm">
-        <p className="eaLabel">Say what you need to do</p>
+        <p className="eaLabel">What are you saying?</p>
+        <div className="vtModes" role="radiogroup" aria-label="Mode">
+          {VOICE_MODES.map((m) => (
+            <button key={m.id} type="button" role="radio" aria-checked={mode === m.id} className="eaChip vtMode" data-on={mode === m.id ? "true" : undefined} disabled={busy || recording} onClick={() => { setMode(m.id); setReply(null); setItems([]); setClip(null); setClipUrl(null); }}>
+              {m.label}
+            </button>
+          ))}
+        </div>
         <p className="eaMeta" style={{ margin: "0 0 0.75rem" }}>
-          Up to {VOICE_MAX_SECONDS} seconds, for example: “Remind me to send the invoice to Sam by Friday and book the flights tonight.”
+          {cfg.hint} Up to {maxSec} seconds, for example: “{cfg.example}”
         </p>
         <div className="vtRecorder">
           {!recording ? (
@@ -292,7 +325,7 @@ export default function VoiceDemo() {
             </button>
           ) : (
             <button type="button" className="btn btnPrimary vtStop" onClick={stop}>
-              Stop · {elapsed}s / {VOICE_MAX_SECONDS}s
+              Stop · {elapsed}s / {maxSec}s
             </button>
           )}
           <div className="vtMeter" aria-hidden="true">
@@ -311,7 +344,7 @@ export default function VoiceDemo() {
         <details className="vtText">
           <summary>No microphone? Type or paste a note instead</summary>
           <div className="eaExamples" aria-label="Example notes">
-            {VOICE_SAMPLE_NOTES.map((n) => (
+            {VOICE_SAMPLE_NOTES.filter((n) => n.mode === mode).map((n) => (
               <button key={n.label} type="button" className="eaChip" disabled={busy} onClick={() => setText(n.text)}>
                 {n.label}
               </button>
@@ -354,14 +387,43 @@ export default function VoiceDemo() {
               </div>
               <p className="eaLabel">Summary</p>
               <p>{reply.summary || "No summary."}</p>
-              <p className="eaLabel">To-do list</p>
+              {mode === "meeting" && (
+                <>
+                  {(["decisions", "questions"] as const).map((k) => {
+                    const rows = reply[k] ?? [];
+                    return (
+                      <div key={k}>
+                        <p className="eaLabel">{k === "decisions" ? "Decisions" : "Open questions"}</p>
+                        {rows.length === 0 ? <p className="eaMeta">None heard.</p> : (
+                          <ul className="vtNotes">
+                            {rows.map((n, i) => {
+                              const key = `${k === "decisions" ? "d" : "q"}${i}`;
+                              return (
+                                <li key={key} data-active={activeKey === key ? "true" : undefined}>
+                                  <span>{n.text}</span>
+                                  <span className="vtMeta">
+                                    <span className="vtChip" data-ok={n.grounded ? "yes" : "no"}>{n.grounded ? "from your words" : "not found in transcript"}</span>
+                                    {n.quote && <button type="button" className="vtLink" onClick={() => setActiveKey(activeKey === key ? null : key)}>{activeKey === key ? "Hide evidence" : "Show evidence"}</button>}
+                                  </span>
+                                  {n.quote && <span className="vtQuote">“{n.quote}”</span>}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        )}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+              <p className="eaLabel">{mode === "meeting" ? "Action items" : "To-do list"}</p>
               <p className="eaMeta" style={{ margin: "0 0 0.5rem" }}>Edit, tick off, add or remove tasks. Choose "Show evidence" to see the words you said highlighted in the transcript.</p>
               {items.length === 0 && <p className="eaMeta">No tasks found. Nothing in the note asked for action.</p>}
               <ul className="vtTasks">
                 {items.map((t) => {
                   const due = resolveDue(t.due);
                   return (
-                    <li key={t.id} data-done={done[t.id] ? "true" : undefined} data-active={active === t.id ? "true" : undefined}>
+                    <li key={t.id} data-done={done[t.id] ? "true" : undefined} data-active={activeKey === `t${t.id}` ? "true" : undefined}>
                       <div className="vtRow">
                         <input type="checkbox" checked={!!done[t.id]} onChange={() => setDone((d) => ({ ...d, [t.id]: !d[t.id] }))} aria-label={`Done: ${t.task}`} />
                         <input className="vtEdit" value={t.task} maxLength={200} placeholder="Describe the task" aria-label="Task" onChange={(e) => edit(t.id, { task: e.target.value, edited: true })} />
@@ -371,6 +433,7 @@ export default function VoiceDemo() {
                         {t.priority && <span className="vtChip" data-ok="no">urgent: you said so</span>}
                         {t.owner && <span className="vtChip">{t.owner}</span>}
                         {t.due && <span className="vtChip">{t.due}</span>}
+                        {resolveTime(t.due) ?? resolveTime(t.quote) ? <span className="vtChip">{clock((resolveTime(t.due) ?? resolveTime(t.quote))!)}</span> : null}
                         {due && <span className="vtChip">{due.toLocaleDateString(undefined, { weekday: "short", day: "numeric", month: "short" })}</span>}
                         {t.edited ? (
                           <span className="vtChip">edited by you</span>
@@ -378,8 +441,8 @@ export default function VoiceDemo() {
                           <span className="vtChip" data-ok={t.grounded ? "yes" : "no"}>{t.grounded ? "from your words" : "not found in transcript"}</span>
                         )}
                         {t.quote && !t.edited && (
-                          <button type="button" className="vtLink" onClick={() => setActive(active === t.id ? null : t.id)}>
-                            {active === t.id ? "Hide evidence" : "Show evidence"}
+                          <button type="button" className="vtLink" onClick={() => setActiveKey(activeKey === `t${t.id}` ? null : `t${t.id}`)}>
+                            {activeKey === `t${t.id}` ? "Hide evidence" : "Show evidence"}
                           </button>
                         )}
                       </span>
@@ -393,7 +456,7 @@ export default function VoiceDemo() {
                 <button type="button" className="btn btnGhost" onClick={() => void copy()} disabled={!items.length}>{copied ? "Copied" : "Copy list"}</button>
                 <button type="button" className="btn btnGhost" onClick={downloadTxt}>Download .txt</button>
                 <button type="button" className="btn btnGhost" onClick={downloadJson}>Download JSON</button>
-                <button type="button" className="btn btnGhost" onClick={downloadIcs} disabled={!placeable}>Add to calendar (.ics)</button>
+                <button type="button" className="btn btnGhost" onClick={downloadIcs} disabled={!placeable}>{reply.mode === "meeting" ? "Add to calendar (.ics)" : "Add to calendar with alarm (.ics)"}</button>
               </div>
               <p className="eaMeta">
                 {placeable ? `${placeable} of ${items.length} tasks have a day I can place (such as "tomorrow" or "Friday"). The rest are left out of the calendar file instead of guessing.` : "No task has a day I can place yet, so the calendar file is off. I only use days you actually said."}
@@ -404,8 +467,8 @@ export default function VoiceDemo() {
                   {renderTranscript(reply.transcript, [
                     ...lowRanges(reply.transcript, reply.segments).map(([start, end]) => ({ start, end, kind: "low" as const })),
                     ...(() => {
-                      const t = items.find((x) => x.id === active);
-                      const span = t ? findSpan(reply.transcript, t.quote) : null;
+                      const q = quoteFor(activeKey);
+                      const span = q ? findSpan(reply.transcript, q) : null;
                       return span ? [{ start: span[0], end: span[1], kind: "quote" as const }] : [];
                     })(),
                   ])}
