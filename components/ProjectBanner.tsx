@@ -3,7 +3,7 @@
  * Pure inline SVG: no images to download, no network calls, no client JS.
  * It only adds a figure to the page; it never touches the live demos.
  */
-export type BannerKind = "docextract" | "edgar" | "analyst" | "rag" | "habit" | "plant" | "animal";
+export type BannerKind = "docextract" | "edgar" | "analyst" | "rag" | "habit" | "plant" | "animal" | "voice";
 
 const META: Record<BannerKind, { color: string; caption: string }> = {
   docextract: { color: "#22d3ee", caption: "Receipt image → fields → arithmetic check → flag if it does not add up" },
@@ -13,6 +13,7 @@ const META: Record<BannerKind, { color: string; caption: string }> = {
   habit: { color: "#a78bfa", caption: "Scheduled reminder → device confirms → retries stop" },
   plant: { color: "#a3e635", caption: "Leaf photo → disease class → confidence. Photo: PlantVillage dataset (Hughes & Salathé)." },
   animal: { color: "#fbbf24", caption: "Image → classifier → cat, dog or bird" },
+  voice: { color: "#34d399", caption: "Speech → transcript → checked to-do list" },
 };
 
 function Scene({ kind, c }: { kind: BannerKind; c: string }) {
@@ -297,6 +298,37 @@ function Scene({ kind, c }: { kind: BannerKind; c: string }) {
                 <text x="212" textAnchor="end" fill={i === 0 ? c : dim} fontSize="15" fontFamily="ui-monospace,monospace">{Math.round((v as number) * 100)}%</text>
                 <rect y="14" width="212" height="14" rx="7" fill={faint} />
                 <rect y="14" width={Math.max(212 * (v as number), 10)} height="14" rx="7" fill={i === 0 ? c : dim} />
+              </g>
+            ))}
+          </g>
+        </g>
+      );
+    case "voice":
+      return (
+        <g>
+          <g transform="translate(110 110)">
+            <rect width="300" height="200" rx="16" fill="#101734" stroke={dim} strokeWidth="2" />
+            {[20, 44, 70, 96, 70, 112, 60, 88, 40, 64, 28, 50, 22].map((h, k) => (
+              <rect key={k} x={22 + k * 20} y={100 - h / 2} width="10" height={h} rx="5" fill={k > 3 && k < 9 ? c : dim} />
+            ))}
+            <text x="150" y="182" textAnchor="middle" fill={dim} fontSize="15" fontFamily="ui-monospace,monospace">0:20</text>
+          </g>
+          <path d="M435 210 H505" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
+          <g transform="translate(520 90)">
+            <rect width="290" height="240" rx="16" fill="#0a1024" stroke={c} strokeWidth="2" />
+            {[[24, 34, 220], [24, 62, 250], [24, 90, 180], [24, 118, 236], [24, 146, 140]].map(([x, y, w], k) => (
+              <rect key={k} x={x} y={y} width={w} height="10" rx="5" fill={k === 1 ? c : dim} opacity={k === 1 ? 0.8 : 1} />
+            ))}
+            <text x="24" y="206" fill={dim} fontSize="14" fontFamily="ui-monospace,monospace">transcript</text>
+          </g>
+          <path d="M835 210 H895" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
+          <g transform="translate(910 100)">
+            <rect width="200" height="220" rx="16" fill="#101734" stroke={c} strokeWidth="2" />
+            {["Send invoice", "Book flights", "Renew domain"].map((t, k) => (
+              <g key={t} transform={`translate(20 ${30 + k * 56})`}>
+                <circle cx="11" cy="11" r="11" fill={c} opacity="0.2" />
+                <path d="M5 11 l5 5 9-10" stroke={c} strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                <text x="34" y="17" fill={ink} fontSize="15" fontFamily="ui-sans-serif,system-ui">{t}</text>
               </g>
             ))}
           </g>

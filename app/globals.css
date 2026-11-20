@@ -1954,3 +1954,28 @@ ul {
 .projectBanner.photoBanner .photoMain { position: relative; display: block; width: auto; max-width: 100%; height: auto; max-height: 440px; object-fit: contain; }
 .eaKind { display: inline-block; margin-right: 0.5rem; padding: 0.05rem 0.5rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; color: var(--brand); background: rgba(34, 211, 238, 0.12); }
 .eaKind[data-decline="true"] { color: #b45309; background: rgba(245, 158, 11, 0.16); }
+
+/* Voice to Tasks */
+.vtRecorder { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.vtStop { background: #dc2626; }
+.vtMeter { flex: 1 1 140px; height: 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; }
+.vtMeter > div { height: 100%; width: 100%; transform-origin: left; background: linear-gradient(90deg, var(--brand-3), var(--brand)); transition: transform 90ms linear; }
+.vtClip { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+.vtClip audio { flex: 1 1 240px; max-width: 100%; }
+.vtText { margin-top: 1.1rem; }
+.vtText summary { cursor: pointer; color: var(--muted); font-size: 0.92rem; }
+.vtText textarea { width: 100%; margin-top: 0.6rem; padding: 0.7rem 0.8rem; border-radius: 0.6rem; border: 1px solid var(--border); background: var(--surface); color: var(--foreground); font: inherit; resize: vertical; }
+.vtResult { margin-top: 1rem; }
+.vtTasks { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.6rem; }
+.vtTasks li { display: grid; gap: 0.25rem; padding: 0.7rem 0.85rem; border: 1px solid var(--border); border-radius: 0.7rem; background: var(--surface); }
+.vtTasks li[data-done="true"] label span { text-decoration: line-through; color: var(--muted); }
+.vtTasks label { display: flex; gap: 0.6rem; align-items: flex-start; font-weight: 600; cursor: pointer; }
+.vtTasks input { margin-top: 0.3rem; }
+.vtMeta { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.vtChip { font-size: 0.78rem; padding: 0.15rem 0.55rem; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); }
+.vtChip[data-ok="yes"] { color: var(--brand-3); border-color: currentColor; background: transparent; }
+.vtChip[data-ok="no"] { color: #b45309; border-color: currentColor; background: transparent; }
+.vtQuote { font-size: 0.86rem; color: var(--muted); font-style: italic; }
+.vtTranscript { white-space: pre-wrap; color: var(--muted); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .vtChip[data-ok="no"] { color: #fbbf24; } }
+:root[data-theme="dark"] .vtChip[data-ok="no"] { color: #fbbf24; }
