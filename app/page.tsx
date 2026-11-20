@@ -108,7 +108,7 @@ export default function Home() {
             <h1>
               I build{" "}
               <span className="gradientText">AI systems you can use</span>
-              , and I publish where they fail.
+              , backed by public benchmarks.
             </h1>
 
             <ul className="heroKeywords" aria-label="Focus areas">
