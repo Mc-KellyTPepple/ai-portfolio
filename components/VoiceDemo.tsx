@@ -16,6 +16,20 @@ type Reply = {
   seconds: { transcribe: number; tasks: number; total: number };
 };
 
+const lowerFirst = (t: string) => t.charAt(0).toLowerCase() + t.slice(1);
+
+/** Built only from tasks that were found in the transcript, so the spoken line cannot add anything you did not say. */
+function confirmation(r: Reply): string {
+  const ok = r.tasks.filter((t) => t.grounded);
+  if (!ok.length) return "I did not hear anything that needs doing. " + (r.summary ? `What I understood: ${r.summary}` : "");
+  const parts = ok.map((t) => {
+    const due = t.due && !t.task.toLowerCase().includes(t.due.toLowerCase()) ? ` ${t.due}` : "";
+    return `${t.owner ? `${t.owner} to ` : ""}${lowerFirst(t.task.replace(/[.!]+$/, ""))}${due}`;
+  });
+  const list = parts.length === 1 ? parts[0] : `${parts.slice(0, -1).join(", ")}, and ${parts[parts.length - 1]}`;
+  return `Got it. You have ${ok.length === 1 ? "one task" : `${ok.length} tasks`}: ${list}.`;
+}
+
 const MIME_CHOICES = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4", "audio/ogg;codecs=opus"];
 
 function pickMime(): string {
@@ -36,6 +50,8 @@ export default function VoiceDemo() {
   const [reply, setReply] = useState<Reply | null>(null);
   const [done, setDone] = useState<Record<number, boolean>>({});
   const [copied, setCopied] = useState(false);
+  const [readAloud, setReadAloud] = useState(true);
+  const [speaking, setSpeaking] = useState(false);
 
   const rec = useRef<MediaRecorder | null>(null);
   const stream = useRef<MediaStream | null>(null);
@@ -44,6 +60,20 @@ export default function VoiceDemo() {
   const raf = useRef<number | null>(null);
   const audioCtx = useRef<AudioContext | null>(null);
   const urlRef = useRef<string | null>(null);
+
+  function speak(text: string) {
+    if (typeof window === "undefined" || !("speechSynthesis" in window) || !text.trim()) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US";
+    u.onstart = () => setSpeaking(true);
+    u.onend = u.onerror = () => setSpeaking(false);
+    window.speechSynthesis.speak(u);
+  }
+  function stopSpeaking() {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    setSpeaking(false);
+  }
 
   function cleanupCapture() {
     if (timer.current) clearInterval(timer.current);
@@ -59,12 +89,14 @@ export default function VoiceDemo() {
   useEffect(
     () => () => {
       cleanupCapture();
+      if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
       if (urlRef.current) URL.revokeObjectURL(urlRef.current);
     },
     [],
   );
 
   async function start() {
+    stopSpeaking();
     setError("");
     setReply(null);
     setDone({});
@@ -142,6 +174,7 @@ export default function VoiceDemo() {
         return;
       }
       setReply(body);
+      if (readAloud && !body.empty) speak(confirmation(body));
     } catch {
       setError("Could not reach the server. Check your connection and try again.");
     } finally {
@@ -248,6 +281,17 @@ export default function VoiceDemo() {
             <p>{reply.note ?? "No speech found."}</p>
           ) : (
             <>
+              <p className="eaLabel">Confirmation</p>
+              <p className="vtConfirm">{confirmation(reply)}</p>
+              <div className="htTryActions">
+                <button type="button" className="btn btnGhost" onClick={() => (speaking ? stopSpeaking() : speak(confirmation(reply)))}>
+                  {speaking ? "Stop" : "Hear it again"}
+                </button>
+                <label className="vtToggle">
+                  <input type="checkbox" checked={readAloud} onChange={(e) => { setReadAloud(e.target.checked); if (!e.target.checked) stopSpeaking(); }} />
+                  Read it back automatically
+                </label>
+              </div>
               <p className="eaLabel">Summary</p>
               <p>{reply.summary || "No summary."}</p>
               <p className="eaLabel">To-do list</p>

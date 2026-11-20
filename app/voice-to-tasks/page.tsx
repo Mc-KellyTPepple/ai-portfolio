@@ -30,6 +30,14 @@ const facts = [
   { label: "Hosting", value: "Render, wakes on visit" },
 ];
 
+const steps = [
+  { title: "You record in your browser", text: "The browser's microphone feature records up to 30 seconds. You can play the clip back before sending it, and nothing leaves your device until you press the button." },
+  { title: "Whisper turns speech into text", text: "The audio goes to the server, which checks that it is a real audio file within the size limit, then sends it to a Whisper speech model. If the model heard no speech, the clip is reported as empty." },
+  { title: "A language model writes the list", text: "A second model reads only the transcript and returns a summary and tasks. For every task it has to copy the exact words you said." },
+  { title: "The server checks the model's work", text: "A task whose quote is not in the transcript is marked as not found. An owner or deadline you never said is removed. Only the checked tasks are used for the spoken confirmation." },
+  { title: "You get it back, and hear it", text: "The page shows the confirmation, the checklist and the transcript, and your browser reads the confirmation aloud. The audio is then discarded." },
+];
+
 const design = [
   { title: "Every task shows its evidence", text: "The model must quote the exact words behind each task. If the quote is not in the transcript, the task is marked as not found in the transcript instead of being presented as fact." },
   { title: "No invented owners or deadlines", text: "A person or a date appears on a task only when you said it. Anything else the model adds is removed before you see the list." },
@@ -135,6 +143,25 @@ export default function VoiceToTasksPage() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="sectionHeading">
+            <p className="eyebrow">How it works</p>
+            <h2>From your voice to a checked list</h2>
+          </div>
+          <div className="toolkitCard">
+            <ol className="vtSteps">
+              {steps.map((item) => (
+                <li key={item.title}>
+                  <div>
+                    <b>{item.title}</b>
+                    <span>{item.text}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
