@@ -51,6 +51,21 @@ export const projects: Project[] = [
     repo: "https://github.com/Mc-KellyTPepple/doc-extract",
   },
   {
+    slug: "voice-to-tasks",
+    title: "Voice to Tasks",
+    tagline: "Speak for 30 seconds, get a to-do list that quotes your words",
+    description:
+      "Whisper turns a voice note into a transcript, and a text model writes a summary and a to-do list. Every task must quote the words you said, and owners or deadlines you never mentioned are removed. Transcription accuracy is measured as word error rate on public LibriSpeech recordings. Groq-hosted models, cloud hosting.",
+    tags: ["Speech AI", "Whisper", "LLM Extraction", "Evaluation", "Groq", "GitHub Actions"],
+    year: "2026",
+    featured: true,
+    url: "/voice-to-tasks",
+    category: "Speech & Voice AI",
+    cta: "Talk to it",
+    accent: "emerald",
+    repo: "https://github.com/Mc-KellyTPepple/voice-to-tasks",
+  },
+  {
     slug: "edgar-analyst",
     title: "EDGAR Analyst",
     tagline: "An agent for SEC filings that shows its evidence",

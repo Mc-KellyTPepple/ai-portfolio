@@ -4,4 +4,205 @@ export type VoiceConfig = {
   perfect: number; audio_seconds: number; median_latency: number; p90_latency: number; speed_x_realtime: number;
   worst: { id: string; errors: number; words: number; reference: string; hypothesis: string }[];
 };
-export const VOICE_BENCH: Record<string, VoiceConfig> = {};
+export const VOICE_BENCH: Record<string, VoiceConfig> = {
+  "turbo-clean": {
+    "utterances": 50,
+    "words": 1103,
+    "errors": 40,
+    "wer": 3.63,
+    "ci_lo": 2.2,
+    "ci_hi": 5.4,
+    "perfect": 30,
+    "audio_seconds": 391.2,
+    "median_latency": 0.31,
+    "p90_latency": 0.47,
+    "speed_x_realtime": 24.0,
+    "worst": [
+      {
+        "id": "7176-92135-0041",
+        "errors": 4,
+        "words": 14,
+        "reference": "RE ENTER BUTLER AND THREE FOOTMEN WHO REMOVE THE TEA THINGS HOSTESS TO GUEST",
+        "hypothesis": "Re-enther Butler and three footmen who removed the tea things. Hostess, two guests."
+      },
+      {
+        "id": "1995-1826-0007",
+        "errors": 4,
+        "words": 14,
+        "reference": "FIND SOME CRESSWELLS THERE BIG PLANTATIONS RATED AT TWO HUNDRED AND FIFTY THOUSAND DOLLARS",
+        "hypothesis": "Find some crust wells there. Big plantations, rated at $250,000."
+      },
+      {
+        "id": "2300-131720-0036",
+        "errors": 5,
+        "words": 19,
+        "reference": "THE METER CONTINUED IN GENERAL SERVICE DURING EIGHTEEN NINETY NINE AND PROBABLY UP TO THE CLOSE OF THE CENTURY",
+        "hypothesis": "The meter continued in general service during 1899 and probably up to the close of the century."
+      },
+      {
+        "id": "1580-141083-0035",
+        "errors": 3,
+        "words": 12,
+        "reference": "HOLMES TURNED AWAY AND STOOPED SUDDENLY TO THE FLOOR HALLOA WHAT'S THIS",
+        "hypothesis": "Holmes turned away and stooped suddenly to the floor. \"'Hello, what is this?'"
+      },
+      {
+        "id": "6829-68769-0017",
+        "errors": 1,
+        "words": 9,
+        "reference": "WORSE TOM WORSE N EVER REPLIED THE JAILER GLOOMILY",
+        "hypothesis": "\"'Worse, Tom, worse than ever,' replied the jailer gloomily."
+      }
+    ]
+  },
+  "turbo-other": {
+    "utterances": 50,
+    "words": 1018,
+    "errors": 30,
+    "wer": 2.95,
+    "ci_lo": 1.93,
+    "ci_hi": 4.13,
+    "perfect": 29,
+    "audio_seconds": 368.4,
+    "median_latency": 0.3,
+    "p90_latency": 0.44,
+    "speed_x_realtime": 23.8,
+    "worst": [
+      {
+        "id": "3764-168671-0026",
+        "errors": 3,
+        "words": 12,
+        "reference": "FAUCHELEVENT HAD EXPECTED ANYTHING BUT THIS THAT A GRAVE DIGGER COULD DIE",
+        "hypothesis": "Fauchelavant had expected anything but this, that a gravedigger could die."
+      },
+      {
+        "id": "7018-75789-0000",
+        "errors": 2,
+        "words": 10,
+        "reference": "WHEN IT WAS THE FIVE HUNDRED AND SIXTY FIRST NIGHT",
+        "hypothesis": "When it was the 561st night,"
+      },
+      {
+        "id": "367-293981-0006",
+        "errors": 3,
+        "words": 20,
+        "reference": "IT CANNOT BE THE MOOR ANSWERED DON QUIXOTE FOR THOSE UNDER ENCHANTMENT DO NOT LET THEMSELVES BE SEEN BY ANYONE",
+        "hypothesis": "it cannot be the more answered don quixote for those under enchantment do not let themselves be seen by any one"
+      },
+      {
+        "id": "3005-163391-0024",
+        "errors": 1,
+        "words": 7,
+        "reference": "BUT THE KING WAS CA'M HE SAYS",
+        "hypothesis": "But the king was calm. He says,"
+      },
+      {
+        "id": "2414-159411-0015",
+        "errors": 1,
+        "words": 9,
+        "reference": "ON WHAT MUST I GIVE JUDGMENT ASKED THE EAGLE",
+        "hypothesis": "and what must i give judgment asked the eagle"
+      }
+    ]
+  },
+  "v3-clean": {
+    "utterances": 50,
+    "words": 1103,
+    "errors": 31,
+    "wer": 2.81,
+    "ci_lo": 1.6,
+    "ci_hi": 4.44,
+    "perfect": 33,
+    "audio_seconds": 391.2,
+    "median_latency": 0.31,
+    "p90_latency": 0.46,
+    "speed_x_realtime": 23.3,
+    "worst": [
+      {
+        "id": "2300-131720-0036",
+        "errors": 5,
+        "words": 19,
+        "reference": "THE METER CONTINUED IN GENERAL SERVICE DURING EIGHTEEN NINETY NINE AND PROBABLY UP TO THE CLOSE OF THE CENTURY",
+        "hypothesis": "The meter continued in general service during 1899 and probably up to the close of the century."
+      },
+      {
+        "id": "1580-141083-0035",
+        "errors": 3,
+        "words": 12,
+        "reference": "HOLMES TURNED AWAY AND STOOPED SUDDENLY TO THE FLOOR HALLOA WHAT'S THIS",
+        "hypothesis": "Holmes turned away and stooped suddenly to the floor. \"'Hello! What is this?'"
+      },
+      {
+        "id": "6829-68769-0017",
+        "errors": 2,
+        "words": 9,
+        "reference": "WORSE TOM WORSE N EVER REPLIED THE JAILER GLOOMILY",
+        "hypothesis": "Worst Tom, worse than ever, replied the jailer gloomily."
+      },
+      {
+        "id": "7176-92135-0041",
+        "errors": 3,
+        "words": 14,
+        "reference": "RE ENTER BUTLER AND THREE FOOTMEN WHO REMOVE THE TEA THINGS HOSTESS TO GUEST",
+        "hypothesis": "Reinter Butler and Three Footmen, who removed the tea things. Hostess to guest."
+      },
+      {
+        "id": "1995-1826-0007",
+        "errors": 2,
+        "words": 14,
+        "reference": "FIND SOME CRESSWELLS THERE BIG PLANTATIONS RATED AT TWO HUNDRED AND FIFTY THOUSAND DOLLARS",
+        "hypothesis": "Find some cresswells there. Big plantations, rated at $250,000."
+      }
+    ]
+  },
+  "v3-other": {
+    "utterances": 50,
+    "words": 1018,
+    "errors": 21,
+    "wer": 2.06,
+    "ci_lo": 1.21,
+    "ci_hi": 3.14,
+    "perfect": 34,
+    "audio_seconds": 368.4,
+    "median_latency": 0.3,
+    "p90_latency": 0.45,
+    "speed_x_realtime": 23.0,
+    "worst": [
+      {
+        "id": "3764-168671-0026",
+        "errors": 3,
+        "words": 12,
+        "reference": "FAUCHELEVENT HAD EXPECTED ANYTHING BUT THIS THAT A GRAVE DIGGER COULD DIE",
+        "hypothesis": "\"'Foot-le-voix had expected anything but this, \"'that a grave-digger could die.'"
+      },
+      {
+        "id": "7018-75789-0000",
+        "errors": 2,
+        "words": 10,
+        "reference": "WHEN IT WAS THE FIVE HUNDRED AND SIXTY FIRST NIGHT",
+        "hypothesis": "When it was the 561st night,"
+      },
+      {
+        "id": "3005-163391-0024",
+        "errors": 1,
+        "words": 7,
+        "reference": "BUT THE KING WAS CA'M HE SAYS",
+        "hypothesis": "But the king was calm. He says,"
+      },
+      {
+        "id": "1688-142285-0038",
+        "errors": 1,
+        "words": 10,
+        "reference": "BETTER AND NOT BETTER IF YO KNOW WHAT THAT MEANS",
+        "hypothesis": "better and not better if you know what that means"
+      },
+      {
+        "id": "3005-163399-0023",
+        "errors": 1,
+        "words": 11,
+        "reference": "HE MUST A COME AND YOU'VE MISSED HIM ALONG THE ROAD",
+        "hypothesis": "He must have come, and you've missed him along the road."
+      }
+    ]
+  }
+};

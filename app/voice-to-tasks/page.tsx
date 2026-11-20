@@ -46,6 +46,7 @@ const method = [
 
 const limits = [
   "LibriSpeech is read audiobook speech. A rushed voice note on a phone, with background noise, accents and half-finished sentences, is harder, so treat the scores as a best case for this task.",
+  "The scoring is deliberately plain, so it overstates the real error rate. Numbers are spelled out by a simple converter, and a correct \"1899\" or \"$250,000\" can count as errors against how the reference reads them. I left the metric as first run rather than tuning it after seeing the results.",
   "Word error rate measures the transcript, not the to-do list. The grounding check shows whether each task is supported by the transcript; it does not prove the list is complete.",
   "The sample is a few dozen recordings per configuration, so small differences between models are within the intervals shown.",
   "The demo is English. It limits each visitor and each day so the model quota is shared fairly.",
@@ -124,7 +125,7 @@ export default function VoiceToTasksPage() {
           <div className="sectionHeading">
             <p className="eyebrow">Evaluation</p>
             <h2>How accurate is the transcription?</h2>
-            <p>Word error rate on public recordings, for the two Whisper models the service can use, on clear and on harder speech.</p>
+            <p>Word error rate on public recordings, for the two Whisper models the service can use, on LibriSpeech test-clean and test-other.</p>
           </div>
           <VoiceBoard />
           <div className="toolkitCard" style={{ marginTop: "1rem" }}>

@@ -1,7 +1,7 @@
 /** Single place to configure the Voice to Tasks page (/voice-to-tasks). */
 
 /** Live API on Render. It sleeps when idle; opening the page wakes it. Set to the service URL once it is deployed. */
-export const VOICE_API_URL = "";
+export const VOICE_API_URL = "https://voice-to-tasks.onrender.com";
 
 export const VOICE_REPO_URL = "https://github.com/Mc-KellyTPepple/voice-to-tasks";
 

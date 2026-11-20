@@ -2,7 +2,7 @@ import BenchBars from "@/components/BenchBars";
 import { VOICE_BENCH } from "@/data/voiceResults";
 
 const MODEL: Record<string, string> = { turbo: "Whisper large-v3-turbo", v3: "Whisper large-v3" };
-const SET: Record<string, string> = { clean: "clear speech", other: "harder speech" };
+const SET: Record<string, string> = { clean: "test-clean", other: "test-other" };
 
 /** Everything here is read from the generated results file; nothing is typed in. */
 export default function VoiceBoard() {
@@ -39,7 +39,7 @@ export default function VoiceBoard() {
           </div>
         ))}
       </div>
-      <p className="eaMeta">Word error rate: lower is better. The thin line is the 95% interval. Bars are drawn on a 0 to {scale}% scale.</p>
+      <p className="eaMeta">LibriSpeech's "other" set is meant to be harder, but in this sample it scored no worse than "clean": with 50 clips per set, the intervals overlap, so read the two sets as similar. Word error rate: lower is better. The thin line is the 95% interval. Bars are drawn on a 0 to {scale}% scale.</p>
       <div className="abStats">
         <div className="abStat"><b>{total}</b><span>Recordings scored across {keys.length} configurations</span></div>
         <div className="abStat"><b>{VOICE_BENCH[best].wer.toFixed(1)}%</b><span>Lowest word error rate: {label(best)}</span></div>
