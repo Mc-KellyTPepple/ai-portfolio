@@ -343,6 +343,7 @@ const PHOTOS: Partial<Record<BannerKind, { src: string; width: number; height: n
 };
 
 const CONCEPTS: Partial<Record<BannerKind, { src: string; alt: string }>> = {
+  voice: { src: "/voice-to-tasks/banner.webp", alt: "Concept artwork: a man speaking to his laptop while floating cards show the recording, the summary and a to-do list produced from his words" },
   rag: { src: "/ask-your-files/banner.webp", alt: "Concept artwork: documents flowing through a retrieval pipeline into a chat window that answers a question with cited sources" },
 };
 

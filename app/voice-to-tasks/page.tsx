@@ -35,12 +35,15 @@ const steps = [
   { title: "Whisper turns speech into text", text: "The audio goes to the server, which checks that it is a real audio file within the size limit, then sends it to a Whisper speech model. If the model heard no speech, the clip is reported as empty." },
   { title: "A language model writes the list", text: "A second model reads only the transcript and returns a summary and tasks. For every task it has to copy the exact words you said." },
   { title: "The server checks the model's work", text: "A task whose quote is not in the transcript is marked as not found. An owner or deadline you never said is removed. Only the checked tasks are used for the spoken confirmation." },
-  { title: "You get it back, and hear it", text: "The page shows the confirmation, the checklist and the transcript, and your browser reads the confirmation aloud. The audio is then discarded." },
+  { title: "You get it back, and can work with it", text: "The page shows the confirmation, the checklist and the transcript, and your browser reads the confirmation aloud. You can edit and tick off tasks, click one to see the words behind it highlighted in the transcript, and export the list as text or JSON, or as a calendar file for the tasks that have a day. The audio is then discarded." },
 ];
 
 const design = [
   { title: "Every task shows its evidence", text: "The model must quote the exact words behind each task. If the quote is not in the transcript, the task is marked as not found in the transcript instead of being presented as fact." },
   { title: "No invented owners or deadlines", text: "A person or a date appears on a task only when you said it. Anything else the model adds is removed before you see the list." },
+  { title: "Urgent means you said so", text: "A task is tagged urgent only when its quoted words contain something like \"urgent\" or \"ASAP\". The model's opinion of what is important is ignored." },
+  { title: "Dates are placed, not guessed", text: "\"Tomorrow\", \"tonight\" and weekday names become calendar days. Anything vaguer, such as \"soon\", stays out of the calendar file instead of getting an invented date." },
+  { title: "Unsure speech is marked", text: "Parts of the transcript where the speech model reported low confidence are underlined, so you know what to double-check." },
   { title: "Silence stays silent", text: "Speech models tend to produce text for silent audio. When every segment is probably not speech, the clip is reported as empty and no tasks are made." },
   { title: "Your voice stays yours", text: "Recordings are held in memory for the request only. Nothing is stored or logged, there is a size limit, and the file type is checked before any model is called." },
 ];

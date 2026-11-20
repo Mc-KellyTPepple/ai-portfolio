@@ -1986,3 +1986,14 @@ ul {
 .vtSteps li::before { content: counter(vt); display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); font-weight: 700; }
 .vtSteps b { display: block; }
 .vtSteps span { color: var(--muted); font-size: 0.94rem; }
+.vtRow { display: flex; align-items: center; gap: 0.6rem; }
+.vtEdit { flex: 1; min-width: 0; padding: 0.35rem 0.5rem; border: 1px solid transparent; border-radius: 0.5rem; background: transparent; color: var(--foreground); font: inherit; font-weight: 600; }
+.vtEdit:hover, .vtEdit:focus { border-color: var(--border); background: var(--surface-2); outline: none; }
+.vtTasks li[data-done="true"] .vtEdit { text-decoration: line-through; color: var(--muted); }
+.vtTasks li[data-active="true"] { border-color: var(--brand); }
+.vtX { border: 0; background: transparent; color: var(--muted); font-size: 1.3rem; line-height: 1; cursor: pointer; padding: 0 0.3rem; }
+.vtX:hover { color: #dc2626; }
+.vtLink { border: 0; background: transparent; color: var(--brand); font-size: 0.8rem; cursor: pointer; text-decoration: underline; padding: 0; }
+.vtMarkQuote { background: rgba(16, 185, 129, 0.28); border-radius: 0.25rem; }
+.vtMarkLow { text-decoration: underline wavy #d97706; text-underline-offset: 3px; }
+.vtRow input { margin-top: 0; }
