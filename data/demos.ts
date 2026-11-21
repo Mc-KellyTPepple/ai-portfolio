@@ -31,20 +31,20 @@ export type Demo = {
 export const plantDisease: Demo = {
   metaTitle: "Plant Disease Detection AI | Mc-Kelly Pepple",
   metaDescription:
-    "A MobileNetV3-Large classifier that identifies plant diseases from leaf photos, served with ONNX Runtime. Upload a leaf and try it.",
+    "A leaf-photo classifier for 38 crop and disease classes that says when it is not sure, with accuracy measured on real field photos. Upload a leaf and try it.",
   path: "/plant-disease",
   eyebrow: "Computer Vision \u00b7 Deployed",
   lead: "Spot plant disease from",
   accent: "a single leaf photo",
   intro:
-    "A deep learning classifier built on MobileNetV3-Large that identifies plant diseases from leaf images. It runs on the CPU through ONNX Runtime, so it stays light enough for a small server.",
-  stack: ["Computer Vision", "MobileNetV3", "ONNX Runtime", "Python", "Gradio", "Render"],
+    "A ConvNeXt-Tiny classifier (the LeafScan model by Marconcini, CC BY-SA 4.0) that names the crop and disease from a leaf photo. It answers only when it is confident, shows candidates when it is not, and runs on the CPU through ONNX Runtime.",
+  stack: ["Computer Vision", "ConvNeXt", "ONNX Runtime", "Calibrated confidence", "Python", "Gradio", "Render"],
   repo: "https://github.com/Mc-KellyTPepple/plant-disease-diagnosis",
   facts: [
-    { label: "Model", value: "MobileNetV3-Large" },
+    { label: "Model", value: "LeafScan ConvNeXt-T (int8)" },
+    { label: "Field accuracy", value: "71.2% on 236 real photos" },
+    { label: "When it answers", value: "85.1% right, on 65% of photos" },
     { label: "Runtime", value: "ONNX Runtime on CPU" },
-    { label: "Interface", value: "Gradio" },
-    { label: "Hosting", value: "Render" },
   ],
   probe: "plant",
   statusLabel: "Plant model \u00b7 Render",
@@ -56,9 +56,17 @@ export const plantDisease: Demo = {
   openLabel: "Open in a new tab",
   frameTitle: "Plant disease detection demo",
   pointsEyebrow: "Getting good results",
-  pointsHeading: "Tips for a useful prediction",
-  pointsText: "The output is a model's best guess from a photo, so a clear image matters.",
+  pointsHeading: "How to read the result",
+  pointsText: "The output is a model's best guess from a photo, so a clear image matters, and so does knowing how it was measured.",
   points: [
+    {
+      title: "Measured on real field photos",
+      text: "Scored on the 236 photos of the PlantDoc test split, which the model never saw in training: 71.2% right overall (95% interval 65.1 to 76.6), 87.3% right on the crop, and 95.3% right on healthy versus diseased. The app answers confidently on 65.3% of photos and is right 85.1% of the time when it does.",
+    },
+    {
+      title: "Lab accuracy is not field accuracy",
+      text: "A model trained only on clean lab photos can score above 99% there and about 31% on field photos. That is why the numbers here come from field photos, and why the app says \"possible\" or \"I can't tell\" instead of guessing.",
+    },
     { title: "One leaf, in focus", text: "Fill the frame with a single leaf and keep the camera steady." },
     {
       title: "Even, natural light",
@@ -66,7 +74,7 @@ export const plantDisease: Demo = {
     },
     {
       title: "A lead, not a verdict",
-      text: "A prediction is a starting point. For treatment decisions, confirm with an agronomist or your local extension service.",
+      text: "It knows only 38 crop and disease classes, can still give a diagnosis for a photo that is not a leaf, and has no view on pests or nutrient problems. For treatment decisions, confirm with an agronomist or your local extension service. Model: LeafScan by Marconcini, CC BY-SA 4.0, trained on PlantVillage and PlantDoc.",
     },
   ],
 };

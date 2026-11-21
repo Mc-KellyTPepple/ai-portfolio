@@ -160,8 +160,8 @@ export const projects: Project[] = [
     title: "Plant Disease Detection AI",
     tagline: "Computer vision for plant disease",
     description:
-      "A deep learning classifier built on MobileNetV3-Large that identifies plant diseases from leaf images, served with ONNX Runtime as a lightweight application for real world agricultural use.",
-    tags: ["Computer Vision", "MobileNetV3", "ONNX Runtime", "Deployment"],
+      "Names the crop and disease from a leaf photo using the LeafScan ConvNeXt-Tiny model, and says when it is not sure. Measured on 236 real field photos: 71.2% right overall, and 85.1% right on the 65% of photos it answers confidently. Served with ONNX Runtime on the CPU.",
+    tags: ["Computer Vision", "ConvNeXt", "ONNX Runtime", "Evaluation"],
     year: "2024",
     featured: true,
     url: "/plant-disease",
