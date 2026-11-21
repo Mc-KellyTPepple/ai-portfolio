@@ -64,6 +64,10 @@ export const plantDisease: Demo = {
       text: "Scored on the 236 photos of the PlantDoc test split, which the model never saw in training: 71.2% right overall (95% interval 65.1 to 76.6), 87.3% right on the crop, and 95.3% right on healthy versus diseased. The app answers confidently on 65.3% of photos and is right 85.1% of the time when it does.",
     },
     {
+      title: "When it hedges, the answer is usually on the list",
+      text: "On the 68 test photos where the app says \"possible, not certain\", its first choice was right 48.5% of the time, but the true disease was among the three candidates shown 91.2% of the time. The confidence cutoff was checked by fitting it on random halves of the test photos and scoring the other half; re-fitting gave no reliable gain, so the model author's value stays.",
+    },
+    {
       title: "Lab accuracy is not field accuracy",
       text: "A model trained only on clean lab photos can score above 99% there and about 31% on field photos. That is why the numbers here come from field photos, and why the app says \"possible\" or \"I can't tell\" instead of guessing.",
     },
