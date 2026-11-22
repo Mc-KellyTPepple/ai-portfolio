@@ -8,7 +8,7 @@ import { projects } from "@/data/projects";
 const EMAIL = "mckelly2014@gmail.com";
 
 // EDGAR Analyst, Data Analyst Agent and Doc Extract publish their benchmark results, including failures.
-const PUBLISHED_EVALUATIONS = 5;
+const PUBLISHED_EVALUATIONS = 6;
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -147,7 +147,7 @@ export default function Home() {
               <dt>Projects with published evaluations</dt>
             </div>
             <div>
-              <dd className="statsText">CORD &middot; Spider &middot; SEC filings &middot; LibriSpeech &middot; PlantDoc</dd>
+              <dd className="statsText">CORD &middot; Spider &middot; SEC filings &middot; LibriSpeech &middot; PlantDoc &middot; OpenML</dd>
               <dt>Public benchmarks used</dt>
             </div>
             <div>

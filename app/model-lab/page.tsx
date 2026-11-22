@@ -51,7 +51,7 @@ const design = [
 ];
 
 const method = [
-  "Public datasets from OpenML (plus California housing from scikit-learn), spanning two-class, multi-class and numeric targets. A dataset that cannot be downloaded is listed as skipped rather than replaced.",
+  "Public datasets from OpenML (plus California housing from scikit-learn), spanning two-class, multi-class and numeric targets. Datasets Model Lab declines or cannot load (for example, more than 40 columns) are listed as skipped rather than replaced.",
   "For each dataset and each of three split seeds, 30% of the rows are kept back by the benchmark script, where Model Lab cannot see them. The rest is given to Model Lab exactly like an upload.",
   "Pick quality: the Lab's model and every candidate are scored on the kept-back rows. Regret is the best candidate's score minus the Lab's.",
   "Stated score: how far the Lab's own held-out score was from the kept-back score, and how often its 95% interval contained it.",

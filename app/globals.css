@@ -2044,3 +2044,7 @@ ul {
 .mlActions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.5rem 0; }
 .mlResults .eaLimits li[data-level="warn"] { font-weight: 600; }
 @media (max-width: 560px) { .mlCol { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .mlCol span:nth-of-type(2), .mlCol .mlEx { display: none; } }
+.mlBench { overflow-x: auto; border: 1px solid var(--border); border-radius: 0.7rem; }
+.mlBenchRow { display: grid; grid-template-columns: minmax(8rem, 1.6fr) repeat(6, minmax(4.5rem, 1fr)); gap: 0.5rem; padding: 0.45rem 0.75rem; font-size: 0.85rem; border-bottom: 1px solid var(--border); min-width: 40rem; }
+.mlBenchRow:last-child { border-bottom: 0; }
+.mlBenchHead { font-weight: 700; color: var(--muted); font-size: 0.75rem; }
