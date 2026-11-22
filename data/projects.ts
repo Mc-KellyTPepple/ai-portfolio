@@ -21,6 +21,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "model-lab",
+    title: "Model Lab",
+    tagline: "Train a model on your spreadsheet, and see how far to trust it",
+    description:
+      "Upload a table and pick a column to predict. Model Lab profiles the data, catches columns that give the answer away, compares five models against a baseline with cross-validation, scores a held-out test once with an interval, and generates a prediction form and a drift monitor. Its own claims are checked on public datasets against rows it never saw. Cloud hosting.",
+    tags: ["Machine Learning", "AutoML", "Cross-validation", "Leakage detection", "Drift monitoring", "scikit-learn"],
+    year: "2026",
+    featured: true,
+    url: "/model-lab",
+    category: "Machine Learning & MLOps",
+    cta: "Train a model",
+    accent: "violet",
+    repo: "https://github.com/Mc-KellyTPepple/model-lab",
+  },
+  {
         slug: "sentinel-vision",
         title: "Sentinel Vision",
         tagline: "Real-time AI video intelligence with alerts you can explain",

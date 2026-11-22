@@ -3,7 +3,7 @@
  * Pure inline SVG: no images to download, no network calls, no client JS.
  * It only adds a figure to the page; it never touches the live demos.
  */
-export type BannerKind = "docextract" | "edgar" | "analyst" | "rag" | "habit" | "plant" | "animal" | "voice";
+export type BannerKind = "docextract" | "edgar" | "analyst" | "rag" | "habit" | "plant" | "animal" | "voice" | "lab";
 
 const META: Record<BannerKind, { color: string; caption: string }> = {
   docextract: { color: "#22d3ee", caption: "Receipt image → fields → arithmetic check → flag if it does not add up" },
@@ -14,6 +14,7 @@ const META: Record<BannerKind, { color: string; caption: string }> = {
   plant: { color: "#a3e635", caption: "Leaf photo → disease class → confidence. Photo: PlantVillage dataset (Hughes & Salathé)." },
   animal: { color: "#fbbf24", caption: "Image → classifier → cat, dog or bird" },
   voice: { color: "#34d399", caption: "Speech → transcript → checked to-do list" },
+  lab: { color: "#60a5fa", caption: "Spreadsheet → leak check → fair comparison against a baseline → one test score" },
 };
 
 function Scene({ kind, c }: { kind: BannerKind; c: string }) {
@@ -300,6 +301,46 @@ function Scene({ kind, c }: { kind: BannerKind; c: string }) {
                 <rect y="14" width={Math.max(212 * (v as number), 10)} height="14" rx="7" fill={i === 0 ? c : dim} />
               </g>
             ))}
+          </g>
+        </g>
+      );
+    case "lab":
+      return (
+        <g>
+          <g transform="translate(90 92)">
+            <rect width="250" height="236" rx="16" fill="#101734" stroke={dim} strokeWidth="2" />
+            {[0, 1, 2, 3, 4, 5].map((r) => (
+              <g key={r} transform={`translate(20 ${26 + r * 31})`}>
+                {[0, 1, 2, 3].map((q) => (
+                  <rect key={q} x={q * 56} width="46" height="14" rx="7" fill={r === 0 ? c : dim} opacity={r === 0 ? 0.7 : 1} />
+                ))}
+              </g>
+            ))}
+            <text x="125" y="226" textAnchor="middle" fill={dim} fontSize="14" fontFamily="ui-monospace,monospace">your spreadsheet</text>
+          </g>
+          <path d="M355 210 H415" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
+          <g transform="translate(430 70)">
+            <rect width="400" height="280" rx="16" fill="#0a1024" stroke={c} strokeWidth="2" />
+            {[["baseline", 0.38], ["tree", 0.62], ["linear", 0.84], ["forest", 0.8]].map(([t, v], k) => (
+              <g key={t as string} transform={`translate(24 ${30 + k * 54})`}>
+                <text y="14" fill={ink} fontSize="14" fontFamily="ui-monospace,monospace">{t}</text>
+                <rect x="84" y="0" width={290 * (v as number)} height="20" rx="10" fill={k === 2 ? c : dim} />
+              </g>
+            ))}
+            <path d="M200 20 V262" stroke="#fbbf24" strokeWidth="2" strokeDasharray="5 5" />
+            <text x="206" y="268" fill="#fbbf24" fontSize="13" fontFamily="ui-monospace,monospace">beat this</text>
+          </g>
+          <path d="M845 210 H905" stroke={c} strokeWidth="3" strokeDasharray="2 9" strokeLinecap="round" />
+          <g transform="translate(920 92)">
+            <rect width="200" height="236" rx="16" fill="#101734" stroke={c} strokeWidth="2" />
+            <text x="100" y="74" textAnchor="middle" fill={ink} fontSize="44" fontWeight="700" fontFamily="ui-sans-serif,system-ui">1×</text>
+            <text x="100" y="102" textAnchor="middle" fill={dim} fontSize="12" fontFamily="ui-monospace,monospace">test rows, scored once</text>
+            <path d="M34 130 H166" stroke={dim} strokeWidth="2" />
+            <path d="M52 130 V122 M148 130 V122" stroke={c} strokeWidth="3" strokeLinecap="round" />
+            <path d="M52 126 H148" stroke={c} strokeWidth="5" strokeLinecap="round" />
+            <text x="100" y="168" textAnchor="middle" fill={dim} fontSize="13" fontFamily="ui-monospace,monospace">95% interval</text>
+            <rect x="30" y="184" width="140" height="30" rx="15" fill={c} opacity="0.18" />
+            <text x="100" y="204" textAnchor="middle" fill={c} fontSize="14" fontFamily="ui-sans-serif,system-ui">beats the baseline</text>
           </g>
         </g>
       );
