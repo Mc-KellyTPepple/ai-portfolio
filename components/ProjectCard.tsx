@@ -55,11 +55,19 @@ export default function ProjectCard({ project, index, featured = false }: Projec
   return (
     <article className={`pcCard ${featured ? "pcCardFeatured" : ""}`} data-accent={project.accent}>
       <div className="pcBody">
-        <p className="pcEyebrow">
-          <span>{number}</span>
-          <span aria-hidden="true">&middot;</span>
-          <span>{project.category}</span>
-        </p>
+        <div className="pcTop">
+          <p className="pcEyebrow">
+            <span>{number}</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>{project.category}</span>
+          </p>
+          {project.image && (
+            <span className="pcThumb" aria-hidden="true">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={project.image} width={640} height={360} alt="" loading="lazy" decoding="async" />
+            </span>
+          )}
+        </div>
         <h3 className="pcTitle">{project.title}</h3>
         <p className="pcTagline">{project.tagline}</p>
         {featured && <p className="pcDescription">{project.description}</p>}

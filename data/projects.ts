@@ -17,11 +17,14 @@ export type Project = {
   accent: Accent;
   /** Optional public source repository */
   repo?: string;
+  /** Optional small picture shown in the card (16:9, from public/thumbs) */
+  image?: string;
 };
 
 export const projects: Project[] = [
   {
     slug: "model-lab",
+    image: "/thumbs/model-lab.webp",
     title: "Model Lab",
     tagline: "Train a model on your spreadsheet, and see how far to trust it",
     description:
@@ -37,6 +40,7 @@ export const projects: Project[] = [
   },
   {
     slug: "edgar-analyst",
+    image: "/thumbs/edgar-analyst.webp",
     title: "EDGAR Analyst",
     tagline: "An agent for SEC filings that shows its evidence",
     description:
@@ -67,6 +71,7 @@ export const projects: Project[] = [
   },
   {
     slug: "data-analyst-agent",
+    image: "/thumbs/data-analyst-agent.webp",
     title: "Data Analyst Agent",
     tagline: "Ask your data in plain English, measured on Spider",
     description:
@@ -82,6 +87,7 @@ export const projects: Project[] = [
   },
   {
     slug: "doc-extract",
+    image: "/thumbs/doc-extract.webp",
     title: "Doc Extract",
     tagline: "Receipts to structured data, flagged when the numbers do not add up",
     description:
@@ -97,6 +103,7 @@ export const projects: Project[] = [
   },
   {
     slug: "voice-to-tasks",
+    image: "/thumbs/voice-to-tasks.webp",
     title: "Voice to Tasks",
     tagline: "Voice reminders and meeting notes that quote your words",
     description:
@@ -112,6 +119,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ask-your-files",
+    image: "/thumbs/ask-your-files.webp",
     title: "Ask Your Files (RAG)",
     tagline: "Document Q&A with sources you can check",
     description:
@@ -127,6 +135,7 @@ export const projects: Project[] = [
   },
   {
     slug: "plant-disease-detection",
+    image: "/thumbs/plant-disease-detection.webp",
     title: "Plant Disease Detection AI",
     tagline: "Computer vision for plant disease",
     description:
@@ -172,6 +181,7 @@ export const projects: Project[] = [
   },
   {
     slug: "habit-tracker",
+    image: "/thumbs/habit-tracker.webp",
     title: "Habit Tracker (Mobile & Web)",
     tagline: "Installable habit tracker with push reminders that stop on delivery",
     description:
@@ -187,6 +197,7 @@ export const projects: Project[] = [
   },
   {
     slug: "animal-image-classifier",
+    image: "/thumbs/animal-image-classifier.webp",
     title: "Animal Image Classifier",
     tagline: "Deployed cat, dog, and bird image classifier",
     description:
