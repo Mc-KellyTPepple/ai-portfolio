@@ -33,7 +33,9 @@ const personSchema = {
   sameAs: [SOCIAL.github, SOCIAL.linkedin],
 };
 
-const background = [
+type BackgroundItem = { head: string; meta?: string; text?: string };
+
+const background: { title: string; items: BackgroundItem[] }[] = [
   {
     title: "Experience",
     items: [
