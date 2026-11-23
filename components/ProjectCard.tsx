@@ -53,7 +53,7 @@ export default function ProjectCard({ project, index, featured = false }: Projec
   );
 
   return (
-    <article className={`pcCard ${featured ? "pcCardFeatured" : ""}`} data-accent={project.accent}>
+    <article className={`pcCard ${featured ? "pcCardFeatured" : ""}`} data-accent={project.accent} style={{ ["--i" as string]: index }}>
       <div className="pcBody">
         <div className="pcTop">
           <p className="pcEyebrow">
