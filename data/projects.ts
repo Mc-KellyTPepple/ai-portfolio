@@ -56,6 +56,7 @@ export const projects: Project[] = [
   },
   {
         slug: "sentinel-vision",
+        image: "/thumbs/sentinel-vision.webp",
         title: "Sentinel Vision",
         tagline: "Real-time AI video intelligence with alerts you can explain",
         description:
@@ -151,6 +152,7 @@ export const projects: Project[] = [
   },
   {
     slug: "lightface-ai",
+    image: "/thumbs/lightface-ai.webp",
     title: "LightFace AI",
     tagline: "Lightweight Hybrid Face Verification Engine",
     description:
@@ -166,6 +168,7 @@ export const projects: Project[] = [
   },
   {
     slug: "talent-match-ai",
+    image: "/thumbs/talent-match-ai.webp",
     title: "Talent Match AI",
     tagline: "AI powered talent matching from your CV",
     description:
