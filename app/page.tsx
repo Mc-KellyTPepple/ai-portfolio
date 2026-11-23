@@ -6,6 +6,7 @@ import SocialLinks, { SOCIAL } from "@/components/SocialLinks";
 import { projects } from "@/data/projects";
 
 const EMAIL = "mckelly2014@gmail.com";
+const CV_URL = "/McKelly-Pepple-CV.pdf";
 
 // EDGAR Analyst, Data Analyst Agent and Doc Extract publish their benchmark results, including failures.
 const PUBLISHED_EVALUATIONS = 6;
@@ -31,6 +32,43 @@ const personSchema = {
   url: "https://ai-portfolio-pearl-ten.vercel.app",
   sameAs: [SOCIAL.github, SOCIAL.linkedin],
 };
+
+const background = [
+  {
+    title: "Experience",
+    items: [
+      {
+        head: "Lecturer I, Federal Polytechnic of Oil and Gas Bonny",
+        meta: "2018 – present",
+        text: "Applied research in AI, machine learning and computer vision. Head of Department; chair of the examination moderation and appraisal committees; supervised 10+ undergraduate projects.",
+      },
+    ],
+  },
+  {
+    title: "Education",
+    items: [
+      { head: "PhD (in view), Electronic and Computer Engineering", meta: "University of Nigeria, Nsukka · 2021 – present" },
+      { head: "M.Sc., Systems and Control", meta: "Coventry University, UK · 2013 – 2014" },
+      { head: "B.Tech., Computer Engineering", meta: "Rivers State University · 2003 – 2008" },
+    ],
+  },
+  {
+    title: "Research",
+    items: [
+      { head: "10+ peer-reviewed papers", meta: "2020 – 2025", text: "and 9 national and international conference presentations." },
+      { head: "IECEC 2026", meta: "University of Nigeria, Nsukka", text: "Face recognition with EfficientNet and Swin Transformer (VGGFace2; LFW, AgeDB30, CALFW, CPLFW), and clinical image denoising with a noise-aware channel-attention U-Net." },
+    ],
+  },
+  {
+    title: "Credentials",
+    items: [
+      { head: "COREN registered engineer" },
+      { head: "Python Developer Certificate", meta: "freeCodeCamp" },
+      { head: "Intermediate Machine Learning", meta: "Kaggle" },
+      { head: "TETFund AST&D Scholarship", meta: "2021 – present" },
+    ],
+  },
+];
 
 const toolkit = [
   {
@@ -129,6 +167,10 @@ export default function Home() {
               <a href="#contact" className="btn btnGhost">
                 Contact me
               </a>
+              <a href={CV_URL} className="btn btnGhost" download>
+                Download CV
+                <span className="srOnly"> (PDF)</span>
+              </a>
             </div>
 
             <SocialLinks variant="labeled" className="heroSocial" />
@@ -163,7 +205,9 @@ export default function Home() {
             <h2>Projects</h2>
             <p>
               AI systems taken from experimentation through to live
-              deployment.
+              deployment. Demos run on small servers that sleep when idle, so
+              the first open can take up to a minute while one wakes; a short
+              tour plays while you wait.
             </p>
           </div>
 
@@ -200,6 +244,40 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="background" className="section">
+          <div className="sectionHeading">
+            <p className="eyebrow">Background</p>
+            <h2>Research and teaching, applied</h2>
+            <p>
+              Ten years of teaching and research in electronic and computer
+              engineering, now focused on building and evaluating AI systems.
+            </p>
+          </div>
+
+          <div className="bgGrid">
+            {background.map((block) => (
+              <div key={block.title} className="toolkitCard bgCard">
+                <h3>{block.title}</h3>
+                <ul>
+                  {block.items.map((item) => (
+                    <li key={item.head}>
+                      <b>{item.head}</b>
+                      {item.meta && <span className="bgMeta">{item.meta}</span>}
+                      {item.text && <span className="bgText">{item.text}</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <p className="bgCv">
+            <a href={CV_URL} className="btn btnPrimary" download>
+              Download the full CV (PDF)
+            </a>
+          </p>
+        </section>
+
         <section id="about" className="section">
           <div className="aboutGrid">
             <div className="aboutIntro">
@@ -225,17 +303,19 @@ export default function Home() {
 
         <section id="contact" className="section">
           <div className="contactCard">
-            <p className="eyebrow">Let&apos;s work together</p>
-            <h2>Have an AI problem worth solving?</h2>
+            <p className="eyebrow">Open to opportunities</p>
+            <h2>Looking for an Applied AI engineer?</h2>
             <p>
-              I am available for applied AI and AI systems engineering work:
-              LLM agents, RAG, computer vision and full-stack AI products.
+              I am open to remote Applied AI and AI systems engineering
+              roles: LLM agents, RAG, computer vision and full-stack AI
+              products. If you have a problem like that, the projects above
+              show how I work, and I would like to hear about it.
             </p>
             <ContactButton email={EMAIL} />
             <SocialLinks variant="labeled" className="contactSocial" />
             <p className="cvNote">
-              Full CV available on request, shared directly and on a
-              case-by-case basis.
+              <a href={CV_URL} download>Download my CV (PDF)</a>. Referees
+              are available on request.
             </p>
           </div>
         </section>

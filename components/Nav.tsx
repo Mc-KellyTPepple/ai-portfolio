@@ -3,6 +3,7 @@ import SocialLinks from "@/components/SocialLinks";
 const links = [
   { href: "#projects", label: "Projects" },
   { href: "#toolkit", label: "Toolkit" },
+  { href: "#background", label: "Background" },
   { href: "#about", label: "About" },
 ];
 

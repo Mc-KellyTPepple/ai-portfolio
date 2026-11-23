@@ -2356,3 +2356,42 @@ ul {
     animation-delay: 0s, calc(var(--i, 0) * -1.3s);
   }
 }
+
+/* Background (experience, education, research, credentials) */
+.bgGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 899px) {
+  .bgGrid { grid-template-columns: 1fr; }
+}
+
+.bgCard h3 { margin-bottom: 0.75rem; }
+
+.bgCard ul {
+  display: grid;
+  gap: 0.85rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bgCard li {
+  font-family: inherit;
+  display: grid;
+  gap: 0.15rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.bgCard li b { font-weight: 600; color: var(--foreground); }
+.bgMeta { color: var(--subtle); font-size: 0.85rem; }
+.bgText { color: var(--muted); font-size: 0.9rem; }
+.bgCv { margin-top: 1.5rem; }
+.cvNote a { text-decoration: underline; text-underline-offset: 3px; }
