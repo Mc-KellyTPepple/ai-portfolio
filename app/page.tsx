@@ -314,13 +314,13 @@ export default function Home() {
         <section id="contact" className="section">
           <div className="contactCard">
             <p className="eyebrow">Open to opportunities</p>
-            <h2>Need an Applied AI engineer for a project?</h2>
+            <h2>Looking for an Applied AI engineer?</h2>
             <p>
-              I am open to part-time, contract and consulting work in applied
-              AI and AI systems engineering: LLM agents, RAG, computer vision
-              and full-stack AI products. If you have a problem like that,
-              the projects above show how I work, and I would like to hear
-              about it.
+              I am open to full-time remote Applied AI and AI systems
+              engineering roles: LLM agents, RAG, computer vision and
+              full-stack AI products. If you have a problem like that, the
+              projects above show how I work, and I would like to hear about
+              it.
             </p>
             <ContactButton email={EMAIL} />
             <SocialLinks variant="labeled" className="contactSocial" />
