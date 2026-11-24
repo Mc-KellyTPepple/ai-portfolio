@@ -4,6 +4,7 @@ import Nav from "@/components/Nav";
 import ProjectCard from "@/components/ProjectCard";
 import SocialLinks, { SOCIAL } from "@/components/SocialLinks";
 import { projects } from "@/data/projects";
+import { publications } from "@/data/publications";
 
 const EMAIL = "mckelly2014@gmail.com";
 const CV_URL = "/McKelly-Pepple-CV.pdf";
@@ -280,6 +281,25 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <details id="publications" className="pubBox">
+            <summary>
+              Selected publications ({publications.filter((p) => p.kind === "journal").length} journal papers,{" "}
+              {publications.filter((p) => p.kind === "conference").length} conference abstract)
+            </summary>
+            <ul>
+              {publications.map((p) => (
+                <li key={p.url}>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer">
+                    {p.title}
+                  </a>
+                  <span className="bgMeta">
+                    {p.venue} · {p.year}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </details>
 
           <p className="bgCv">
             <a href={CV_URL} className="btn btnPrimary" download>
