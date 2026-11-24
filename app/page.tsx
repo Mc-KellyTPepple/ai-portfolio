@@ -67,7 +67,7 @@ const background: { title: string; items: BackgroundItem[] }[] = [
     title: "Research",
     items: [
       { head: "10+ peer-reviewed papers", meta: "2020 – 2025", text: "and 9 national and international conference presentations." },
-      { head: "IECEC 2026", meta: "University of Nigeria, Nsukka", text: "Face recognition with EfficientNet and Swin Transformer (VGGFace2; LFW, AgeDB30, CALFW, CPLFW), and clinical image denoising with a noise-aware channel-attention U-Net." },
+      { head: "IECEC 2026", meta: "University of Nigeria, Nsukka", text: "Face recognition (VGGFace2; LFW, AgeDB30, CALFW, CPLFW) and clinical image denoising." },
     ],
   },
   {
