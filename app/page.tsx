@@ -29,7 +29,7 @@ const personSchema = {
     "React",
     "Node.js",
   ],
-  url: "https://ai-portfolio-pearl-ten.vercel.app",
+  url: "https://mckelly-pepple.vercel.app",
   sameAs: [SOCIAL.github, SOCIAL.linkedin],
 };
 
@@ -43,6 +43,14 @@ const background: { title: string; items: BackgroundItem[] }[] = [
         head: "Lecturer I, Federal Polytechnic of Oil and Gas Bonny",
         meta: "2018 – present",
         text: "Applied research in AI, machine learning and computer vision. Head of Department; chair of the examination moderation and appraisal committees; supervised 10+ undergraduate projects.",
+      },
+      {
+        head: "Full Stack Developer, ATOD-Tech",
+        text: "Full-stack web applications: software engineering, system integration and deployment.",
+      },
+      {
+        head: "Technology & Python Tutor, KiddiEdu",
+        text: "Teaching technology and Python, with practical programming and digital skills.",
       },
     ],
   },
@@ -306,12 +314,13 @@ export default function Home() {
         <section id="contact" className="section">
           <div className="contactCard">
             <p className="eyebrow">Open to opportunities</p>
-            <h2>Looking for an Applied AI engineer?</h2>
+            <h2>Need an Applied AI engineer for a project?</h2>
             <p>
-              I am open to remote Applied AI and AI systems engineering
-              roles: LLM agents, RAG, computer vision and full-stack AI
-              products. If you have a problem like that, the projects above
-              show how I work, and I would like to hear about it.
+              I am open to part-time, contract and consulting work in applied
+              AI and AI systems engineering: LLM agents, RAG, computer vision
+              and full-stack AI products. If you have a problem like that,
+              the projects above show how I work, and I would like to hear
+              about it.
             </p>
             <ContactButton email={EMAIL} />
             <SocialLinks variant="labeled" className="contactSocial" />

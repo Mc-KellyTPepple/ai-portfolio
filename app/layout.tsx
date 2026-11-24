@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ai-portfolio-pearl-ten.vercel.app"),
+  metadataBase: new URL("https://mckelly-pepple.vercel.app"),
   alternates: { canonical: "/" },
   title: "Mc-Kelly Pepple | Applied AI / AI Systems Engineer",
   description:
