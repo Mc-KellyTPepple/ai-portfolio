@@ -2418,3 +2418,5 @@ ul {
 .pubBox li { display: grid; gap: 0.15rem; }
 .pubBox li a { color: var(--brand); font-weight: 500; text-decoration: none; }
 .pubBox li a:hover { text-decoration: underline; }
+.bgLink { font-size: 0.85rem; color: var(--brand); text-decoration: none; }
+.bgLink:hover { text-decoration: underline; }

@@ -34,7 +34,7 @@ const personSchema = {
   sameAs: [SOCIAL.github, SOCIAL.linkedin],
 };
 
-type BackgroundItem = { head: string; meta?: string; text?: string };
+type BackgroundItem = { head: string; meta?: string; text?: string; url?: string };
 
 const background: { title: string; items: BackgroundItem[] }[] = [
   {
@@ -73,9 +73,9 @@ const background: { title: string; items: BackgroundItem[] }[] = [
   {
     title: "Credentials",
     items: [
-      { head: "COREN registered engineer" },
-      { head: "Python Developer Certificate", meta: "freeCodeCamp" },
-      { head: "Intermediate Machine Learning", meta: "Kaggle" },
+      { head: "COREN registered engineer", url: "https://portal.coren.gov.ng/verification/check/R54720" },
+      { head: "Python Developer Certificate", meta: "freeCodeCamp", url: "https://www.freecodecamp.org/certification/fcc-61978999-e83d-4f01-8df4-533783876165/python-v9" },
+      { head: "Intermediate Machine Learning", meta: "Kaggle", url: "https://www.kaggle.com/learn/certification/mckellytenapepple/intermediate-machine-learning" },
       { head: "TETFund AST&D Scholarship", meta: "2021 – present" },
     ],
   },
@@ -275,6 +275,11 @@ export default function Home() {
                       <b>{item.head}</b>
                       {item.meta && <span className="bgMeta">{item.meta}</span>}
                       {item.text && <span className="bgText">{item.text}</span>}
+                      {item.url && (
+                        <a className="bgLink" href={item.url} target="_blank" rel="noopener noreferrer">
+                          Verify credential &#8599;
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
