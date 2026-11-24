@@ -347,6 +347,10 @@ export default function Home() {
               projects above show how I work, and I would like to hear about
               it.
             </p>
+            <p className="cvNote">
+              Based in Nigeria (WAT, UTC+1). Available Monday to Saturday,
+              9:00 am to 11:00 pm WAT, for remote work across time zones.
+            </p>
             <ContactButton email={EMAIL} />
             <SocialLinks variant="labeled" className="contactSocial" />
             <p className="cvNote">
